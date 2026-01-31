@@ -7,9 +7,7 @@ function isMasterNumber(num) {
 }
 
 function sumDigits(num) {
-    return String(num)
-        .split('')
-        .reduce((acc, curr) => acc + parseInt(curr), 0);
+    return String(num).split('').reduce((acc, curr) => acc + parseInt(curr), 0);
 }
 
 function getReducedNumber(num) {
@@ -55,23 +53,23 @@ function calculateHiddenSum(day, month) {
 
 let currentDate = new Date();
 
-// Search State
 let searchFilterLP = null;
 let searchFilterDay = null;
 
 const daysContainer = document.getElementById("daysContainer");
-const currentMonthYear = document.getElementById("currentMonthYear");
+const currentMonthText = document.getElementById("currentMonth");
+const yearInput = document.getElementById("yearInput");
 const luckyNumDisplay = document.getElementById("luckyNumDisplay");
 
-// Detail Panel Elements
 const detailsPanel = document.getElementById("detailsPanel");
 const detailsDate = document.getElementById("detailsDate");
 const detailsContent = document.querySelector(".details-content");
 
-// Search Inputs
 const inputLP = document.getElementById("searchLP");
 const inputDay = document.getElementById("searchDay");
 const btnClear = document.getElementById("clearSearch");
+const btnShowList = document.getElementById("showListBtn");
+const searchResultsList = document.getElementById("searchResultsList");
 
 // ==========================================
 // 3. UI FUNCTIONS
@@ -142,8 +140,10 @@ function renderCalendar(date) {
     const month = date.getMonth(); 
     const numerologyMonth = month + 1; 
 
+    // Update Header
     const monthName = date.toLocaleString('default', { month: 'long' });
-    currentMonthYear.innerText = `${monthName} ${year}`;
+    currentMonthText.innerText = monthName;
+    yearInput.value = year; // Sync input with logic
 
     const lucky = calculateLuckyNumber(numerologyMonth, year);
     luckyNumDisplay.innerText = lucky;
@@ -166,7 +166,6 @@ function renderCalendar(date) {
         
         const dateString = `${year}-${String(numerologyMonth).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const displayDate = `${day}.${numerologyMonth}.${year}`;
-        
         dayCell.dataset.date = dateString;
 
         const today = new Date();
@@ -174,63 +173,40 @@ function renderCalendar(date) {
             dayCell.classList.add("today");
         }
 
-        // Calculations
         const lp = calculateLifePath(day, numerologyMonth, year);
         const dayNum = calculateDayNumber(day);
         const hidden = calculateHiddenSum(day, numerologyMonth);
         const luckyVal = calculateLuckyNumber(numerologyMonth, year); 
 
-        // --- SEARCH CHECK (UPDATED) ---
+        // --- SEARCH CHECK ---
         let isMatch = false;
-        
-        // 1. Check Life Path Input
         if (searchFilterLP !== null) {
-            // Match Final (e.g., 1) OR Base (e.g., 37)
-            const matchesLP = (lp.final === searchFilterLP) || (lp.base === searchFilterLP);
-            if (matchesLP) isMatch = true;
-            else isMatch = false; // Reset if LP fails but Day hasn't been checked yet
+            if (lp.final === searchFilterLP || lp.base === searchFilterLP) isMatch = true;
+            else isMatch = false; 
         }
-
-        // 2. Check Day Input
         if (searchFilterDay !== null) {
-            // Match Reduced Day (e.g. 4) OR Raw Day (e.g. 31)
-            const matchesDay = (dayNum === searchFilterDay) || (day === searchFilterDay);
-
+            const matchesDay = (dayNum === searchFilterDay || day === searchFilterDay);
             if (searchFilterLP !== null) {
-                // If LP input exists, BOTH must match
                 if (!matchesDay) isMatch = false;
             } else {
-                // Only Day input exists
                 if (matchesDay) isMatch = true;
             }
         }
+        if (isMatch) dayCell.classList.add("search-match");
 
-        if (isMatch) {
-            dayCell.classList.add("search-match");
-        }
-
-        // --- MASTER NUMBER LOGIC ---
+        // --- MASTER THEMES ---
         const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum) || isMasterNumber(luckyVal);
         const isHiddenMaster = isMasterNumber(hidden.raw) || day === 20;
 
-        if (isMainMaster) {
-            dayCell.classList.add("master-main");
-        } else if (isHiddenMaster) {
-            dayCell.classList.add("master-hidden");
-        }
+        if (isMainMaster) dayCell.classList.add("master-main");
+        else if (isHiddenMaster) dayCell.classList.add("master-hidden");
 
         const getMasterClass = (num) => isMasterNumber(num) ? 'text-master' : '';
 
         dayCell.innerHTML = `
             <div class="cell-date">${displayDate}</div>
-            
-            <div class="cell-lp ${getMasterClass(lp.final)}">
-                ${lp.final}
-            </div>
-            
-            <div class="cell-day-num">
-                D: <span class="${getMasterClass(dayNum)}">${dayNum}</span>
-            </div>
+            <div class="cell-lp ${getMasterClass(lp.final)}">${lp.final}</div>
+            <div class="cell-day-num">D: <span class="${getMasterClass(dayNum)}">${dayNum}</span></div>
         `;
 
         dayCell.addEventListener("click", () => selectDay(dayCell, dateString, day, numerologyMonth, year));
@@ -250,16 +226,23 @@ function selectDay(cell, dateStr, day, month, year) {
 }
 
 // ==========================================
-// 4. INPUT & SEARCH LOGIC
+// 4. YEAR & INPUT LOGIC
 // ==========================================
+
+// Handle Year Input Typing
+yearInput.addEventListener("change", (e) => {
+    const newYear = parseInt(e.target.value);
+    if (!isNaN(newYear)) {
+        currentDate.setFullYear(newYear);
+        renderCalendar(currentDate);
+    }
+});
 
 function handleSearchUpdate() {
     const valLP = inputLP.value;
     const valDay = inputDay.value;
-
     searchFilterLP = valLP ? parseInt(valLP) : null;
     searchFilterDay = valDay ? parseInt(valDay) : null;
-
     renderCalendar(currentDate);
 }
 
@@ -269,15 +252,147 @@ inputDay.addEventListener("input", handleSearchUpdate);
 btnClear.addEventListener("click", () => {
     inputLP.value = "";
     inputDay.value = "";
+    searchResultsList.innerHTML = ""; // Clear list
     handleSearchUpdate();
 });
 
 // ==========================================
-// 5. KEYBOARD NAVIGATION
+// 5. FIND MATCHES ("SHOW LIST") LOGIC
+// ==========================================
+
+btnShowList.addEventListener("click", () => {
+    // 1. Validate inputs
+    if (searchFilterLP === null && searchFilterDay === null) {
+        searchResultsList.innerHTML = "<p style='color:red; font-size:0.8rem;'>Please enter criteria first.</p>";
+        return;
+    }
+
+    searchResultsList.innerHTML = "<p style='font-size:0.8rem; color:#888;'>Searching...</p>";
+
+    // 2. Helper to check specific date
+    function checkDateMatch(d) {
+        const day = d.getDate();
+        const month = d.getMonth() + 1;
+        const year = d.getFullYear();
+
+        const lp = calculateLifePath(day, month, year);
+        const dayNum = calculateDayNumber(day);
+
+        // Check LP
+        let lpMatch = true;
+        if (searchFilterLP !== null) {
+            lpMatch = (lp.final === searchFilterLP || lp.base === searchFilterLP);
+        }
+
+        // Check Day
+        let dayMatch = true;
+        if (searchFilterDay !== null) {
+            dayMatch = (dayNum === searchFilterDay || day === searchFilterDay);
+        }
+
+        return lpMatch && dayMatch;
+    }
+
+    // 3. Search Logic
+    const pastMatches = [];
+    const futureMatches = [];
+    const limit = 5;
+    const maxDaysScan = 5000; // Safety break (approx 13 years)
+
+    // A. Find Past (Scan backwards from yesterday)
+    let tempDate = new Date();
+    tempDate.setDate(tempDate.getDate() - 1); 
+    
+    for(let i=0; i<maxDaysScan; i++) {
+        if (pastMatches.length >= limit) break;
+        if (checkDateMatch(tempDate)) {
+            pastMatches.push(new Date(tempDate));
+        }
+        tempDate.setDate(tempDate.getDate() - 1);
+    }
+
+    // B. Find Future (Scan forwards from today)
+    tempDate = new Date();
+    for(let i=0; i<maxDaysScan; i++) {
+        if (futureMatches.length >= limit) break;
+        if (checkDateMatch(tempDate)) {
+            futureMatches.push(new Date(tempDate));
+        }
+        tempDate.setDate(tempDate.getDate() + 1);
+    }
+
+    // 4. Render Results
+    searchResultsList.innerHTML = ""; // Clear loading
+
+    // Render Past
+    if(pastMatches.length > 0) {
+        const header = document.createElement("div");
+        header.className = "result-header";
+        header.innerText = "Previous Dates";
+        searchResultsList.appendChild(header);
+
+        pastMatches.forEach(date => createResultItem(date, "result-past"));
+    }
+
+    // Render Future
+    if(futureMatches.length > 0) {
+        const header = document.createElement("div");
+        header.className = "result-header";
+        header.innerText = "Upcoming Dates";
+        searchResultsList.appendChild(header);
+
+        futureMatches.forEach(date => createResultItem(date, "result-future"));
+    }
+
+    if(pastMatches.length === 0 && futureMatches.length === 0) {
+        searchResultsList.innerHTML = "<p style='font-size:0.8rem;'>No matches found nearby.</p>";
+    }
+});
+
+function createResultItem(date, className) {
+    const div = document.createElement("div");
+    div.className = `result-item ${className}`;
+    
+    // Format: "Wed, Jan 15, 2026"
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    div.innerText = date.toLocaleDateString('en-US', options);
+
+    // On Click -> Go to that month
+    div.addEventListener("click", () => {
+        currentDate = new Date(date);
+        renderCalendar(currentDate);
+        // Highlight logic requires DOM to be ready, so we wait a tick
+        setTimeout(() => {
+            const targetStr = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+            const cell = document.querySelector(`.day-cell[data-date='${targetStr}']`);
+            if(cell) selectDay(cell, targetStr, date.getDate(), date.getMonth()+1, date.getFullYear());
+        }, 50);
+    });
+
+    searchResultsList.appendChild(div);
+}
+
+// ==========================================
+// 6. KEYBOARD NAVIGATION
 // ==========================================
 
 document.addEventListener("keydown", (e) => {
     
+    // Year Navigation: ALT + Left/Right
+    if (e.altKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        currentDate.setFullYear(currentDate.getFullYear() - 1);
+        renderCalendar(currentDate);
+        return;
+    }
+    if (e.altKey && e.key === 'ArrowRight') {
+        e.preventDefault();
+        currentDate.setFullYear(currentDate.getFullYear() + 1);
+        renderCalendar(currentDate);
+        return;
+    }
+
+    // Month Navigation: CTRL + Left/Right
     if (e.ctrlKey && e.key === 'ArrowLeft') {
         currentDate.setMonth(currentDate.getMonth() - 1);
         renderCalendar(currentDate);
@@ -289,6 +404,7 @@ document.addEventListener("keydown", (e) => {
         return;
     }
 
+    // Grid Navigation
     if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
     const activeEl = document.activeElement;
     if (!activeEl.classList.contains("day-cell")) return;
@@ -311,7 +427,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 // ==========================================
-// 6. MAIN LISTENERS
+// 7. MAIN LISTENERS
 // ==========================================
 
 document.getElementById("prevBtn").addEventListener("click", () => {
