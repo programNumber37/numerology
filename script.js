@@ -220,6 +220,7 @@ function renderCalendar(date) {
             ${emojiArray.length > 0 ? `<div class="${emojiClass}">${dayEmojis}</div>` : ''}
             <div class="cell-date">${displayDate}</div>
             <div class="cell-lp ${getMasterClass(lp.final)}">${lp.final}</div>
+            <div class="cell-primary-day">${day}</div>
             <div class="cell-day-num">D: <span class="${getMasterClass(dayNum)}">${dayNum}</span></div>
         `;
 

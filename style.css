@@ -538,6 +538,18 @@ body {
     color: #333;
 }
 
+.cell-primary-day {
+    display: none;
+    /* Hidden on desktop */
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #333;
+}
+
 .cell-day-num {
     position: absolute;
     bottom: 6px;
@@ -819,5 +831,35 @@ body {
 
     .detail-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* --- Mobile Specific Calendar Optimizations --- */
+@media (max-width: 768px) {
+    .calendar-card {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 30px;
+        /* Leave room for scrollbar */
+    }
+
+    .weekdays-grid,
+    .days-grid {
+        min-width: 600px;
+        /* Force minimum width to enable horizontal scroll and preserve cell size */
+    }
+
+    /* Swap center display to primary day on mobile */
+    .cell-lp {
+        display: none !important;
+    }
+
+    .cell-date {
+        display: none !important;
+        /* Hide full date to reduce clutter */
+    }
+
+    .cell-primary-day {
+        display: block !important;
     }
 }
