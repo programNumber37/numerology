@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numerology Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="main-container">
+
+        <div class="content-wrapper">
+
+            <div class="side-panel search-card">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #f0f2f5; margin-bottom: 15px;">
+                    <h3 style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">Finder</h3>
+                    <a href="reading.html" class="nav-link">My Reading &rarr;</a>
+                </div>
+                <p class="panel-desc">Search for single digits (1-9), Master numbers (11, 22), full sums (e.g., 31), or
+                    any general energy.</p>
+
+                <div class="search-group">
+                    <label for="searchLP">Life Path Number</label>
+                    <input type="number" id="searchLP" placeholder="e.g. 11 or 37">
+                </div>
+
+                <div class="search-group">
+                    <label for="searchDay">Day Number</label>
+                    <input type="number" id="searchDay" placeholder="e.g. 1 or 31">
+                </div>
+
+                <div class="search-group">
+                    <label for="searchAny">Any Energy (Hidden, Secondary, etc.)</label>
+                    <input type="number" id="searchAny" placeholder="e.g. 8 or 33">
+                </div>
+
+                <div class="btn-group">
+                    <button id="showListBtn" class="btn-primary-small">Show Matches</button>
+                    <button id="clearSearch" class="btn-secondary">Clear</button>
+                </div>
+
+                <div id="searchResultsList" class="results-container"></div>
+            </div>
+
+            <div class="calendar-card">
+
+                <div class="calendar-header-wrapper">
+                    <div class="calendar-nav">
+                        <button id="prevBtn">&lt;</button>
+
+                        <div class="header-title-group">
+                            <span id="currentMonth">Month</span>
+                            <input type="number" id="yearInput" class="year-input" value="2026">
+                        </div>
+
+                        <button id="nextBtn">&gt;</button>
+                    </div>
+                    <div id="headerLucky" class="header-lucky">
+                        <span>Ω Lucky Number:</span> <strong id="luckyNumDisplay">-</strong>
+                    </div>
+                </div>
+
+                <div class="weekdays-grid">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+
+                <div class="days-grid" id="daysContainer">
+                </div>
+            </div>
+
+            <div class="side-panel legend-card">
+                <h3>Legend</h3>
+                <ul class="legend-list">
+                    <li>
+                        <span class="dot match-dot"></span>
+                        <strong>Search Match</strong>
+                        <small>Matches your filters</small>
+                    </li>
+                    <li>
+                        <span class="dot orange-dot"></span>
+                        <strong>33 Master Energy</strong>
+                        <small>LP, Day, Date Sum, or Visual Concat is 33</small>
+                    </li>
+                    <li>
+                        <span class="dot glow-dot"></span>
+                        <strong>Main Master</strong>
+                        <small>LP, Day, or Lucky is 11, 22</small>
+                    </li>
+                    <li>
+                        <span class="dot dim-dot"></span>
+                        <strong>Hidden Master</strong>
+                        <small>Date Sum is Master or Day is 20</small>
+                    </li>
+                    <li>
+                        <span class="dot today-dot"></span>
+                        <strong>Today</strong>
+                    </li>
+                </ul>
+                <div class="legend-keys">
+                    <h4>Navigation</h4>
+                    <p><code>Alt</code> + <code>←/→</code> Change Year</p>
+                    <p><code>Ctrl</code> + <code>←/→</code> Change Month</p>
+                    <p><code>Arrows</code> Select Day</p>
+                    <p><code>Enter</code> View Details</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="detailsPanel" class="details-panel hidden">
+            <div class="details-header">
+                <h3 id="detailsDate">Select a date</h3>
+                <button id="closeDetails">×</button>
+            </div>
+            <div class="details-content">
+            </div>
+        </div>
+    </div>
+
+    <script src="numerology.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+
+</html>

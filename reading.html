@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Numerology Reading</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="main-container reading-page">
+        <div class="nav-bar">
+            <a href="index.html" class="nav-link">&larr; Back to Calendar</a>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="side-panel search-card">
+                <h3>Enter Your Birthdate</h3>
+                <p class="panel-desc">Discover the core energies that shape your path.</p>
+
+                <div class="search-group">
+                    <label for="birthDate">Date of Birth</label>
+                    <input type="date" id="birthDate">
+                </div>
+
+                <div class="btn-group">
+                    <button id="getReadingBtn" class="btn-primary-small">Reveal Reading</button>
+                </div>
+            </div>
+
+            <div class="calendar-card">
+                <div id="readingResult" class="reading-result hidden">
+                    <h2 class="reading-title">Your Numerology Layout</h2>
+                    <div class="detail-grid" id="readingGrid">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div class="reading-quotes" id="readingQuotes">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+                <div id="readingEmpty" class="reading-empty">
+                    <div class="empty-icon">✨</div>
+                    <p>Enter your birthdate to reveal your numerology reading.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="numerology.js" defer></script>
+    <script src="readingsDatabase.js" defer></script>
+    <script src="dayMonthDatabase.js" defer></script>
+    <script src="reading.js" defer></script>
+</body>
+
+</html>
