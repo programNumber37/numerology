@@ -16,10 +16,43 @@
 
             <div class="side-panel search-card">
                 <div
-                    style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #f0f2f5; margin-bottom: 15px;">
-                    <h3 style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">Finder</h3>
-                    <a href="reading.html" class="nav-link">My Reading &rarr;</a>
+                    style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f2f5; margin-bottom: 15px; padding-bottom: 5px;">
+                    <div id="finderToggle"
+                        style="display: flex; align-items: center; cursor: pointer; user-select: none;">
+                        <h3 style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">Finder</h3>
+                        <span id="finderChevron"
+                            style="margin-left: 8px; font-size: 0.8rem; transition: transform 0.3s;">▼</span>
+                    </div>
+                    <a href="reading.html" class="nav-link" style="font-size: 0.9rem;">My Reading &rarr;</a>
                 </div>
+
+                <div id="advancedSearchPanel" class="advanced-search-panel hidden">
+                    <p class="panel-desc" style="margin-bottom: 10px;">Specify a timeframe to find all matches, or leave
+                        blank for next/last results.</p>
+
+                    <div class="search-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <div style="flex: 1;">
+                            <label for="startMonth">Start Month</label>
+                            <input type="number" id="startMonth" placeholder="1-12" min="1" max="12">
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="startYear">Start Year</label>
+                            <input type="number" id="startYear" placeholder="YYYY">
+                        </div>
+                    </div>
+
+                    <div class="search-group" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <div style="flex: 1;">
+                            <label for="endMonth">End Month</label>
+                            <input type="number" id="endMonth" placeholder="1-12" min="1" max="12">
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="endYear">End Year</label>
+                            <input type="number" id="endYear" placeholder="YYYY">
+                        </div>
+                    </div>
+                </div>
+
                 <p class="panel-desc">Search for single digits (1-9), Master numbers (11, 22), full sums (e.g., 31), or
                     any general energy.</p>
 
@@ -42,8 +75,6 @@
                     <button id="showListBtn" class="btn-primary-small">Show Matches</button>
                     <button id="clearSearch" class="btn-secondary">Clear</button>
                 </div>
-
-                <div id="searchResultsList" class="results-container"></div>
             </div>
 
             <div class="calendar-card">
@@ -124,6 +155,11 @@
             </div>
             <div class="details-content">
             </div>
+        </div>
+
+        <div id="searchResultsSection" class="search-results-section hidden">
+            <h2 class="search-section-title">Finder Results</h2>
+            <div id="searchResultsList" class="results-container"></div>
         </div>
     </div>
 

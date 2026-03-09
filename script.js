@@ -22,7 +22,21 @@ const inputDay = document.getElementById("searchDay");
 const inputAny = document.getElementById("searchAny");
 const btnClear = document.getElementById("clearSearch");
 const btnShowList = document.getElementById("showListBtn");
+const searchResultsSection = document.getElementById("searchResultsSection");
 const searchResultsList = document.getElementById("searchResultsList");
+
+// Advanced Search DOM
+const finderToggle = document.getElementById("finderToggle");
+const finderChevron = document.getElementById("finderChevron");
+const advancedSearchPanel = document.getElementById("advancedSearchPanel");
+const startMonthInput = document.getElementById("startMonth");
+const startYearInput = document.getElementById("startYear");
+const endMonthInput = document.getElementById("endMonth");
+const endYearInput = document.getElementById("endYear");
+
+// Pagination State
+let lastSearchedPastDate = null;
+let lastSearchedFutureDate = null;
 
 
 // ==========================================
@@ -69,37 +83,6 @@ function updateDetailsPanel(dateStr, day, month, year) {
         return (isMasterNumber(num) || num === 20) ? 'text-master' : '';
     };
 
-    // --- NEW: Fetch Random Quote Logic ---
-    // Look at all unique energies for the day
-    const activeEnergies = [...new Set(allEnergiesForEmojis)];
-    let availableQuotes = [];
-
-    // Gather all quotes that match today's numbers
-    activeEnergies.forEach(energy => {
-        if (energyQuotes[energy]) {
-            // Tag each quote with the energy it belongs to so we can display it on the badge
-            const quotesWithEnergy = energyQuotes[energy].map(q => ({ ...q, energyRef: energy }));
-            availableQuotes = availableQuotes.concat(quotesWithEnergy);
-        }
-    });
-
-    let quoteHTML = '';
-    if (availableQuotes.length > 0) {
-        // Pick one randomly
-        const randomIdx = Math.floor(Math.random() * availableQuotes.length);
-        const selectedQuote = availableQuotes[randomIdx];
-
-        quoteHTML = `
-            <div class="tweet-card">
-                <div class="tweet-header">
-                    <span class="tweet-author">${selectedQuote.author}</span>
-                    <span class="tweet-energy-badge">${selectedQuote.energyRef} Energy</span>
-                </div>
-                <p class="tweet-text">"${selectedQuote.text}"</p>
-            </div>
-        `;
-    }
-
     detailsContent.innerHTML = `
         <div class="detail-grid">
             <div class="detail-item">
@@ -133,7 +116,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
             <p><strong>Daily Insights:</strong></p>
             <p>${dayNum === 20 ? '<b>Special Note:</b> The day 20 is considered a hidden 11.<br>' : ''}</p>
             <p>${hidden.visual === 33 ? '<b>Special Note:</b> Visual 33 detected (Day ' + day + ' and Month ' + month + ').<br>' : ''}</p>
-            ${quoteHTML} </div>
+        </div>
     `;
 }
 
@@ -212,16 +195,20 @@ function renderCalendar(date) {
         // If more than 2 emojis, add the small-emojis class
         const emojiClass = emojiArray.length > 2 ? "cell-emoji small-emojis" : "cell-emoji";
 
-        const isThirtyThree = lp.final === 33 || dayNum === 33 || hidden.visual === 33 || hidden.raw === 33;
-        const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum) || isMasterNumber(luckyVal);
-        const isHiddenMaster = isMasterNumber(hidden.raw) || day === 20 || isMasterNumber(hidden.visual);
+        let highestMaster = 0;
+        [lp.final, dayNum, luckyVal, hidden.raw, hidden.visual].forEach(num => {
+            if (num === 33 && highestMaster < 33) highestMaster = 33;
+            else if (num === 22 && highestMaster < 22) highestMaster = 22;
+            else if ((num === 11 || num === 20) && highestMaster < 11) highestMaster = 11;
+        });
+        if (day === 20 && highestMaster < 11) highestMaster = 11;
 
-        if (isThirtyThree) {
-            dayCell.classList.add("master-33");
-        } else if (isMainMaster) {
-            dayCell.classList.add("master-main");
-        } else if (isHiddenMaster) {
-            dayCell.classList.add("master-hidden");
+        if (highestMaster === 33) {
+            dayCell.classList.add("master-33-cell");
+        } else if (highestMaster === 22) {
+            dayCell.classList.add("master-22-cell");
+        } else if (highestMaster === 11) {
+            dayCell.classList.add("master-11-cell");
         }
 
         const getMasterClass = (num) => {
@@ -279,102 +266,337 @@ inputLP.addEventListener("input", handleSearchUpdate);
 inputDay.addEventListener("input", handleSearchUpdate);
 inputAny.addEventListener("input", handleSearchUpdate);
 
+[inputLP, inputDay, inputAny].forEach(input => {
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            btnShowList.click();
+        }
+    });
+});
+
 btnClear.addEventListener("click", () => {
     inputLP.value = "";
     inputDay.value = "";
     inputAny.value = "";
+    startMonthInput.value = "";
+    startYearInput.value = "";
+    endMonthInput.value = "";
+    endYearInput.value = "";
+    searchResultsSection.classList.add("hidden");
     searchResultsList.innerHTML = "";
+    lastSearchedPastDate = null;
+    lastSearchedFutureDate = null;
     handleSearchUpdate();
+});
+
+// Toggle Advanced Search
+finderToggle.addEventListener("click", () => {
+    advancedSearchPanel.classList.toggle("hidden");
+    if (advancedSearchPanel.classList.contains("hidden")) {
+        finderChevron.style.transform = "rotate(0deg)";
+    } else {
+        finderChevron.style.transform = "rotate(180deg)";
+    }
 });
 
 // ==========================================
 // 5. FIND MATCHES ("SHOW LIST") LOGIC
 // ==========================================
 
-btnShowList.addEventListener("click", () => {
+function checkDateMatch(d) {
+    const day = d.getDate();
+    const month = d.getMonth() + 1;
+    const year = d.getFullYear();
+
+    const lp = calculateLifePath(day, month, year);
+    const dayNum = calculateDayNumber(day);
+    const hidden = calculateHiddenSum(day, month);
+
+    let lpMatch = searchFilterLP !== null ? (lp.final === searchFilterLP || lp.base === searchFilterLP) : true;
+    let dayMatch = searchFilterDay !== null ? (dayNum === searchFilterDay || day === searchFilterDay) : true;
+
+    let match = true;
+    if (searchFilterLP !== null || searchFilterDay !== null) match = lpMatch && dayMatch;
+
+    if (searchFilterAny !== null) {
+        const lucky = calculateLuckyNumber(month, year);
+        const all = [lp.base, lp.final, day, dayNum, hidden.raw, hidden.final, hidden.visual, lucky];
+        match = all.includes(searchFilterAny);
+    }
+
+    return match && (searchFilterLP !== null || searchFilterDay !== null || searchFilterAny !== null);
+}
+
+const PAST_LIMIT = 10;
+const FUTURE_LIMIT = 33;
+const MAX_SCAN = 20000;
+
+function performSearch(appending = false, direction = 'both') {
     if (searchFilterLP === null && searchFilterDay === null && searchFilterAny === null) {
-        searchResultsList.innerHTML = "<p style='color:red; font-size:0.8rem;'>Please enter criteria first.</p>";
+        searchResultsSection.classList.remove("hidden");
+        searchResultsList.innerHTML = "<p style='color:red; font-size:0.8rem; grid-column: 1 / -1;'>Please enter criteria first.</p>";
         return;
     }
 
-    searchResultsList.innerHTML = "<p style='font-size:0.8rem; color:#888;'>Searching...</p>";
+    searchResultsSection.classList.remove("hidden");
 
-    function checkDateMatch(d) {
-        const day = d.getDate();
-        const month = d.getMonth() + 1;
-        const year = d.getFullYear();
+    if (!appending) {
+        searchResultsList.innerHTML = "<p style='font-size:0.8rem; color:#888; grid-column: 1 / -1;'>Searching...</p>";
+        lastSearchedPastDate = null;
+        lastSearchedFutureDate = null;
+    } else {
+        // Remove load more buttons if appending
+        document.querySelectorAll('.load-more-btn').forEach(btn => btn.remove());
+    }
 
-        const lp = calculateLifePath(day, month, year);
-        const dayNum = calculateDayNumber(day);
-        const hidden = calculateHiddenSum(day, month);
+    const sMonth = parseInt(startMonthInput.value) || 1;
+    let sYear = parseInt(startYearInput.value);
+    const eMonth = parseInt(endMonthInput.value) || 12;
+    let eYear = parseInt(endYearInput.value);
 
-        let lpMatch = searchFilterLP !== null ? (lp.final === searchFilterLP || lp.base === searchFilterLP) : true;
-        let dayMatch = searchFilterDay !== null ? (dayNum === searchFilterDay || day === searchFilterDay) : true;
+    // If both years provided, run exact timeframe search
+    if (!isNaN(sYear) && !isNaN(eYear)) {
+        if (!appending) searchResultsList.innerHTML = "";
 
-        let match = true;
-        if (searchFilterLP !== null || searchFilterDay !== null) match = lpMatch && dayMatch;
-
-        if (searchFilterAny !== null) {
-            const lucky = calculateLuckyNumber(month, year);
-            const all = [lp.base, lp.final, day, dayNum, hidden.raw, hidden.final, hidden.visual, lucky];
-            match = all.includes(searchFilterAny);
+        let startD = new Date(sYear, sMonth - 1, 1);
+        let endD = new Date(eYear, eMonth, 0); // Last day of end month
+        if (startD > endD) {
+            searchResultsList.innerHTML = "<p style='color:red; font-size:0.8rem; grid-column: 1 / -1;'>Start date must be before end date.</p>";
+            return;
         }
 
-        return match && (searchFilterLP !== null || searchFilterDay !== null || searchFilterAny !== null);
+        const matches = [];
+        let tempDate = new Date(startD);
+
+        // Prevent infinite hangs on massive ranges
+        let safety = 0;
+        while (tempDate <= endD && safety < 50000) {
+            if (checkDateMatch(tempDate)) {
+                matches.push(new Date(tempDate));
+            }
+            tempDate.setDate(tempDate.getDate() + 1);
+            safety++;
+        }
+
+        if (matches.length > 0) {
+            const header = document.createElement("div");
+            header.className = "result-header";
+            header.innerText = `Range Matches (${matches.length})`;
+            searchResultsList.appendChild(header);
+
+            // Reusing appendBoxToYearGroup inline since we need it above the main scan scope if appending to timeframe
+            // We can just create groups manually for timeframe loop to keep scope clean
+            matches.forEach(date => {
+                const year = date.getFullYear();
+                let yearGroup = searchResultsList.querySelector(`.year-group[data-year="${year}"]`);
+                if (!yearGroup) {
+                    yearGroup = document.createElement("div");
+                    yearGroup.className = "year-group";
+                    yearGroup.setAttribute("data-year", year);
+
+                    const separator = document.createElement("h3");
+                    separator.className = "year-separator";
+                    separator.innerText = year;
+
+                    const grid = document.createElement("div");
+                    grid.className = "results-grid";
+
+                    yearGroup.appendChild(separator);
+                    yearGroup.appendChild(grid);
+                    searchResultsList.appendChild(yearGroup);
+                }
+                const item = createResultItemElement(date, "result-range");
+                yearGroup.querySelector('.results-grid').appendChild(item);
+            });
+        } else {
+            searchResultsList.innerHTML = "<p style='font-size:0.8rem; grid-column: 1 / -1;'>No matches found in this range.</p>";
+        }
+        return;
     }
 
-    const pastMatches = [];
-    const futureMatches = [];
-    const limit = 5;
-    const maxDaysScan = 5000;
+    // Default Infinite Scan
+    if (!appending) searchResultsList.innerHTML = "";
 
-    // Find Past
-    let tempDate = new Date();
-    tempDate.setDate(tempDate.getDate() - 1);
+    // Helper function for grouping boxes by year
+    function appendBoxToYearGroup(container, date, className) {
+        const year = date.getFullYear();
+        let yearGroup = container.querySelector(`.year-group[data-year="${year}"]`);
 
-    for (let i = 0; i < maxDaysScan; i++) {
-        if (pastMatches.length >= limit) break;
-        if (checkDateMatch(tempDate)) pastMatches.push(new Date(tempDate));
-        tempDate.setDate(tempDate.getDate() - 1);
+        if (!yearGroup) {
+            // Determine where to insert the new year group to maintain chronological/reverse-chronological order
+            yearGroup = document.createElement("div");
+            yearGroup.className = "year-group";
+            yearGroup.setAttribute("data-year", year);
+
+            const separator = document.createElement("h3");
+            separator.className = "year-separator";
+            separator.innerText = year;
+
+            const grid = document.createElement("div");
+            grid.className = "results-grid";
+
+            yearGroup.appendChild(separator);
+            yearGroup.appendChild(grid);
+
+            // Find correct insertion point
+            const existingGroups = Array.from(container.querySelectorAll('.year-group'));
+            let inserted = false;
+
+            for (let i = 0; i < existingGroups.length; i++) {
+                const groupYear = parseInt(existingGroups[i].getAttribute("data-year"));
+                // For future: ascending (insert before first group larger than current)
+                // For past: descending (insert before first group smaller than current)
+                if ((className.includes('future') && year < groupYear) ||
+                    (className.includes('past') && year > groupYear)) {
+                    container.insertBefore(yearGroup, existingGroups[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+
+            if (!inserted) {
+                // Always put the Load More button at the very end if it exists
+                const loadBtn = container.querySelector('.load-more-btn');
+                if (loadBtn) {
+                    container.insertBefore(yearGroup, loadBtn);
+                } else {
+                    container.appendChild(yearGroup);
+                }
+            }
+        }
+
+        const grid = yearGroup.querySelector('.results-grid');
+        const item = createResultItemElement(date, className);
+        grid.appendChild(item);
     }
 
-    // Find Future
-    tempDate = new Date();
-    for (let i = 0; i < maxDaysScan; i++) {
-        if (futureMatches.length >= limit) break;
-        if (checkDateMatch(tempDate)) futureMatches.push(new Date(tempDate));
-        tempDate.setDate(tempDate.getDate() + 1);
+    // --- FUTURE SCAN (RENDERED FIRST) ---
+    if (direction === 'both' || direction === 'future') {
+        const futureMatches = [];
+        let fDate = lastSearchedFutureDate ? new Date(lastSearchedFutureDate) : new Date(); // Start today
+
+        let hitFutureLimit = false;
+        for (let i = 0; i < MAX_SCAN; i++) {
+            if (futureMatches.length >= FUTURE_LIMIT) {
+                hitFutureLimit = true;
+                break;
+            }
+            if (checkDateMatch(fDate)) futureMatches.push(new Date(fDate));
+            fDate.setDate(fDate.getDate() + 1);
+        }
+        lastSearchedFutureDate = new Date(fDate);
+
+        let futureContainer = document.getElementById("futureResultsContainer");
+        if (!futureContainer) {
+            futureContainer = document.createElement("div");
+            futureContainer.id = "futureResultsContainer";
+            futureContainer.className = "results-segment";
+
+            const header = document.createElement("div");
+            header.className = "result-header";
+            header.innerText = "Upcoming Dates";
+            futureContainer.appendChild(header);
+
+            // Ensure future comes before past if past already exists
+            if (searchResultsList.firstChild) {
+                searchResultsList.insertBefore(futureContainer, searchResultsList.firstChild);
+            } else {
+                searchResultsList.appendChild(futureContainer);
+            }
+        }
+
+        futureMatches.forEach(date => {
+            appendBoxToYearGroup(futureContainer, date, "result-future");
+        });
+
+        if (hitFutureLimit) {
+            let loadBtn = futureContainer.querySelector('.load-more-btn');
+            if (!loadBtn) {
+                loadBtn = document.createElement("button");
+                loadBtn.className = "load-more-btn";
+                loadBtn.innerText = "Load More Upcoming";
+                loadBtn.onclick = () => performSearch(true, 'future');
+                futureContainer.appendChild(loadBtn);
+            }
+        } else if (futureMatches.length === 0 && !appending) {
+            const p = document.createElement("p");
+            p.style.fontSize = "0.8rem";
+            p.style.gridColumn = "1 / -1";
+            p.innerText = "No upcoming matches found.";
+            futureContainer.appendChild(p);
+        }
     }
 
-    searchResultsList.innerHTML = "";
+    // --- PAST SCAN (RENDERED SECOND) ---
+    if (direction === 'both' || direction === 'past') {
+        const pastMatches = [];
+        let pDate = lastSearchedPastDate ? new Date(lastSearchedPastDate) : new Date();
+        if (!lastSearchedPastDate) pDate.setDate(pDate.getDate() - 1); // Start yesterday
 
-    if (pastMatches.length > 0) {
-        const header = document.createElement("div");
-        header.className = "result-header";
-        header.innerText = "Previous Dates";
-        searchResultsList.appendChild(header);
-        pastMatches.forEach(date => createResultItem(date, "result-past"));
+        let hitPastLimit = false;
+        for (let i = 0; i < MAX_SCAN; i++) {
+            if (pastMatches.length >= PAST_LIMIT) {
+                hitPastLimit = true;
+                break;
+            }
+            if (checkDateMatch(pDate)) pastMatches.push(new Date(pDate));
+            pDate.setDate(pDate.getDate() - 1);
+        }
+        lastSearchedPastDate = new Date(pDate);
+
+        let pastContainer = document.getElementById("pastResultsContainer");
+        if (!pastContainer) {
+            pastContainer = document.createElement("div");
+            pastContainer.id = "pastResultsContainer";
+            pastContainer.className = "results-segment";
+
+            const header = document.createElement("div");
+            header.className = "result-header";
+            header.innerText = "Previous Dates";
+            pastContainer.appendChild(header);
+            searchResultsList.appendChild(pastContainer);
+        }
+
+        pastMatches.forEach(date => {
+            appendBoxToYearGroup(pastContainer, date, "result-past");
+        });
     }
 
-    if (futureMatches.length > 0) {
-        const header = document.createElement("div");
-        header.className = "result-header";
-        header.innerText = "Upcoming Dates";
-        searchResultsList.appendChild(header);
-        futureMatches.forEach(date => createResultItem(date, "result-future"));
+    if (hitPastLimit) {
+        let loadBtn = pastContainer.querySelector('.load-more-btn');
+        if (!loadBtn) {
+            loadBtn = document.createElement("button");
+            loadBtn.className = "load-more-btn";
+            loadBtn.innerText = "Load More Past";
+            loadBtn.onclick = () => performSearch(true, 'past');
+            pastContainer.appendChild(loadBtn);
+        }
+    } else if (pastMatches.length === 0 && !appending) {
+        const p = document.createElement("p");
+        p.style.fontSize = "0.8rem";
+        p.style.gridColumn = "1 / -1";
+        p.innerText = "No previous matches found.";
+        pastContainer.appendChild(p);
     }
+}
 
-    if (pastMatches.length === 0 && futureMatches.length === 0) {
-        searchResultsList.innerHTML = "<p style='font-size:0.8rem;'>No matches found nearby.</p>";
-    }
-});
+btnShowList.addEventListener("click", () => performSearch());
 
-function createResultItem(date, className) {
+function createResultItemElement(date, className) {
     const div = document.createElement("div");
-    div.className = `result-item ${className}`;
+    div.className = `result-box ${className}`;
 
-    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-    div.innerText = date.toLocaleDateString('en-US', options);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const lp = calculateLifePath(day, month, year);
+
+    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+    const dateStr = date.toLocaleDateString('en-US', options);
+
+    div.innerHTML = `
+        <div class="box-date">${dateStr}</div>
+    `;
 
     div.addEventListener("click", () => {
         currentDate = new Date(date);
@@ -386,7 +608,7 @@ function createResultItem(date, className) {
         }, 50);
     });
 
-    searchResultsList.appendChild(div);
+    return div;
 }
 
 // ==========================================
