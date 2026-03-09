@@ -837,16 +837,18 @@ body {
 /* --- Mobile Specific Calendar Optimizations --- */
 @media (max-width: 768px) {
     .calendar-card {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 30px;
-        /* Leave room for scrollbar */
+        padding: 10px;
+        /* Reduce padding to maximize grid space */
     }
 
-    .weekdays-grid,
     .days-grid {
-        min-width: 600px;
-        /* Force minimum width to enable horizontal scroll and preserve cell size */
+        gap: 3px;
+        /* Shrink gaps between cells on mobile to fit 7 columns natively */
+    }
+
+    .weekdays-grid {
+        font-size: 0.75rem;
+        /* Shrink weekday headers slightly */
     }
 
     /* Swap center display to primary day on mobile */
@@ -854,12 +856,16 @@ body {
         display: none !important;
     }
 
-    .cell-date {
+    .cell-date,
+    .cell-day-num,
+    .cell-emoji {
         display: none !important;
-        /* Hide full date to reduce clutter */
+        /* Hide auxiliary info to keep the small squares clean */
     }
 
     .cell-primary-day {
         display: block !important;
+        font-size: 1.4rem;
+        /* Scale down so 31 isn't clipped in small screens */
     }
 }
