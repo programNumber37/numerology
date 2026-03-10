@@ -52,7 +52,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
     const lp = calculateLifePath(day, month, year);
     const dayNum = calculateDayNumber(day);
     const yearReducer = calculateYearReducer(year);
-    const hidden = calculateHiddenSum(day, month);
+    const hidden = calculateHiddenSum(day, month, year);
     const luckyVal = calculateLuckyNumber(month, year);
 
     const allEnergiesForEmojis = [day, dayNum, lp.base, lp.final, hidden.raw, hidden.final, hidden.visual, luckyVal];
@@ -85,28 +85,89 @@ function updateDetailsPanel(dateStr, day, month, year) {
 
     detailsContent.innerHTML = `
         <div class="detail-grid">
-            <div class="detail-item">
-                <strong>Life Path</strong> 
-                <span class="${getMasterClass(lp.final)}">${lp.base} / ${lp.final}</span> 
-                <small>Standard Calculation</small>
+            <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
+                <div class="item-header">
+                    <div class="item-content">
+                        <strong>Life Path</strong> 
+                        <span class="main-value ${getMasterClass(lp.final)}">${lp.base} / ${lp.final}</span> 
+                        <small>Standard Calculation</small>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="detail-calculation">
+                    The <strong>Life Path Number</strong> is calculated by reducing the day, month, and year separately (except Master Numbers 11, 22, and 33), and then adding them together. Some calculators reduce completely first before adding, but this method reduces once first.<br><br>
+                    <strong>Day:</strong> ${day} &rarr; ${isMasterNumber(day) ? day : sumDigits(day)}<br>
+                    <strong>Month:</strong> ${month} &rarr; ${isMasterNumber(month) ? month : sumDigits(month)}<br>
+                    <strong>Year:</strong> ${year} &rarr; ${sumDigits(year)}<br>
+                    <strong>Total:</strong> ${isMasterNumber(day) ? day : sumDigits(day)} + ${isMasterNumber(month) ? month : sumDigits(month)} + ${sumDigits(year)} = ${lp.base} &rarr; <strong>${lp.final}</strong>
+                </div>
             </div>
             
-            <div class="detail-item">
-                <strong>Day Number</strong> 
-                <span class="${getHiddenClass(dayNum)}">${dayNum}</span>
-                <small>Reduced from ${day}</small>
+            <div class="detail-item" onclick="this.classList.toggle('expanded')">
+                <div class="item-header">
+                    <div class="item-content">
+                        <strong>Day Number</strong> 
+                        <span class="main-value ${getHiddenClass(dayNum)}">${dayNum}</span>
+                        <small>Reduced from ${day}</small>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="detail-calculation">
+                    The <strong>Day Number</strong> is the sum of the digits of the calendar day, reduced to a single digit or Master Number.<br><br>
+                    <strong>Calculation:</strong> ${day} &rarr; <strong>${dayNum}</strong>
+                </div>
             </div>
 
-            <div class="detail-item">
-                <strong>Date Sum (Hidden)</strong> 
-                <span class="${getMasterClass(hidden.final)}">${hidden.raw} / ${hidden.final}</span>
-                <small>Day ${day} + Month ${month} ${hidden.visual === 33 ? '(Visual: ' + hidden.visual + ')' : ''}</small>
+            <div class="detail-item" onclick="this.classList.toggle('expanded')">
+                <div class="item-header">
+                    <div class="item-content">
+                        <strong>Year Reducer</strong> 
+                        <span class="main-value ${getMasterClass(yearReducer)}">${yearReducer}</span>
+                        <small>Reduced from ${year}</small>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="detail-calculation">
+                    The <strong>Year Reducer</strong> is the sum of the digits of the current calendar year.<br><br>
+                    <strong>Calculation:</strong> ${year} &rarr; <strong>${yearReducer}</strong>
+                </div>
             </div>
 
-            <div class="detail-item">
-                <strong>Year Reducer</strong> 
-                <span class="${getMasterClass(yearReducer)}">${yearReducer}</span>
-                <small>Reduced from ${year}</small>
+            <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
+                <div class="item-header">
+                    <div class="item-content">
+                        <strong>Hidden Numbers</strong> 
+                        <span class="main-value ${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
+                        <small>Day + Month + Year (1 Step)</small>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                
+                <div class="hidden-energy-row">
+                    <div class="hidden-energy-box">
+                        <strong>Day + Month</strong>
+                        <span class="${getMasterClass(hidden.dm.final)}">${hidden.dm.raw} / ${hidden.dm.final}</span>
+                        <small>${day} + ${month}</small>
+                    </div>
+                    <div class="hidden-energy-box">
+                        <strong>Month + Year</strong>
+                        <span class="${getMasterClass(hidden.my.final)}">${hidden.my.raw} / ${hidden.my.final}</span>
+                        <small>${month} + ${hidden.reducedYear1}</small>
+                    </div>
+                    <div class="hidden-energy-box">
+                        <strong>Day + Month + Year</strong>
+                        <span class="${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
+                        <small>${day} + ${month} + ${hidden.reducedYear1}</small>
+                    </div>
+                </div>
+
+                <div class="detail-calculation">
+                    The <strong>Hidden Energy</strong> reveals underlying numerological influences. This system calculates three components without reducing the day or month, but reducing the year by one step (${year} &rarr; ${hidden.reducedYear1}).<br><br>
+                    1. <strong>Day + Month:</strong> ${day} + ${month} = ${hidden.dm.raw} &rarr; <strong>${hidden.dm.final}</strong><br>
+                    2. <strong>Month + Year:</strong> ${month} + ${hidden.reducedYear1} = ${hidden.my.raw} &rarr; <strong>${hidden.my.final}</strong><br>
+                    3. <strong>Full Hidden Sum:</strong> ${day} + ${month} + ${hidden.reducedYear1} = ${hidden.dmy.raw} &rarr; <strong>${hidden.dmy.final}</strong><br>
+                    ${hidden.visual === 33 ? '<br><b>Special Note:</b> Visual 33 detected (Day ' + day + ' and Month ' + month + ').' : ''}
+                </div>
             </div>
         </div>
         
@@ -115,7 +176,6 @@ function updateDetailsPanel(dateStr, day, month, year) {
         <div style="line-height: 1.6; color: #555;">
             <p><strong>Daily Insights:</strong></p>
             <p>${dayNum === 20 ? '<b>Special Note:</b> The day 20 is considered a hidden 11.<br>' : ''}</p>
-            <p>${hidden.visual === 33 ? '<b>Special Note:</b> Visual 33 detected (Day ' + day + ' and Month ' + month + ').<br>' : ''}</p>
         </div>
     `;
 }
@@ -160,7 +220,7 @@ function renderCalendar(date) {
 
         const lp = calculateLifePath(day, numerologyMonth, year);
         const dayNum = calculateDayNumber(day);
-        const hidden = calculateHiddenSum(day, numerologyMonth);
+        const hidden = calculateHiddenSum(day, numerologyMonth, year);
         const luckyVal = calculateLuckyNumber(numerologyMonth, year);
 
         // --- SEARCH CHECK ---
@@ -238,6 +298,11 @@ function selectDay(cell, dateStr, day, month, year) {
     cell.classList.add("selected");
     cell.focus();
     updateDetailsPanel(dateStr, day, month, year);
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            detailsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    }
 }
 
 // ==========================================
@@ -311,7 +376,7 @@ function checkDateMatch(d) {
 
     const lp = calculateLifePath(day, month, year);
     const dayNum = calculateDayNumber(day);
-    const hidden = calculateHiddenSum(day, month);
+    const hidden = calculateHiddenSum(day, month, year);
 
     let lpMatch = searchFilterLP !== null ? (lp.final === searchFilterLP || lp.base === searchFilterLP) : true;
     let dayMatch = searchFilterDay !== null ? (dayNum === searchFilterDay || day === searchFilterDay) : true;

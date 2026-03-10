@@ -60,7 +60,7 @@ getReadingBtn.addEventListener("click", () => {
     const lp = calculateLifePath(day, month, year);
     const dayNum = calculateDayNumber(day);
     const yearReducer = calculateYearReducer(year);
-    const hidden = calculateHiddenSum(day, month);
+    const hidden = calculateHiddenSum(day, month, year);
 
     // Helpers
     const getMasterClass = (num) => {
@@ -87,9 +87,9 @@ getReadingBtn.addEventListener("click", () => {
         </div>
 
         <div class="detail-item">
-            <strong>Date Sum (Hidden)</strong> 
-            <span class="${getMasterClass(hidden.final)}">${hidden.raw} / ${hidden.final}</span>
-            <small>Day ${day} + Month ${month} ${hidden.visual === 33 ? '(Visual: ' + hidden.visual + ')' : ''}</small>
+            <strong>Hidden Numbers</strong> 
+            <span class="${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
+            <small>Day + Month + Year (1 Step)</small>
         </div>
 
         <div class="detail-item">
@@ -144,6 +144,12 @@ getReadingBtn.addEventListener("click", () => {
 
     readingEmpty.classList.add("hidden");
     readingResult.classList.remove("hidden");
+    
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            readingResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    }
 });
 
 // --- Word Analysis Logic --- //
@@ -236,6 +242,12 @@ getWordReadingBtn.addEventListener("click", () => {
     readingEmpty.classList.add("hidden");
     readingResult.classList.add("hidden");
     wordResult.classList.remove("hidden");
+    
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            wordResult.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+    }
 });
 
 wordInput.addEventListener('keydown', (e) => {

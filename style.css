@@ -1,4 +1,4 @@
-﻿/* Global Reset & Body */
+/* Global Reset & Body */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
@@ -647,6 +647,91 @@ body {
     display: flex;
     flex-direction: column;
     border: 1px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.detail-item:hover {
+    background: #f1f3f5;
+    border-color: #dee2e6;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.item-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.expand-icon {
+    color: #999;
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.detail-item.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.detail-calculation {
+    display: none;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #ccc;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.detail-item.expanded .detail-calculation {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.hidden-energy-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.hidden-energy-box {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.hidden-energy-box strong {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.hidden-energy-box span {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.hidden-energy-box small {
+    margin-top: 5px;
+    color: #888;
+    font-size: 0.8rem;
 }
 
 .detail-item strong {
@@ -657,8 +742,8 @@ body {
     margin-bottom: 5px;
 }
 
-.detail-item span {
-    font-size: 1.5rem;
+.detail-item span.main-value {
+    font-size: 1.6rem;
     font-weight: 800;
     color: #007bff;
 }
@@ -981,19 +1066,20 @@ body {
 
 /* --- Mobile Specific Calendar Optimizations --- */
 @media (max-width: 768px) {
+    body {
+        padding: 10px; /* Reduce global padding to maximize horizontal real estate */
+    }
+
     .calendar-card {
-        padding: 10px;
-        /* Reduce padding to maximize grid space */
+        padding: 5px; /* Reduce padding to maximize grid space */
     }
 
     .days-grid {
-        gap: 3px;
-        /* Shrink gaps between cells on mobile to fit 7 columns natively */
+        gap: 2px; /* Shrink gaps between cells on mobile to fit 7 columns natively */
     }
 
     .weekdays-grid {
-        font-size: 0.75rem;
-        /* Shrink weekday headers slightly */
+        font-size: 0.75rem; /* Shrink weekday headers slightly */
     }
 
     /* Swap center display to primary day on mobile */
@@ -1013,18 +1099,64 @@ body {
         font-size: 1.4rem;
         /* Scale down so 31 isn't clipped in small screens */
     }
+
+    /* Fix Tabs on Reading Page for Mobile */
+    .tabs-sidebar {
+        flex-direction: row !important;
+        width: 100% !important;
+        border-radius: 12px 12px 0 0 !important;
+        border-right: none !important;
+        border-bottom: 1px solid #f0f2f5 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+        padding: 0 !important;
+    }
+    
+    .tab-btn {
+        flex: 1;
+        text-align: center;
+        border-right: none !important;
+        border-bottom: 4px solid transparent;
+        padding: 12px 10px;
+    }
+    
+    .tab-btn.active {
+        border-bottom: 4px solid #4caf50 !important;
+        border-right: none !important;
+    }
+    
+    .reading-page .content-wrapper {
+        flex-direction: column !important;
+    }
+    
+    .tab-content-area {
+        border-radius: 0 0 12px 12px !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Fix Word Analyzer Squishiness */
+    .word-analysis-box {
+        padding: 10px;
+    }
+    .word-equation-row {
+        justify-content: center;
+        gap: 5px;
+    }
+    .word-equation-row .letter {
+        font-size: 1.2rem;
+    }
+    .word-equation-row .value, .word-equation-row .sub-value {
+        font-size: 1rem;
+    }
+    .word-equation-row .operator {
+        padding-top: 15px;
+        font-size: 1.2rem;
+    }
+    .word-equation-row .result-group {
+        padding-top: 15px;
+    }
 }
 
-
-/* Override horizontal flex */
-.tabs-sidebar {
-    display: flex;
-    flex-direction: column !important;
-}
-
-.reading-page .content-wrapper {
-    flex-direction: row !important;
-}
 
 .hidden {
     display: none !important;

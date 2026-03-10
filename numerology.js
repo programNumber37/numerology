@@ -45,11 +45,28 @@ function calculateLuckyNumber(month, year) {
     return parseInt(firstDigitMonth + lastDigitYear);
 }
 
-function calculateHiddenSum(day, month) {
+function calculateHiddenSum(day, month, year = new Date().getFullYear()) {
     const rawSum = day + month;
     const reduced = getReducedNumber(rawSum);
     const visualConcat = parseInt(String(day) + String(month));
-    return { raw: rawSum, final: reduced, visual: visualConcat };
+    
+    const reducedYear1 = sumDigits(year);
+    
+    const myRaw = month + reducedYear1;
+    const myFinal = getReducedNumber(myRaw);
+    
+    const dmyRaw = day + month + reducedYear1;
+    const dmyFinal = getReducedNumber(dmyRaw);
+
+    return { 
+        raw: rawSum, 
+        final: reduced, 
+        visual: visualConcat,
+        dm: { raw: rawSum, final: reduced },
+        my: { raw: myRaw, final: myFinal },
+        dmy: { raw: dmyRaw, final: dmyFinal },
+        reducedYear1: reducedYear1
+    };
 }
 
 // Emoji mapping 
