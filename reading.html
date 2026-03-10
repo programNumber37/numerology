@@ -16,17 +16,38 @@
         </div>
 
         <div class="content-wrapper">
-            <div class="side-panel search-card">
-                <h3>Enter Your Birthdate</h3>
-                <p class="panel-desc">Discover the core energies that shape your path.</p>
+            <div class="tabs-sidebar">
+                <button id="tabBirth" class="tab-btn active">Birth Reading</button>
+                <button id="tabWord" class="tab-btn">Word Analysis</button>
+            </div>
 
-                <div class="search-group">
-                    <label for="birthDate">Date of Birth</label>
-                    <input type="date" id="birthDate">
+            <div class="side-panel search-card tab-content-area">
+                <div id="birthReadingForm">
+                    <h3>Enter Your Birthdate</h3>
+                    <p class="panel-desc">Discover the core energies that shape your path.</p>
+
+                    <div class="search-group">
+                        <label for="birthDate">Date of Birth</label>
+                        <input type="date" id="birthDate">
+                    </div>
+
+                    <div class="btn-group">
+                        <button id="getReadingBtn" class="btn-primary-small">Reveal Reading</button>
+                    </div>
                 </div>
 
-                <div class="btn-group">
-                    <button id="getReadingBtn" class="btn-primary-small">Reveal Reading</button>
+                <div id="wordReadingForm" class="hidden">
+                    <h3>Analyze a Word</h3>
+                    <p class="panel-desc">Discover the numerical values of any word or sentence.</p>
+
+                    <div class="search-group">
+                        <label for="wordInput">Word or Sentence</label>
+                        <input type="text" id="wordInput" placeholder="e.g. WORD">
+                    </div>
+
+                    <div class="btn-group">
+                        <button id="getWordReadingBtn" class="btn-primary-small">Analyze Word</button>
+                    </div>
                 </div>
             </div>
 
@@ -40,9 +61,17 @@
                         <!-- Filled by JS -->
                     </div>
                 </div>
+
+                <div id="wordResult" class="reading-result hidden">
+                    <h2 class="reading-title">Word Analysis Layout</h2>
+                    <div id="wordAnalysisContent">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
                 <div id="readingEmpty" class="reading-empty">
                     <div class="empty-icon">✨</div>
-                    <p>Enter your birthdate to reveal your numerology reading.</p>
+                    <p id="emptyMessage">Enter your birthdate to reveal your numerology reading.</p>
                 </div>
             </div>
         </div>

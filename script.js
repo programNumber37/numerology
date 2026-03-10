@@ -561,23 +561,23 @@ function performSearch(appending = false, direction = 'both') {
         pastMatches.forEach(date => {
             appendBoxToYearGroup(pastContainer, date, "result-past");
         });
-    }
 
-    if (hitPastLimit) {
-        let loadBtn = pastContainer.querySelector('.load-more-btn');
-        if (!loadBtn) {
-            loadBtn = document.createElement("button");
-            loadBtn.className = "load-more-btn";
-            loadBtn.innerText = "Load More Past";
-            loadBtn.onclick = () => performSearch(true, 'past');
-            pastContainer.appendChild(loadBtn);
+        if (hitPastLimit) {
+            let loadBtn = pastContainer.querySelector('.load-more-btn');
+            if (!loadBtn) {
+                loadBtn = document.createElement("button");
+                loadBtn.className = "load-more-btn";
+                loadBtn.innerText = "Load More Past";
+                loadBtn.onclick = () => performSearch(true, 'past');
+                pastContainer.appendChild(loadBtn);
+            }
+        } else if (pastMatches.length === 0 && !appending) {
+            const p = document.createElement("p");
+            p.style.fontSize = "0.8rem";
+            p.style.gridColumn = "1 / -1";
+            p.innerText = "No previous matches found.";
+            pastContainer.appendChild(p);
         }
-    } else if (pastMatches.length === 0 && !appending) {
-        const p = document.createElement("p");
-        p.style.fontSize = "0.8rem";
-        p.style.gridColumn = "1 / -1";
-        p.innerText = "No previous matches found.";
-        pastContainer.appendChild(p);
     }
 }
 

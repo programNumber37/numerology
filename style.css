@@ -1,4 +1,4 @@
-/* Global Reset & Body */
+﻿/* Global Reset & Body */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
@@ -808,6 +808,151 @@ body {
     margin-top: 30px;
 }
 
+/* --- Tabs Sidebar --- */
+.reading-page .content-wrapper {
+    gap: 0;
+    /* Removing gap so tabs can connect visually to the side-panel */
+    align-items: stretch;
+}
+
+.tabs-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    background: #fff;
+    border-radius: 12px 0 0 12px;
+    box-shadow: -4px 4px 15px rgba(0, 0, 0, 0.05);
+    /* Shadow on left, not right */
+    padding: 20px 0;
+    z-index: 10;
+    border-right: 1px solid #f0f2f5;
+}
+
+.tab-btn {
+    padding: 15px 20px;
+    background: transparent;
+    border: none;
+    color: #777;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    border-right: 4px solid transparent;
+    /* Highlight border indicator */
+}
+
+.tab-btn:hover {
+    background: #f8f9fa;
+    color: #4caf50;
+}
+
+.tab-btn.active {
+    background: #e8f5e9;
+    color: #4caf50;
+    border-right: 4px solid #4caf50;
+    font-weight: 800;
+}
+
+/* Modifying the search card for the tab layout */
+.tab-content-area {
+    border-radius: 0 12px 12px 12px !important;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.08) !important;
+    min-height: 350px;
+    margin-right: 20px;
+    /* Re-add gap to calendar */
+}
+
+/* --- Word Analysis Details --- */
+.word-analysis-box {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.word-equation-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: monospace;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.word-equation-row .letter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.word-equation-row .letter {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.word-equation-row .value {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.word-equation-row .sub-value {
+    color: #ff9800;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.word-equation-row .operator {
+    color: #999;
+    font-weight: bold;
+    font-size: 1.4rem;
+    padding-top: 25px;
+    /* Aligned with numbers roughly */
+}
+
+.word-equation-row .result-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 25px;
+}
+
+.word-equation-row .sum-result {
+    color: #333;
+    font-weight: bold;
+}
+
+.word-equation-row .final-result {
+    color: #4caf50;
+    font-weight: bold;
+    background: #e8f5e9;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 2px solid #4caf50;
+}
+
+.word-equation-row .sub-final-result {
+    color: #ff9800;
+    font-weight: bold;
+    background: #fff3e0;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 2px solid #ff9800;
+}
+
+.word-row-divider {
+    border-bottom: 2px solid #ddd;
+    margin: 20px 0;
+    width: 100%;
+}
+
 @media (max-width: 1000px) {
     .content-wrapper {
         flex-direction: column;
@@ -868,4 +1013,19 @@ body {
         font-size: 1.4rem;
         /* Scale down so 31 isn't clipped in small screens */
     }
+}
+
+
+/* Override horizontal flex */
+.tabs-sidebar {
+    display: flex;
+    flex-direction: column !important;
+}
+
+.reading-page .content-wrapper {
+    flex-direction: row !important;
+}
+
+.hidden {
+    display: none !important;
 }

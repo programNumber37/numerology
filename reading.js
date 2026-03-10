@@ -1,9 +1,49 @@
+// Birth Reading Elements
 const getReadingBtn = document.getElementById("getReadingBtn");
 const birthDateInput = document.getElementById("birthDate");
 const readingResult = document.getElementById("readingResult");
 const readingEmpty = document.getElementById("readingEmpty");
 const readingGrid = document.getElementById("readingGrid");
 const readingQuotes = document.getElementById("readingQuotes");
+
+// Word Analysis Elements
+const tabBirth = document.getElementById("tabBirth");
+const tabWord = document.getElementById("tabWord");
+const birthReadingForm = document.getElementById("birthReadingForm");
+const wordReadingForm = document.getElementById("wordReadingForm");
+const getWordReadingBtn = document.getElementById("getWordReadingBtn");
+const wordInput = document.getElementById("wordInput");
+const wordResult = document.getElementById("wordResult");
+const wordAnalysisContent = document.getElementById("wordAnalysisContent");
+const emptyMessage = document.getElementById("emptyMessage");
+
+// Tabs Logic
+function switchTab(tab) {
+    if (tab === 'birth') {
+        tabBirth.classList.add('active');
+        tabWord.classList.remove('active');
+        birthReadingForm.classList.remove('hidden');
+        wordReadingForm.classList.add('hidden');
+
+        readingResult.classList.add('hidden');
+        wordResult.classList.add('hidden');
+        readingEmpty.classList.remove('hidden');
+        if (emptyMessage) emptyMessage.textContent = "Enter your birthdate to reveal your numerology reading.";
+    } else {
+        tabWord.classList.add('active');
+        tabBirth.classList.remove('active');
+        wordReadingForm.classList.remove('hidden');
+        birthReadingForm.classList.add('hidden');
+
+        readingResult.classList.add('hidden');
+        wordResult.classList.add('hidden');
+        readingEmpty.classList.remove('hidden');
+        if (emptyMessage) emptyMessage.textContent = "Enter a word or sentence to reveal its numerical essence.";
+    }
+}
+
+tabBirth.addEventListener("click", () => switchTab('birth'));
+tabWord.addEventListener("click", () => switchTab('word'));
 
 getReadingBtn.addEventListener("click", () => {
     const dateVal = birthDateInput.value;
@@ -104,4 +144,110 @@ getReadingBtn.addEventListener("click", () => {
 
     readingEmpty.classList.add("hidden");
     readingResult.classList.remove("hidden");
+});
+
+// --- Word Analysis Logic --- //
+
+// A=1 to Z=26
+function getLetterValue(char) {
+    const code = char.toUpperCase().charCodeAt(0);
+    if (code >= 65 && code <= 90) {
+        return code - 64;
+    }
+    return 0; // ignores spaces/punctuation
+}
+
+getWordReadingBtn.addEventListener("click", () => {
+    const word = wordInput.value.trim();
+    if (!word) {
+        alert("Please enter a word or sentence.");
+        return;
+    }
+
+    // Filter only letters
+    const letters = word.toUpperCase().replace(/[^A-Z]/g, '').split('');
+    if (letters.length === 0) {
+        alert("Please enter valid alphabetical characters.");
+        return;
+    }
+
+    let topSum = 0;
+    let bottomSum = 0;
+    let equationHTML = `<div class="word-equation-row">`;
+    let subEquationHTML = `<div class="word-equation-row">`;
+
+    letters.forEach((l, index) => {
+        const val = getLetterValue(l); // e.g. W = 23
+        const reducedVal = getReducedNumber(val); // W = 23 -> 5
+
+        topSum += val;
+        bottomSum += reducedVal;
+
+        equationHTML += `
+            <div class="letter-group">
+                <div class="letter">${l}</div>
+                <div class="value">${val}</div>
+            </div>
+        `;
+        if (index < letters.length - 1) {
+            equationHTML += `<div class="operator">+</div>`;
+        }
+
+        subEquationHTML += `
+            <div class="letter-group">
+                <div class="letter">${l}</div>
+                <div class="sub-value">${reducedVal}</div>
+            </div>
+        `;
+        if (index < letters.length - 1) {
+            subEquationHTML += `<div class="operator">+</div>`;
+        }
+    });
+
+    const finalTopSum = getReducedNumber(topSum);
+    const finalBottomSum = getReducedNumber(bottomSum);
+
+    equationHTML += `
+        <div class="result-group">
+            <div class="operator">=</div>
+            <div class="sum-result">${topSum}</div>
+            <div class="operator">=</div>
+            <div class="final-result">${finalTopSum}</div>
+        </div>
+    </div>`;
+
+    subEquationHTML += `
+        <div class="result-group">
+            <div class="operator">=</div>
+            <div class="sum-result">${bottomSum}</div>
+            <div class="operator">=</div>
+            <div class="sub-final-result">${finalBottomSum}</div>
+        </div>
+    </div>`;
+
+    wordAnalysisContent.innerHTML = `
+        <div class="word-analysis-box">
+            ${equationHTML}
+            <div class="word-row-divider"></div>
+            ${subEquationHTML}
+        </div>
+    `;
+
+    readingEmpty.classList.add("hidden");
+    readingResult.classList.add("hidden");
+    wordResult.classList.remove("hidden");
+});
+
+wordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        getWordReadingBtn.click();
+    }
+});
+
+birthDateInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        getReadingBtn.click();
+    }
 });

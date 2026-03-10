@@ -19,10 +19,14 @@ function getReducedNumber(num) {
 }
 
 function calculateLifePath(day, month, year) {
-    const fullDateStr = `${day}${month}${year}`;
-    const firstSum = sumDigits(fullDateStr);
-    const finalDigit = getReducedNumber(firstSum);
-    return { base: firstSum, final: finalDigit };
+    const reducedDay = isMasterNumber(day) ? day : sumDigits(day);
+    const reducedMonth = isMasterNumber(month) ? month : sumDigits(month);
+    const reducedYear = sumDigits(year);
+
+    const baseSum = reducedDay + reducedMonth + reducedYear;
+    const finalDigit = getReducedNumber(baseSum);
+
+    return { base: baseSum, final: finalDigit };
 }
 
 function calculateDayNumber(day) {
