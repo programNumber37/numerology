@@ -1,4 +1,16 @@
 /* Global Reset & Body */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f0f2f5;
@@ -7,7 +19,6 @@ body {
     padding: 40px;
     margin: 0;
     min-height: 100vh;
-    box-sizing: border-box;
 }
 
 .main-container {
@@ -1067,19 +1078,23 @@ body {
 /* --- Mobile Specific Calendar Optimizations --- */
 @media (max-width: 768px) {
     body {
-        padding: 10px; /* Reduce global padding to maximize horizontal real estate */
+        padding: 10px;
+        /* Reduce global padding to maximize horizontal real estate */
     }
 
     .calendar-card {
-        padding: 5px; /* Reduce padding to maximize grid space */
+        padding: 5px;
+        /* Reduce padding to maximize grid space */
     }
 
     .days-grid {
-        gap: 2px; /* Shrink gaps between cells on mobile to fit 7 columns natively */
+        gap: 2px;
+        /* Shrink gaps between cells on mobile to fit 7 columns natively */
     }
 
     .weekdays-grid {
-        font-size: 0.75rem; /* Shrink weekday headers slightly */
+        font-size: 0.75rem;
+        /* Shrink weekday headers slightly */
     }
 
     /* Swap center display to primary day on mobile */
@@ -1110,7 +1125,7 @@ body {
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
         padding: 0 !important;
     }
-    
+
     .tab-btn {
         flex: 1;
         text-align: center;
@@ -1118,16 +1133,16 @@ body {
         border-bottom: 4px solid transparent;
         padding: 12px 10px;
     }
-    
+
     .tab-btn.active {
         border-bottom: 4px solid #4caf50 !important;
         border-right: none !important;
     }
-    
+
     .reading-page .content-wrapper {
         flex-direction: column !important;
     }
-    
+
     .tab-content-area {
         border-radius: 0 0 12px 12px !important;
         margin-right: 0 !important;
@@ -1138,20 +1153,26 @@ body {
     .word-analysis-box {
         padding: 10px;
     }
+
     .word-equation-row {
         justify-content: center;
         gap: 5px;
     }
+
     .word-equation-row .letter {
         font-size: 1.2rem;
     }
-    .word-equation-row .value, .word-equation-row .sub-value {
+
+    .word-equation-row .value,
+    .word-equation-row .sub-value {
         font-size: 1rem;
     }
+
     .word-equation-row .operator {
         padding-top: 15px;
         font-size: 1.2rem;
     }
+
     .word-equation-row .result-group {
         padding-top: 15px;
     }

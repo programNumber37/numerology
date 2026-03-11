@@ -19,6 +19,7 @@
             <div class="tabs-sidebar">
                 <button id="tabBirth" class="tab-btn active">Birth Reading</button>
                 <button id="tabWord" class="tab-btn">Word Analysis</button>
+                <button id="tabName" class="tab-btn">Name Analysis</button>
             </div>
 
             <div class="side-panel search-card tab-content-area">
@@ -40,13 +41,43 @@
                     <h3>Analyze a Word</h3>
                     <p class="panel-desc">Discover the numerical values of any word or sentence.</p>
 
-                    <div class="search-group">
-                        <label for="wordInput">Word or Sentence</label>
-                        <input type="text" id="wordInput" placeholder="e.g. WORD">
+                    <div id="wordInputsContainer">
+                        <div class="search-group word-input-group">
+                            <label>Word or Sentence 1</label>
+                            <input type="text" class="word-input-field" placeholder="e.g. WORD">
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <button id="addWordBtn"
+                            style="background: transparent; border: 2px dashed #9275c4; border-radius: 5px; width: 100%; padding: 10px; cursor: pointer; color: #9275c4; font-weight: bold;">+
+                            Add Word to Compare</button>
+                    </div>
+
+                    <div class="checkbox-group"
+                        style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="capitalSensitiveCheck">
+                        <label for="capitalSensitiveCheck"
+                            style="margin: 0; font-size: 0.9rem; font-weight: normal; color: #444;">Capital Sensitive
+                            Calculation Method</label>
                     </div>
 
                     <div class="btn-group">
-                        <button id="getWordReadingBtn" class="btn-primary-small">Analyze Word</button>
+                        <button id="getWordReadingBtn" class="btn-primary-small">Analyze Words</button>
+                    </div>
+                </div>
+
+                <div id="nameReadingForm" class="hidden">
+                    <h3>Full Name Analysis</h3>
+                    <p class="panel-desc">Discover the core numbers hidden in your name.</p>
+
+                    <div class="search-group">
+                        <label for="nameInput">Full Name at Birth</label>
+                        <input type="text" id="nameInput" placeholder="e.g. JOHN DOE">
+                    </div>
+
+                    <div class="btn-group">
+                        <button id="getNameReadingBtn" class="btn-primary-small">Analyze Name</button>
                     </div>
                 </div>
             </div>
@@ -69,6 +100,16 @@
                     </div>
                 </div>
 
+                <div id="nameResult" class="reading-result hidden">
+                    <h2 class="reading-title">Name Analysis Layout</h2>
+                    <div class="detail-grid" id="nameGrid">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div id="nameAnalysisContent">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
                 <div id="readingEmpty" class="reading-empty">
                     <div class="empty-icon">✨</div>
                     <p id="emptyMessage">Enter your birthdate to reveal your numerology reading.</p>
@@ -77,6 +118,7 @@
         </div>
     </div>
 
+    <script src="cnyDates.js" defer></script>
     <script src="numerology.js" defer></script>
     <script src="readingsDatabase.js" defer></script>
     <script src="dayMonthDatabase.js" defer></script>

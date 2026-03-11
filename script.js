@@ -55,15 +55,24 @@ function updateDetailsPanel(dateStr, day, month, year) {
     const hidden = calculateHiddenSum(day, month, year);
     const luckyVal = calculateLuckyNumber(month, year);
 
-    const allEnergiesForEmojis = [day, dayNum, lp.base, lp.final, hidden.raw, hidden.final, hidden.visual, luckyVal];
+    const allEnergiesForEmojis = [
+        day, dayNum, lp.base, lp.final,
+        hidden.raw, hidden.final, hidden.visual,
+        hidden.dm.raw, hidden.dm.final,
+        hidden.my.raw, hidden.my.final,
+        hidden.dmy.raw, hidden.dmy.final,
+        luckyVal
+    ];
     const emojiArray = getEmojis(allEnergiesForEmojis);
     const dayEmojis = emojiArray.join(' ');
 
+    const yearSplitForm = String(year).split('').join('+');
+
     detailsDate.innerHTML = `${dateObj.toLocaleDateString('en-US', options)} <span class="detail-emoji">${dayEmojis}</span>`;
 
-    const isThirtyThree = lp.final === 33 || dayNum === 33 || hidden.visual === 33 || hidden.raw === 33;
+    const isThirtyThree = lp.final === 33 || dayNum === 33 || hidden.visual === 33 || hidden.raw === 33 || hidden.dm.final === 33 || hidden.my.final === 33 || hidden.dmy.final === 33;
     const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum);
-    const isHiddenMaster = isMasterNumber(hidden.raw) || dayNum === 20 || isMasterNumber(hidden.visual);
+    const isHiddenMaster = isMasterNumber(hidden.raw) || dayNum === 20 || isMasterNumber(hidden.visual) || isMasterNumber(hidden.dm.final) || isMasterNumber(hidden.my.final) || isMasterNumber(hidden.dmy.final);
 
     detailsPanel.classList.remove("master-theme", "master-33-theme");
 
@@ -98,8 +107,8 @@ function updateDetailsPanel(dateStr, day, month, year) {
                     The <strong>Life Path Number</strong> is calculated by reducing the day, month, and year separately (except Master Numbers 11, 22, and 33), and then adding them together. Some calculators reduce completely first before adding, but this method reduces once first.<br><br>
                     <strong>Day:</strong> ${day} &rarr; ${isMasterNumber(day) ? day : sumDigits(day)}<br>
                     <strong>Month:</strong> ${month} &rarr; ${isMasterNumber(month) ? month : sumDigits(month)}<br>
-                    <strong>Year:</strong> ${year} &rarr; ${sumDigits(year)}<br>
-                    <strong>Total:</strong> ${isMasterNumber(day) ? day : sumDigits(day)} + ${isMasterNumber(month) ? month : sumDigits(month)} + ${sumDigits(year)} = ${lp.base} &rarr; <strong>${lp.final}</strong>
+                    <strong>Year:</strong> ${year} &rarr; ${yearSplitForm} = ${sumDigits(year)}<br>
+                    <strong>Total:</strong> ${isMasterNumber(day) ? day : sumDigits(day)} + ${isMasterNumber(month) ? month : sumDigits(month)} + (${yearSplitForm}) = ${lp.base} &rarr; <strong>${lp.final}</strong>
                 </div>
             </div>
             
@@ -152,21 +161,36 @@ function updateDetailsPanel(dateStr, day, month, year) {
                     <div class="hidden-energy-box">
                         <strong>Month + Year</strong>
                         <span class="${getMasterClass(hidden.my.final)}">${hidden.my.raw} / ${hidden.my.final}</span>
-                        <small>${month} + ${hidden.reducedYear1}</small>
+                        <small>${month} + (${yearSplitForm})</small>
                     </div>
                     <div class="hidden-energy-box">
                         <strong>Day + Month + Year</strong>
                         <span class="${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
-                        <small>${day} + ${month} + ${hidden.reducedYear1}</small>
+                        <small>${day} + ${month} + (${yearSplitForm})</small>
                     </div>
                 </div>
 
                 <div class="detail-calculation">
-                    The <strong>Hidden Energy</strong> reveals underlying numerological influences. This system calculates three components without reducing the day or month, but reducing the year by one step (${year} &rarr; ${hidden.reducedYear1}).<br><br>
+                    The <strong>Hidden Energy</strong> reveals underlying numerological influences. This system calculates three components without reducing the day or month, but reducing the year by one step (${year} &rarr; ${yearSplitForm} = ${hidden.reducedYear1}).<br><br>
                     1. <strong>Day + Month:</strong> ${day} + ${month} = ${hidden.dm.raw} &rarr; <strong>${hidden.dm.final}</strong><br>
-                    2. <strong>Month + Year:</strong> ${month} + ${hidden.reducedYear1} = ${hidden.my.raw} &rarr; <strong>${hidden.my.final}</strong><br>
-                    3. <strong>Full Hidden Sum:</strong> ${day} + ${month} + ${hidden.reducedYear1} = ${hidden.dmy.raw} &rarr; <strong>${hidden.dmy.final}</strong><br>
+                    2. <strong>Month + Year:</strong> ${month} + (${yearSplitForm}) = ${hidden.my.raw} &rarr; <strong>${hidden.my.final}</strong><br>
+                    3. <strong>Full Hidden Sum:</strong> ${day} + ${month} + (${yearSplitForm}) = ${hidden.dmy.raw} &rarr; <strong>${hidden.dmy.final}</strong><br>
                     ${hidden.visual === 33 ? '<br><b>Special Note:</b> Visual 33 detected (Day ' + day + ' and Month ' + month + ').' : ''}
+                </div>
+            </div>
+
+            <div class="detail-item" onclick="this.classList.toggle('expanded')">
+                <div class="item-header">
+                    <div class="item-content">
+                        <strong>Chinese Zodiac</strong> 
+                        <span class="main-value text-master">${getChineseZodiac(year, month, day)}</span>
+                        <small>Lunar Year Based</small>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="detail-calculation">
+                    The <strong>Chinese Zodiac</strong> changes according to the Lunar New Year (usually late January to mid-February) and follows a 12-year animal cycle paired with a 10-year element cycle.<br><br>
+                    <strong>Date:</strong> ${day}.${month}.${year} &rarr; <strong>${getChineseZodiac(year, month, day)}</strong>
                 </div>
             </div>
         </div>
@@ -235,7 +259,14 @@ function renderCalendar(date) {
 
         // Check "Any Energy"
         if (searchFilterAny !== null) {
-            const allEnergies = [lp.base, lp.final, day, dayNum, hidden.raw, hidden.final, hidden.visual, luckyVal];
+            const allEnergies = [
+                lp.base, lp.final, day, dayNum,
+                hidden.raw, hidden.final, hidden.visual,
+                hidden.dm.raw, hidden.dm.final,
+                hidden.my.raw, hidden.my.final,
+                hidden.dmy.raw, hidden.dmy.final,
+                luckyVal
+            ];
             if (allEnergies.includes(searchFilterAny)) {
                 isMatch = true;
             } else {
@@ -248,7 +279,13 @@ function renderCalendar(date) {
         }
 
         // --- MASTER THEMES & EMOJIS ---
-        const allEnergiesForEmojis = [day, dayNum, lp.base, lp.final, hidden.raw, hidden.final, hidden.visual];
+        const allEnergiesForEmojis = [
+            day, dayNum, lp.base, lp.final,
+            hidden.raw, hidden.final, hidden.visual,
+            hidden.dm.raw, hidden.dm.final,
+            hidden.my.raw, hidden.my.final,
+            hidden.dmy.raw, hidden.dmy.final
+        ];
         const emojiArray = getEmojis(allEnergiesForEmojis);
         const dayEmojis = emojiArray.join('');
 
@@ -256,7 +293,7 @@ function renderCalendar(date) {
         const emojiClass = emojiArray.length > 2 ? "cell-emoji small-emojis" : "cell-emoji";
 
         let highestMaster = 0;
-        [lp.final, dayNum, luckyVal, hidden.raw, hidden.visual].forEach(num => {
+        [lp.final, dayNum, luckyVal, hidden.raw, hidden.visual, hidden.dm.final, hidden.my.final, hidden.dmy.final].forEach(num => {
             if (num === 33 && highestMaster < 33) highestMaster = 33;
             else if (num === 22 && highestMaster < 22) highestMaster = 22;
             else if ((num === 11 || num === 20) && highestMaster < 11) highestMaster = 11;
@@ -386,7 +423,14 @@ function checkDateMatch(d) {
 
     if (searchFilterAny !== null) {
         const lucky = calculateLuckyNumber(month, year);
-        const all = [lp.base, lp.final, day, dayNum, hidden.raw, hidden.final, hidden.visual, lucky];
+        const all = [
+            lp.base, lp.final, day, dayNum,
+            hidden.raw, hidden.final, hidden.visual,
+            hidden.dm.raw, hidden.dm.final,
+            hidden.my.raw, hidden.my.final,
+            hidden.dmy.raw, hidden.dmy.final,
+            lucky
+        ];
         match = all.includes(searchFilterAny);
     }
 

@@ -49,18 +49,18 @@ function calculateHiddenSum(day, month, year = new Date().getFullYear()) {
     const rawSum = day + month;
     const reduced = getReducedNumber(rawSum);
     const visualConcat = parseInt(String(day) + String(month));
-    
+
     const reducedYear1 = sumDigits(year);
-    
+
     const myRaw = month + reducedYear1;
     const myFinal = getReducedNumber(myRaw);
-    
+
     const dmyRaw = day + month + reducedYear1;
     const dmyFinal = getReducedNumber(dmyRaw);
 
-    return { 
-        raw: rawSum, 
-        final: reduced, 
+    return {
+        raw: rawSum,
+        final: reduced,
         visual: visualConcat,
         dm: { raw: rawSum, final: reduced },
         my: { raw: myRaw, final: myFinal },
@@ -80,3 +80,28 @@ function getEmojis(numbersArray) {
     return emojis;
 }
 
+// Chinese Zodiac mapping
+// cnyDates is now loaded from cnyDates.js
+
+function getChineseZodiac(year, month, day) {
+    let chineseYear = year;
+    if (typeof cnyDates !== 'undefined' && cnyDates[year]) {
+        const [cnyMonth, cnyDay] = cnyDates[year];
+        if (month < cnyMonth || (month === cnyMonth && day < cnyDay)) {
+            chineseYear -= 1;
+        }
+    } else {
+        // Fallback for years outside 1-2200
+        if (month === 1 || (month === 2 && day < 4)) {
+            chineseYear -= 1;
+        }
+    }
+
+    const animals = ["Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox", "Tiger", "Cat", "Dragon", "Snake", "Horse", "Goat"];
+    const elements = ["Metal", "Metal", "Water", "Water", "Wood", "Wood", "Fire", "Fire", "Earth", "Earth"];
+
+    const animal = animals[chineseYear % 12];
+    const element = elements[chineseYear % 10];
+
+    return `${element} ${animal}`;
+}
