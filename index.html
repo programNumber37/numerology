@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="warm">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numerology Calendar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="themes.css">
 </head>
 
 <body>
 
     <div class="main-container">
+
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+            <div class="theme-toggle-bar" id="themeToggleBar">
+                <button class="theme-toggle-btn" data-theme="original">🟢 Original</button>
+                <button class="theme-toggle-btn active" data-theme="warm">☀️ Warm</button>
+                <button class="theme-toggle-btn" data-theme="dark">🌙 Dark</button>
+            </div>
+        </div>
 
         <div class="content-wrapper">
 
@@ -118,14 +133,22 @@
                         <small>Matches your filters</small>
                     </li>
                     <li>
-                        <span class="dot orange-dot"></span>
+                        <span class="dot"
+                            style="background: #f3e5f5; border: 2px solid #ff9800; border-radius: 50%;"></span>
                         <strong>33 Master Energy</strong>
-                        <small>LP, Day, Hidden Numbers, or Visual Concat is 33</small>
+                        <small>LP, Day, Hidden Numbers is 33</small>
                     </li>
                     <li>
-                        <span class="dot glow-dot"></span>
-                        <strong>Main Master</strong>
-                        <small>LP, Day, or Lucky is 11, 22</small>
+                        <span class="dot"
+                            style="background: #f3e5f5; border: 2px solid #2196f3; border-radius: 50%;"></span>
+                        <strong>22 Master Energy</strong>
+                        <small>LP, Day, or Lucky is 22</small>
+                    </li>
+                    <li>
+                        <span class="dot"
+                            style="background: #f3e5f5; border: 2px solid #b0bec5; border-radius: 50%;"></span>
+                        <strong>11 Master Energy</strong>
+                        <small>LP, Day, or Lucky is 11</small>
                     </li>
                     <li>
                         <span class="dot dim-dot"></span>
@@ -165,6 +188,7 @@
 
     <script src="cnyDates.js" defer></script>
     <script src="numerology.js" defer></script>
+    <script src="theme-toggle.js"></script>
     <script src="script.js" defer></script>
 </body>
 

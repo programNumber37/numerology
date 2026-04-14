@@ -1,90 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="warm">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Numerology Reading</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="themes.css">
 </head>
 
 <body>
 
     <div class="main-container reading-page">
-        <div class="nav-bar">
-            <a href="index.html" class="nav-link">&larr; Back to Calendar</a>
-        </div>
 
-        <div class="content-wrapper">
-            <div class="tabs-sidebar">
-                <button id="tabBirth" class="tab-btn active">Birth Reading</button>
-                <button id="tabWord" class="tab-btn">Word Analysis</button>
-                <button id="tabName" class="tab-btn">Name Analysis</button>
+        <!-- Header -->
+        <header class="rd-header">
+            <a href="index.html" class="rd-back-link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                Back to Calendar
+            </a>
+            <div class="theme-toggle-bar" id="themeToggleBar">
+                <button class="theme-toggle-btn" data-theme="original">🟢 Original</button>
+                <button class="theme-toggle-btn active" data-theme="warm">☀️ Warm</button>
+                <button class="theme-toggle-btn" data-theme="dark">🌙 Dark</button>
             </div>
+        </header>
 
-            <div class="side-panel search-card tab-content-area">
-                <div id="birthReadingForm">
-                    <h3>Enter Your Birthdate</h3>
-                    <p class="panel-desc">Discover the core energies that shape your path.</p>
+        <!-- Main Layout -->
+        <div class="rd-layout">
 
-                    <div class="search-group">
-                        <label for="birthDate">Date of Birth</label>
-                        <input type="date" id="birthDate">
-                    </div>
+            <!-- Sidebar: Tabs + Form (unified card) -->
+            <aside class="rd-sidebar">
+                <nav class="rd-tabs">
+                    <button id="tabBirth" class="rd-tab active">
+                        <span class="rd-tab-icon">🔮</span>
+                        <span class="rd-tab-label">Birth</span>
+                    </button>
+                    <button id="tabWord" class="rd-tab">
+                        <span class="rd-tab-icon">📝</span>
+                        <span class="rd-tab-label">Word</span>
+                    </button>
+                    <button id="tabName" class="rd-tab">
+                        <span class="rd-tab-icon">✦</span>
+                        <span class="rd-tab-label">Name</span>
+                    </button>
+                </nav>
 
-                    <div class="btn-group">
-                        <button id="getReadingBtn" class="btn-primary-small">Reveal Reading</button>
-                    </div>
-                </div>
+                <div class="rd-form-content">
 
-                <div id="wordReadingForm" class="hidden">
-                    <h3>Analyze a Word</h3>
-                    <p class="panel-desc">Discover the numerical values of any word or sentence.</p>
-
-                    <div id="wordInputsContainer">
-                        <div class="search-group word-input-group">
-                            <label>Word or Sentence 1</label>
-                            <input type="text" class="word-input-field" placeholder="e.g. WORD">
+                    <!-- Birth Reading Form -->
+                    <div id="birthReadingForm">
+                        <h3 class="rd-form-title">Enter Your Birthdate</h3>
+                        <p class="rd-form-desc">Discover the core energies that shape your path.</p>
+                        <div class="rd-input-group">
+                            <label for="birthDate">Date of Birth</label>
+                            <input type="date" id="birthDate" class="rd-input">
                         </div>
+                        <button id="getReadingBtn" class="rd-cta-btn">✦ Reveal Reading</button>
                     </div>
 
-                    <div style="text-align: center; margin-bottom: 15px;">
-                        <button id="addWordBtn"
-                            style="background: transparent; border: 2px dashed #9275c4; border-radius: 5px; width: 100%; padding: 10px; cursor: pointer; color: #9275c4; font-weight: bold;">+
-                            Add Word to Compare</button>
+                    <!-- Word Analysis Form -->
+                    <div id="wordReadingForm" class="hidden">
+                        <h3 class="rd-form-title">Analyze a Word</h3>
+                        <p class="rd-form-desc">Discover the numerical values of any word or sentence.</p>
+                        <div id="wordInputsContainer">
+                            <div class="rd-input-group">
+                                <label>Word or Sentence 1</label>
+                                <input type="text" class="rd-input word-input-field" placeholder="e.g. WORD">
+                            </div>
+                        </div>
+                        <button id="addWordBtn" class="rd-add-btn">+ Add Word to Compare</button>
+                        <div class="rd-checkbox-group">
+                            <input type="checkbox" id="capitalSensitiveCheck">
+                            <label for="capitalSensitiveCheck">Capital Sensitive Calculation</label>
+                        </div>
+                        <button id="getWordReadingBtn" class="rd-cta-btn">✦ Analyze Words</button>
                     </div>
 
-                    <div class="checkbox-group"
-                        style="margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-                        <input type="checkbox" id="capitalSensitiveCheck">
-                        <label for="capitalSensitiveCheck"
-                            style="margin: 0; font-size: 0.9rem; font-weight: normal; color: #444;">Capital Sensitive
-                            Calculation Method</label>
+                    <!-- Name Analysis Form -->
+                    <div id="nameReadingForm" class="hidden">
+                        <h3 class="rd-form-title">Full Name Analysis</h3>
+                        <p class="rd-form-desc">Discover the core numbers hidden in your name.</p>
+                        <div class="rd-input-group">
+                            <label for="nameInput">Full Name at Birth</label>
+                            <input type="text" id="nameInput" class="rd-input" placeholder="e.g. JOHN DOE">
+                        </div>
+                        <button id="getNameReadingBtn" class="rd-cta-btn">✦ Analyze Name</button>
                     </div>
 
-                    <div class="btn-group">
-                        <button id="getWordReadingBtn" class="btn-primary-small">Analyze Words</button>
-                    </div>
                 </div>
+            </aside>
 
-                <div id="nameReadingForm" class="hidden">
-                    <h3>Full Name Analysis</h3>
-                    <p class="panel-desc">Discover the core numbers hidden in your name.</p>
+            <!-- Main Content Area -->
+            <main class="rd-main">
 
-                    <div class="search-group">
-                        <label for="nameInput">Full Name at Birth</label>
-                        <input type="text" id="nameInput" placeholder="e.g. JOHN DOE">
-                    </div>
-
-                    <div class="btn-group">
-                        <button id="getNameReadingBtn" class="btn-primary-small">Analyze Name</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="calendar-card">
+                <!-- Birth Reading Results -->
                 <div id="readingResult" class="reading-result hidden">
-                    <h2 class="reading-title">Your Numerology Layout</h2>
+                    <div class="rd-results-header">
+                        <h2 class="rd-results-title">Your Numerology Layout</h2>
+                        <button id="shareReadingBtn" class="rd-share-btn">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 8V13C4 13.55 4.45 14 5 14H11C11.55 14 12 13.55 12 13V8"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M8 2V10M8 2L5.5 4.5M8 2L10.5 4.5" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Share
+                        </button>
+                    </div>
                     <div class="detail-grid" id="readingGrid">
                         <!-- Filled by JS -->
                     </div>
@@ -93,15 +125,17 @@
                     </div>
                 </div>
 
+                <!-- Word Results -->
                 <div id="wordResult" class="reading-result hidden">
-                    <h2 class="reading-title">Word Analysis Layout</h2>
+                    <h2 class="rd-results-title" style="margin-bottom: 24px;">Word Analysis</h2>
                     <div id="wordAnalysisContent">
                         <!-- Filled by JS -->
                     </div>
                 </div>
 
+                <!-- Name Results -->
                 <div id="nameResult" class="reading-result hidden">
-                    <h2 class="reading-title">Name Analysis Layout</h2>
+                    <h2 class="rd-results-title" style="margin-bottom: 24px;">Name Analysis</h2>
                     <div class="detail-grid" id="nameGrid">
                         <!-- Filled by JS -->
                     </div>
@@ -110,18 +144,32 @@
                     </div>
                 </div>
 
-                <div id="readingEmpty" class="reading-empty">
-                    <div class="empty-icon">✨</div>
-                    <p id="emptyMessage">Enter your birthdate to reveal your numerology reading.</p>
+                <!-- Empty State -->
+                <div id="readingEmpty" class="rd-empty-state">
+                    <div class="rd-empty-card">
+                        <div class="rd-empty-symbol">
+                            <div class="rd-empty-ring rd-ring--outer"></div>
+                            <div class="rd-empty-ring rd-ring--mid"></div>
+                            <div class="rd-empty-ring rd-ring--inner"></div>
+                            <span class="rd-empty-glyph">✦</span>
+                        </div>
+                        <h3 class="rd-empty-title">Discover Your Numbers</h3>
+                        <p id="emptyMessage" class="rd-empty-text">Enter your birthdate to reveal your numerology
+                            reading.</p>
+                    </div>
                 </div>
-            </div>
+
+            </main>
+
         </div>
     </div>
 
+    <script src="theme-toggle.js"></script>
     <script src="cnyDates.js" defer></script>
     <script src="numerology.js" defer></script>
     <script src="readingsDatabase.js" defer></script>
     <script src="dayMonthDatabase.js" defer></script>
+    <script src="chineseSignDatabase.js" defer></script>
     <script src="reading.js" defer></script>
 </body>
 

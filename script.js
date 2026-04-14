@@ -308,6 +308,11 @@ function renderCalendar(date) {
             dayCell.classList.add("master-11-cell");
         }
 
+        const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum) || isMasterNumber(luckyVal);
+        if (highestMaster > 0 && !isMainMaster) {
+            dayCell.classList.add("hidden-master-cell");
+        }
+
         const getMasterClass = (num) => {
             if (num === 33) return 'text-master-33';
             return isMasterNumber(num) ? 'text-master' : '';

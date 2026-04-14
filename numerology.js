@@ -97,7 +97,7 @@ function getChineseZodiac(year, month, day) {
         }
     }
 
-    const animals = ["Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox", "Tiger", "Cat", "Dragon", "Snake", "Horse", "Goat"];
+    const animals = ["Monkey", "Rooster", "Dog", "Boar", "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep"];
     const elements = ["Metal", "Metal", "Water", "Water", "Wood", "Wood", "Fire", "Fire", "Earth", "Earth"];
 
     const animal = animals[chineseYear % 12];
