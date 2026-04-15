@@ -248,6 +248,22 @@ getReadingBtn.addEventListener("click", () => {
             return years.join(', ');
         };
 
+        const currentAnimalName = Object.keys(signIndexMap).find(key => signIndexMap[key] === (currentYear % 12));
+        const currentFare = czData.yearly_fares && czData.yearly_fares[currentAnimalName] ? czData.yearly_fares[currentAnimalName] : "No description available.";
+        
+        const zodiacOrder = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep", "Monkey", "Rooster", "Dog", "Boar"];
+        let allFaresHTML = '';
+        if (czData.yearly_fares) {
+            zodiacOrder.forEach(sign => {
+                allFaresHTML += `
+                    <div style="margin-top:15px; font-size: 0.95rem; color: var(--th-text-secondary);">
+                        <strong>Year of the ${sign}:</strong><br>
+                        ${czData.yearly_fares[sign] || 'No information available.'}
+                    </div>
+                `;
+            });
+        }
+
         insightsHTML += `
             <div class="rd-card rd-card--chinese">
                 <div class="rd-collapsible-header" onclick="const body = this.nextElementSibling; body.classList.toggle('hidden'); const arrow = this.querySelector('.rd-arrow'); arrow.style.transform = body.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';">
@@ -278,6 +294,19 @@ getReadingBtn.addEventListener("click", () => {
                     <h5 class="rd-section-title">The Year of the ${czAnimal}</h5>
                     <p class="rd-section-text">${czData.year_energy}</p>
                     <p class="rd-section-note">Note: This represents the energy for ${czAnimal} years in general.</p>
+
+                    <h5 class="rd-section-title">How You Fare This Year (${currentYear} - Year of the ${currentAnimalName})</h5>
+                    <p class="rd-section-text">${currentFare}</p>
+
+                    <div style="margin-top: 15px; margin-bottom: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                        <div onclick="const body = this.nextElementSibling; body.classList.toggle('hidden'); const arrow = this.querySelector('.sub-arrow'); arrow.style.transform = body.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';" style="display: flex; align-items: center; cursor: pointer; color: var(--th-rd-chinese-accent);">
+                            <strong>View all Yearly Fares for ${czAnimal}</strong>
+                            <span class="sub-arrow" style="margin-left: 8px; font-size: 0.8rem; transition: transform 0.3s ease; display: inline-block;">▼</span>
+                        </div>
+                        <div class="hidden">
+                            ${allFaresHTML}
+                        </div>
+                    </div>
                     
                     <h5 class="rd-section-title">The ${czElement} ${czAnimal}</h5>
                     <p class="rd-section-text">${typeData}</p>
