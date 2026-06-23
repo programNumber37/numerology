@@ -1,4 +1,130 @@
 // ==========================================
+// ENERGY GUIDE DATA LOADING & HELPERS
+// ==========================================
+let energyGuideData = typeof energyGuideDataDefault !== 'undefined' ? energyGuideDataDefault : null;
+
+fetch("Number energy.json")
+    .then(response => response.json())
+    .then(data => {
+        energyGuideData = data.numerology_energy_guide;
+    })
+    .catch(err => {
+        console.warn("Failed to fetch Number energy.json, using fallback database:", err);
+        if (typeof energyGuideDataDefault !== 'undefined') {
+            energyGuideData = energyGuideDataDefault;
+        }
+    });
+
+function getSingleDigit(num) {
+    let current = num;
+    while (current > 9) {
+        current = String(current).split('').reduce((acc, curr) => acc + parseInt(curr), 0);
+    }
+    return current;
+}
+
+// ==========================================
+// COMPATIBILITY DATA & HELPERS
+// ==========================================
+let compatibilityData = null;
+
+const COMPATIBILITY_FALLBACK = [
+    { "number": 1, "planet": "Sun", "friendly": [1, 2, 3, 5, 6, 9], "neutral": [4, 7], "enemy": [8] },
+    { "number": 2, "planet": "Moon", "friendly": [1, 2, 3, 5], "neutral": [6, 7], "enemy": [4, 8, 9] },
+    { "number": 3, "planet": "Jupiter", "friendly": [1, 2, 3, 5, 7], "neutral": [4, 8, 9], "enemy": [6] },
+    { "number": 4, "planet": "Rahu", "friendly": [1, 4, 5, 6, 7, 8], "neutral": [3], "enemy": [2, 9] },
+    { "number": 5, "planet": "Mercury", "friendly": [1, 2, 3, 5, 6], "neutral": [4, 7, 8, 9], "enemy": [] },
+    { "number": 6, "planet": "Venus", "friendly": [1, 4, 5, 6, 7], "neutral": [2, 8, 9], "enemy": [3] },
+    { "number": 7, "planet": "Ketu", "friendly": [1, 3, 4, 5, 6], "neutral": [2, 7, 8, 9], "enemy": [] },
+    { "number": 8, "planet": "Saturn", "friendly": [3, 4, 5, 6, 7, 8], "neutral": [], "enemy": [1, 2, 9] },
+    { "number": 9, "planet": "Mars", "friendly": [1, 3, 5], "neutral": [6, 7, 8, 9], "enemy": [2, 4] }
+];
+
+const planetMap = {
+    1: "Sun",
+    2: "Moon",
+    3: "Jupiter",
+    4: "Rahu",
+    5: "Mercury",
+    6: "Venus",
+    7: "Ketu",
+    8: "Saturn",
+    9: "Mars"
+};
+
+fetch("number compability.json")
+    .then(response => response.json())
+    .then(data => {
+        compatibilityData = data;
+    })
+    .catch(err => {
+        console.warn("Failed to fetch number compatibility.json, using fallback database:", err);
+        compatibilityData = COMPATIBILITY_FALLBACK;
+    });
+
+function getCompatibilityNumber(num) {
+    let current = num;
+    while (current > 9) {
+        current = String(current).split('').reduce((acc, curr) => acc + parseInt(curr), 0);
+    }
+    return current;
+}
+
+function renderCompatibilityCard(typeLabel, originalNum, accentClass) {
+    if (!compatibilityData) {
+        compatibilityData = COMPATIBILITY_FALLBACK;
+    }
+    const reducedNum = getCompatibilityNumber(originalNum);
+    const profile = compatibilityData.find(item => item.number === reducedNum) ||
+        COMPATIBILITY_FALLBACK.find(item => item.number === reducedNum);
+
+    if (!profile) return '';
+
+    const createBadgesHTML = (list, relationType) => {
+        if (!list || list.length === 0) return `<span style="font-size: 0.85rem; color: var(--th-text-muted); font-style: italic;">None</span>`;
+        return list.map(n => {
+            const planet = planetMap[n] || "Unknown";
+            return `<span class="rd-number-badge rd-number-badge--${relationType}" title="Number ${n} (${planet}): ${relationType.charAt(0).toUpperCase() + relationType.slice(1)} relationship with ${typeLabel} ${originalNum}">
+                ${n}
+            </span>`;
+        }).join('');
+    };
+
+    return `
+        <div class="rd-compatibility-card ${accentClass}">
+            <div class="rd-comp-header">
+                <div class="rd-comp-title-group">
+                    <span class="rd-comp-type">${typeLabel}</span>
+                    <span class="rd-comp-number">${originalNum}</span>
+                </div>
+                <span class="rd-comp-planet-badge">Ruling: ${profile.planet}</span>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Friendly (Goes Well)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(profile.friendly, "friendly")}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Neutral</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(profile.neutral, "neutral")}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Enemy (Avoid/Caution)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(profile.enemy, "enemy")}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ==========================================
 // 2. DOM ELEMENTS, STATE
 // ==========================================
 
@@ -92,116 +218,197 @@ function updateDetailsPanel(dateStr, day, month, year) {
         return (isMasterNumber(num) || num === 20) ? 'text-master' : '';
     };
 
-    detailsContent.innerHTML = `
-        <div class="detail-grid">
-            <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
-                <div class="item-header">
-                    <div class="item-content">
-                        <strong>Life Path</strong> 
-                        <span class="main-value ${getMasterClass(lp.final)}">${lp.base} / ${lp.final}</span> 
-                        <small>Standard Calculation</small>
+    let energyReadingHTML = '';
+    if (energyGuideData) {
+        const reducedLP = getSingleDigit(lp.final);
+        const reducedDay = getSingleDigit(dayNum);
+        
+        const lpEnergy = energyGuideData.find(item => item.day === reducedLP);
+        const dayEnergy = energyGuideData.find(item => item.day === reducedDay);
+        
+        const renderGuideCard = (titlePrefix, originalNum, energyObj, featuredClass) => {
+            if (!energyObj) return '';
+            
+            const doListHTML = energyObj.do.map(item => `
+                <li class="energy-li"><strong>${item.action}</strong>: ${item.details}</li>
+            `).join('');
+            
+            const avoidListHTML = energyObj.avoid.map(item => `
+                <li class="energy-li"><strong>${item.action}</strong>: ${item.details}</li>
+            `).join('');
+            
+            return `
+                <div class="energy-card ${featuredClass}">
+                    <div class="energy-header">
+                        <span class="energy-badge">${titlePrefix} ${originalNum} Energy</span>
+                        <h5 class="energy-title">${energyObj.title}</h5>
                     </div>
-                    <span class="expand-icon">▼</span>
+                    <p class="energy-desc">${energyObj.description}</p>
+                    <div class="energy-lists">
+                        <div class="energy-list energy-list--do">
+                            <strong>Do:</strong>
+                            <ul class="energy-ul">
+                                ${doListHTML}
+                            </ul>
+                        </div>
+                        <div class="energy-list energy-list--avoid">
+                            <strong>Avoid:</strong>
+                            <ul class="energy-ul">
+                                ${avoidListHTML}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="detail-calculation">
-                    The <strong>Life Path Number</strong> is calculated by reducing the day, month, and year separately (except Master Numbers 11, 22, and 33), and then adding them together. Some calculators reduce completely first before adding, but this method reduces once first.<br><br>
-                    <strong>Day:</strong> ${day} &rarr; ${isMasterNumber(day) ? day : sumDigits(day)}<br>
-                    <strong>Month:</strong> ${month} &rarr; ${isMasterNumber(month) ? month : sumDigits(month)}<br>
-                    <strong>Year:</strong> ${year} &rarr; ${yearSplitForm} = ${sumDigits(year)}<br>
-                    <strong>Total:</strong> ${isMasterNumber(day) ? day : sumDigits(day)} + ${isMasterNumber(month) ? month : sumDigits(month)} + (${yearSplitForm}) = ${lp.base} &rarr; <strong>${lp.final}</strong>
+            `;
+        };
+        
+        const lpCardHTML = renderGuideCard("Life Path", lp.final, lpEnergy, "energy-card--featured");
+        const dayCardHTML = renderGuideCard("Day Number", dayNum, dayEnergy, "energy-card--day");
+        
+        energyReadingHTML = `
+            <div class="energy-reading-section">
+                <h4 class="energy-section-title">Daily Energy Guide</h4>
+                ${lpCardHTML}
+                ${dayCardHTML}
+            </div>
+        `;
+    } else {
+        energyReadingHTML = `
+            <div class="energy-reading-section">
+                <p style="font-size: 0.85rem; color: var(--th-text-muted); font-style: italic;">
+                    Daily energy readings are loading from the Number energy JSON file...
+                    <br>
+                    <small>Note: If you are opening this page via file://, CORS rules may block the loading of JSON files. Consider running a local web server.</small>
+                </p>
+            </div>
+        `;
+    }
+
+        const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
+        const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+
+        const compatibilityReadingHTML = `
+            <div class="rd-compatibility-section" style="margin-top: 24px;">
+                <h4 class="rd-compatibility-title">Number Compatibility</h4>
+                <div class="rd-compatibility-grid">
+                    ${lpCompatibilityHTML}
+                    ${dayCompatibilityHTML}
+                </div>
+            </div>
+        `;
+
+        detailsContent.innerHTML = `
+            <div class="detail-grid">
+                <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
+                    <div class="item-header">
+                        <div class="item-content">
+                            <strong>Life Path</strong> 
+                            <span class="main-value ${getMasterClass(lp.final)}">${lp.base} / ${lp.final}</span> 
+                            <small>Standard Calculation</small>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="detail-calculation">
+                        The <strong>Life Path Number</strong> is calculated by reducing the day, month, and year separately (except Master Numbers 11, 22, and 33), and then adding them together. Some calculators reduce completely first before adding, but this method reduces once first.<br><br>
+                        <strong>Day:</strong> ${day} &rarr; ${isMasterNumber(day) ? day : sumDigits(day)}<br>
+                        <strong>Month:</strong> ${month} &rarr; ${isMasterNumber(month) ? month : sumDigits(month)}<br>
+                        <strong>Year:</strong> ${year} &rarr; ${yearSplitForm} = ${sumDigits(year)}<br>
+                        <strong>Total:</strong> ${isMasterNumber(day) ? day : sumDigits(day)} + ${isMasterNumber(month) ? month : sumDigits(month)} + (${yearSplitForm}) = ${lp.base} &rarr; <strong>${lp.final}</strong>
+                    </div>
+                </div>
+                
+                <div class="detail-item" onclick="this.classList.toggle('expanded')">
+                    <div class="item-header">
+                        <div class="item-content">
+                            <strong>Day Number</strong> 
+                            <span class="main-value ${getHiddenClass(dayNum)}">${dayNum}</span>
+                            <small>Reduced from ${day}</small>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="detail-calculation">
+                        The <strong>Day Number</strong> is the sum of the digits of the calendar day, reduced to a single digit or Master Number.<br><br>
+                        <strong>Calculation:</strong> ${day} &rarr; <strong>${dayNum}</strong>
+                    </div>
+                </div>
+
+                <div class="detail-item" onclick="this.classList.toggle('expanded')">
+                    <div class="item-header">
+                        <div class="item-content">
+                            <strong>Year Reducer</strong> 
+                            <span class="main-value ${getMasterClass(yearReducer)}">${yearReducer}</span>
+                            <small>Reduced from ${year}</small>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="detail-calculation">
+                        The <strong>Year Reducer</strong> is the sum of the digits of the current calendar year.<br><br>
+                        <strong>Calculation:</strong> ${year} &rarr; <strong>${yearReducer}</strong>
+                    </div>
+                </div>
+
+                <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
+                    <div class="item-header">
+                        <div class="item-content">
+                            <strong>Hidden Numbers</strong> 
+                            <span class="main-value ${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
+                            <small>Day + Month + Year (1 Step)</small>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    
+                    <div class="hidden-energy-row">
+                        <div class="hidden-energy-box">
+                            <strong>Day + Month</strong>
+                            <span class="${getMasterClass(hidden.dm.final)}">${hidden.dm.raw} / ${hidden.dm.final}</span>
+                            <small>${day} + ${month}</small>
+                        </div>
+                        <div class="hidden-energy-box">
+                            <strong>Month + Year</strong>
+                            <span class="${getMasterClass(hidden.my.final)}">${hidden.my.raw} / ${hidden.my.final}</span>
+                            <small>${month} + (${yearSplitForm})</small>
+                        </div>
+                        <div class="hidden-energy-box">
+                            <strong>Day + Month + Year</strong>
+                            <span class="${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
+                            <small>${day} + ${month} + (${yearSplitForm})</small>
+                        </div>
+                    </div>
+
+                    <div class="detail-calculation">
+                        The <strong>Hidden Energy</strong> reveals underlying numerological influences. This system calculates three components without reducing the day or month, but reducing the year by one step (${year} &rarr; ${yearSplitForm} = ${hidden.reducedYear1}).<br><br>
+                        1. <strong>Day + Month:</strong> ${day} + ${month} = ${hidden.dm.raw} &rarr; <strong>${hidden.dm.final}</strong><br>
+                        2. <strong>Month + Year:</strong> ${month} + (${yearSplitForm}) = ${hidden.my.raw} &rarr; <strong>${hidden.my.final}</strong><br>
+                        3. <strong>Full Hidden Sum:</strong> ${day} + ${month} + (${yearSplitForm}) = ${hidden.dmy.raw} &rarr; <strong>${hidden.dmy.final}</strong><br>
+                        ${hidden.visual === 33 ? '<br><b>Special Note:</b> Visual 33 detected (Day ' + day + ' and Month ' + month + ').' : ''}
+                    </div>
+                </div>
+
+                <div class="detail-item" onclick="this.classList.toggle('expanded')">
+                    <div class="item-header">
+                        <div class="item-content">
+                            <strong>Chinese Zodiac</strong> 
+                            <span class="main-value text-master">${getChineseZodiac(year, month, day)}</span>
+                            <small>Lunar Year Based</small>
+                        </div>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="detail-calculation">
+                        The <strong>Chinese Zodiac</strong> changes according to the Lunar New Year (usually late January to mid-February) and follows a 12-year animal cycle paired with a 10-year element cycle.<br><br>
+                        <strong>Date:</strong> ${day}.${month}.${year} &rarr; <strong>${getChineseZodiac(year, month, day)}</strong>
+                    </div>
                 </div>
             </div>
             
-            <div class="detail-item" onclick="this.classList.toggle('expanded')">
-                <div class="item-header">
-                    <div class="item-content">
-                        <strong>Day Number</strong> 
-                        <span class="main-value ${getHiddenClass(dayNum)}">${dayNum}</span>
-                        <small>Reduced from ${day}</small>
-                    </div>
-                    <span class="expand-icon">▼</span>
-                </div>
-                <div class="detail-calculation">
-                    The <strong>Day Number</strong> is the sum of the digits of the calendar day, reduced to a single digit or Master Number.<br><br>
-                    <strong>Calculation:</strong> ${day} &rarr; <strong>${dayNum}</strong>
-                </div>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+            
+            <div style="line-height: 1.6; color: #555;">
+                <p><strong>Daily Insights:</strong></p>
+                <p>${dayNum === 20 ? '<b>Special Note:</b> The day 20 is considered a hidden 11.<br>' : ''}</p>
             </div>
-
-            <div class="detail-item" onclick="this.classList.toggle('expanded')">
-                <div class="item-header">
-                    <div class="item-content">
-                        <strong>Year Reducer</strong> 
-                        <span class="main-value ${getMasterClass(yearReducer)}">${yearReducer}</span>
-                        <small>Reduced from ${year}</small>
-                    </div>
-                    <span class="expand-icon">▼</span>
-                </div>
-                <div class="detail-calculation">
-                    The <strong>Year Reducer</strong> is the sum of the digits of the current calendar year.<br><br>
-                    <strong>Calculation:</strong> ${year} &rarr; <strong>${yearReducer}</strong>
-                </div>
-            </div>
-
-            <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
-                <div class="item-header">
-                    <div class="item-content">
-                        <strong>Hidden Numbers</strong> 
-                        <span class="main-value ${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
-                        <small>Day + Month + Year (1 Step)</small>
-                    </div>
-                    <span class="expand-icon">▼</span>
-                </div>
-                
-                <div class="hidden-energy-row">
-                    <div class="hidden-energy-box">
-                        <strong>Day + Month</strong>
-                        <span class="${getMasterClass(hidden.dm.final)}">${hidden.dm.raw} / ${hidden.dm.final}</span>
-                        <small>${day} + ${month}</small>
-                    </div>
-                    <div class="hidden-energy-box">
-                        <strong>Month + Year</strong>
-                        <span class="${getMasterClass(hidden.my.final)}">${hidden.my.raw} / ${hidden.my.final}</span>
-                        <small>${month} + (${yearSplitForm})</small>
-                    </div>
-                    <div class="hidden-energy-box">
-                        <strong>Day + Month + Year</strong>
-                        <span class="${getMasterClass(hidden.dmy.final)}">${hidden.dmy.raw} / ${hidden.dmy.final}</span>
-                        <small>${day} + ${month} + (${yearSplitForm})</small>
-                    </div>
-                </div>
-
-                <div class="detail-calculation">
-                    The <strong>Hidden Energy</strong> reveals underlying numerological influences. This system calculates three components without reducing the day or month, but reducing the year by one step (${year} &rarr; ${yearSplitForm} = ${hidden.reducedYear1}).<br><br>
-                    1. <strong>Day + Month:</strong> ${day} + ${month} = ${hidden.dm.raw} &rarr; <strong>${hidden.dm.final}</strong><br>
-                    2. <strong>Month + Year:</strong> ${month} + (${yearSplitForm}) = ${hidden.my.raw} &rarr; <strong>${hidden.my.final}</strong><br>
-                    3. <strong>Full Hidden Sum:</strong> ${day} + ${month} + (${yearSplitForm}) = ${hidden.dmy.raw} &rarr; <strong>${hidden.dmy.final}</strong><br>
-                    ${hidden.visual === 33 ? '<br><b>Special Note:</b> Visual 33 detected (Day ' + day + ' and Month ' + month + ').' : ''}
-                </div>
-            </div>
-
-            <div class="detail-item" onclick="this.classList.toggle('expanded')">
-                <div class="item-header">
-                    <div class="item-content">
-                        <strong>Chinese Zodiac</strong> 
-                        <span class="main-value text-master">${getChineseZodiac(year, month, day)}</span>
-                        <small>Lunar Year Based</small>
-                    </div>
-                    <span class="expand-icon">▼</span>
-                </div>
-                <div class="detail-calculation">
-                    The <strong>Chinese Zodiac</strong> changes according to the Lunar New Year (usually late January to mid-February) and follows a 12-year animal cycle paired with a 10-year element cycle.<br><br>
-                    <strong>Date:</strong> ${day}.${month}.${year} &rarr; <strong>${getChineseZodiac(year, month, day)}</strong>
-                </div>
-            </div>
-        </div>
-        
-        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-        
-        <div style="line-height: 1.6; color: #555;">
-            <p><strong>Daily Insights:</strong></p>
-            <p>${dayNum === 20 ? '<b>Special Note:</b> The day 20 is considered a hidden 11.<br>' : ''}</p>
-        </div>
-    `;
+            ${energyReadingHTML}
+            ${compatibilityReadingHTML}
+        `;
 }
 
 function renderCalendar(date) {

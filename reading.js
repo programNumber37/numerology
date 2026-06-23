@@ -8,6 +8,7 @@ const birthDateInput = document.getElementById("birthDate");
 const readingResult = document.getElementById("readingResult");
 const readingEmpty = document.getElementById("readingEmpty");
 const readingGrid = document.getElementById("readingGrid");
+const compatibilitySection = document.getElementById("compatibilitySection");
 const readingQuotes = document.getElementById("readingQuotes");
 const shareReadingBtn = document.getElementById("shareReadingBtn");
 
@@ -32,6 +33,94 @@ const nameGrid = document.getElementById("nameGrid");
 const nameAnalysisContent = document.getElementById("nameAnalysisContent");
 
 // ============================================
+// COMPATIBILITY DATA & HELPERS
+// ============================================
+let compatibilityData = null;
+
+const COMPATIBILITY_FALLBACK = [
+    { "number": 1, "planet": "Sun", "friendly": [1, 2, 3, 5, 6, 9], "neutral": [4, 7], "enemy": [8] },
+    { "number": 2, "planet": "Moon", "friendly": [1, 2, 3, 5], "neutral": [6, 7], "enemy": [4, 8, 9] },
+    { "number": 3, "planet": "Jupiter", "friendly": [1, 2, 3, 5, 7], "neutral": [4, 8, 9], "enemy": [6] },
+    { "number": 4, "planet": "Rahu", "friendly": [1, 4, 5, 6, 7, 8], "neutral": [3], "enemy": [2, 9] },
+    { "number": 5, "planet": "Mercury", "friendly": [1, 2, 3, 5, 6], "neutral": [4, 7, 8, 9], "enemy": [] },
+    { "number": 6, "planet": "Venus", "friendly": [1, 4, 5, 6, 7], "neutral": [2, 8, 9], "enemy": [3] },
+    { "number": 7, "planet": "Ketu", "friendly": [1, 3, 4, 5, 6], "neutral": [2, 7, 8, 9], "enemy": [] },
+    { "number": 8, "planet": "Saturn", "friendly": [3, 4, 5, 6, 7, 8], "neutral": [], "enemy": [1, 2, 9] },
+    { "number": 9, "planet": "Mars", "friendly": [1, 3, 5], "neutral": [6, 7, 8, 9], "enemy": [2, 4] }
+];
+
+const planetMap = {
+    1: "Sun",
+    2: "Moon",
+    3: "Jupiter",
+    4: "Rahu",
+    5: "Mercury",
+    6: "Venus",
+    7: "Ketu",
+    8: "Saturn",
+    9: "Mars"
+};
+
+function getCompatibilityNumber(num) {
+    let current = num;
+    while (current > 9) {
+        current = String(current).split('').reduce((acc, curr) => acc + parseInt(curr), 0);
+    }
+    return current;
+}
+
+function renderCompatibilityCard(typeLabel, originalNum, accentClass) {
+    const reducedNum = getCompatibilityNumber(originalNum);
+    const profile = compatibilityData.find(item => item.number === reducedNum) ||
+        COMPATIBILITY_FALLBACK.find(item => item.number === reducedNum);
+
+    if (!profile) return '';
+
+    const createBadgesHTML = (list, relationType) => {
+        if (!list || list.length === 0) return `<span style="font-size: 0.85rem; color: var(--th-text-muted); font-style: italic;">None</span>`;
+        return list.map(n => {
+            const planet = planetMap[n] || "Unknown";
+            return `<span class="rd-number-badge rd-number-badge--${relationType}" title="Number ${n} (${planet}): ${relationType.charAt(0).toUpperCase() + relationType.slice(1)} relationship with ${typeLabel} ${originalNum}">
+                ${n}
+            </span>`;
+        }).join('');
+    };
+
+    return `
+        <div class="rd-compatibility-card ${accentClass}">
+            <div class="rd-comp-header">
+                <div class="rd-comp-title-group">
+                    <span class="rd-comp-type">${typeLabel}</span>
+                    <span class="rd-comp-number">${originalNum}</span>
+                </div>
+                <span class="rd-comp-planet-badge">Ruling: ${profile.planet}</span>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Friendly (Goes Well)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(profile.friendly, 'friendly')}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Neutral</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(profile.neutral, 'neutral')}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Enemy</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(profile.enemy, 'enemy')}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================
 // TABS LOGIC
 // ============================================
 function switchTab(tab) {
@@ -45,6 +134,7 @@ function switchTab(tab) {
         nameReadingForm.classList.add('hidden');
 
         readingResult.classList.add('hidden');
+        if (compatibilitySection) compatibilitySection.classList.add('hidden');
         wordResult.classList.add('hidden');
         nameResult.classList.add('hidden');
 
@@ -60,6 +150,7 @@ function switchTab(tab) {
         nameReadingForm.classList.add('hidden');
 
         readingResult.classList.add('hidden');
+        if (compatibilitySection) compatibilitySection.classList.add('hidden');
         wordResult.classList.add('hidden');
         nameResult.classList.add('hidden');
 
@@ -75,6 +166,7 @@ function switchTab(tab) {
         wordReadingForm.classList.add('hidden');
 
         readingResult.classList.add('hidden');
+        if (compatibilitySection) compatibilitySection.classList.add('hidden');
         wordResult.classList.add('hidden');
         nameResult.classList.add('hidden');
 
@@ -158,11 +250,13 @@ getReadingBtn.addEventListener("click", () => {
     let insightsHTML = `<h3 class="rd-insights-title">Your Numerology Insights</h3>`;
 
     // Add Lifepath Reading
-    if (readingsDatabase.lifepaths[lp.final]) {
+    const lpLookupKey = readingsDatabase.lifepaths[lp.final] ? lp.final : getCompatibilityNumber(lp.final);
+    if (readingsDatabase.lifepaths[lpLookupKey]) {
+        const titleText = lp.final === lpLookupKey ? `Lifepath ${lp.final}` : `Lifepath ${lpLookupKey} (${lp.final})`;
         insightsHTML += `
             <div class="rd-card rd-card--lifepath">
-                <h4 class="rd-card__title">Lifepath ${lp.final}</h4>
-                <p class="rd-card__text">${readingsDatabase.lifepaths[lp.final]}</p>
+                <h4 class="rd-card__title">${titleText}</h4>
+                <p class="rd-card__text">${readingsDatabase.lifepaths[lpLookupKey]}</p>
             </div>
         `;
     }
@@ -250,7 +344,7 @@ getReadingBtn.addEventListener("click", () => {
 
         const currentAnimalName = Object.keys(signIndexMap).find(key => signIndexMap[key] === (currentYear % 12));
         const currentFare = czData.yearly_fares && czData.yearly_fares[currentAnimalName] ? czData.yearly_fares[currentAnimalName] : "No description available.";
-        
+
         const zodiacOrder = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep", "Monkey", "Rooster", "Dog", "Boar"];
         let allFaresHTML = '';
         if (czData.yearly_fares) {
@@ -308,6 +402,7 @@ getReadingBtn.addEventListener("click", () => {
                         </div>
                     </div>
                     
+                    
                     <h5 class="rd-section-title">The ${czElement} ${czAnimal}</h5>
                     <p class="rd-section-text">${typeData}</p>
                     
@@ -320,6 +415,25 @@ getReadingBtn.addEventListener("click", () => {
     }
 
     readingQuotes.innerHTML = insightsHTML;
+
+    // Render Compatibility
+    if (!compatibilityData) {
+        compatibilityData = COMPATIBILITY_FALLBACK;
+    }
+
+    const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
+    const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+
+    if (compatibilitySection) {
+        compatibilitySection.innerHTML = `
+            <h3 class="rd-compatibility-title">✦ Number Compatibility ✦</h3>
+            <div class="rd-compatibility-grid">
+                ${lpCompatibilityHTML}
+                ${dayCompatibilityHTML}
+            </div>
+        `;
+        compatibilitySection.classList.remove("hidden");
+    }
 
     readingEmpty.classList.add("hidden");
     readingResult.classList.remove("hidden");
@@ -660,6 +774,17 @@ nameInput.addEventListener('keydown', (e) => {
 // URL PARAMS & SHARING
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
+    // Fetch compatibility JSON dynamically
+    fetch("number compability.json")
+        .then(response => response.json())
+        .then(data => {
+            compatibilityData = data;
+        })
+        .catch(err => {
+            console.warn("Using fallback compatibility data due to fetch error:", err);
+            compatibilityData = COMPATIBILITY_FALLBACK;
+        });
+
     const urlParams = new URLSearchParams(window.location.search);
     const dob = urlParams.get('dob');
     if (dob) {

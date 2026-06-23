@@ -1529,3 +1529,20 @@ body {
         font-size: 1rem;
     }
 }
+
+/* Dark Theme Compatibility Badge Overrides */
+[data-theme="dark"] .rd-number-badge--friendly {
+    background: rgba(129, 199, 132, 0.15);
+    color: #81c784;
+    border-color: rgba(129, 199, 132, 0.3);
+}
+[data-theme="dark"] .rd-number-badge--neutral {
+    background: rgba(176, 190, 197, 0.15);
+    color: #cfd8dc;
+    border-color: rgba(176, 190, 197, 0.3);
+}
+[data-theme="dark"] .rd-number-badge--enemy {
+    background: rgba(244, 143, 177, 0.15);
+    color: #f48fb1;
+    border-color: rgba(244, 143, 177, 0.3);
+}

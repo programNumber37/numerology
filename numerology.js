@@ -71,13 +71,7 @@ function calculateHiddenSum(day, month, year = new Date().getFullYear()) {
 
 // Emoji mapping 
 function getEmojis(numbersArray) {
-    let emojis = [];
-    if (numbersArray.includes(7)) emojis.push('🦴');
-    if (numbersArray.includes(4)) emojis.push('👮');
-    if (numbersArray.includes(1)) emojis.push('💪');
-    if (numbersArray.includes(28)) emojis.push('💰');
-    if (numbersArray.includes(8)) emojis.push('♾️');
-    return emojis;
+    return [];
 }
 
 // Chinese Zodiac mapping
