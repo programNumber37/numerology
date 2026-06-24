@@ -222,21 +222,21 @@ function updateDetailsPanel(dateStr, day, month, year) {
     if (energyGuideData) {
         const reducedLP = getSingleDigit(lp.final);
         const reducedDay = getSingleDigit(dayNum);
-        
+
         const lpEnergy = energyGuideData.find(item => item.day === reducedLP);
         const dayEnergy = energyGuideData.find(item => item.day === reducedDay);
-        
+
         const renderGuideCard = (titlePrefix, originalNum, energyObj, featuredClass) => {
             if (!energyObj) return '';
-            
+
             const doListHTML = energyObj.do.map(item => `
                 <li class="energy-li"><strong>${item.action}</strong>: ${item.details}</li>
             `).join('');
-            
+
             const avoidListHTML = energyObj.avoid.map(item => `
                 <li class="energy-li"><strong>${item.action}</strong>: ${item.details}</li>
             `).join('');
-            
+
             return `
                 <div class="energy-card ${featuredClass}">
                     <div class="energy-header">
@@ -261,10 +261,10 @@ function updateDetailsPanel(dateStr, day, month, year) {
                 </div>
             `;
         };
-        
+
         const lpCardHTML = renderGuideCard("Life Path", lp.final, lpEnergy, "energy-card--featured");
         const dayCardHTML = renderGuideCard("Day Number", dayNum, dayEnergy, "energy-card--day");
-        
+
         energyReadingHTML = `
             <div class="energy-reading-section">
                 <h4 class="energy-section-title">Daily Energy Guide</h4>
@@ -284,10 +284,10 @@ function updateDetailsPanel(dateStr, day, month, year) {
         `;
     }
 
-        const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
-        const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+    const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
+    const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
 
-        const compatibilityReadingHTML = `
+    const compatibilityReadingHTML = `
             <div class="rd-compatibility-section" style="margin-top: 24px;">
                 <h4 class="rd-compatibility-title">Number Compatibility</h4>
                 <div class="rd-compatibility-grid">
@@ -297,7 +297,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
             </div>
         `;
 
-        detailsContent.innerHTML = `
+    detailsContent.innerHTML = `
             <div class="detail-grid">
                 <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
                     <div class="item-header">
@@ -411,6 +411,39 @@ function updateDetailsPanel(dateStr, day, month, year) {
         `;
 }
 
+let prevDateForAnim = null;
+
+function animateRoll(container, targetElement, oldText, newText, direction) {
+    if (oldText === newText) return;
+
+    if (targetElement.tagName === "INPUT") {
+        targetElement.value = newText;
+    } else {
+        targetElement.innerText = newText;
+    }
+    targetElement.classList.add('transparent-text');
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'roll-wrapper';
+
+    const oldEl = document.createElement('div');
+    oldEl.className = `roll-value ${direction > 0 ? 'roll-up-old' : 'roll-down-old'}`;
+    oldEl.innerText = oldText;
+
+    const newEl = document.createElement('div');
+    newEl.className = `roll-value ${direction > 0 ? 'roll-up-new' : 'roll-down-new'}`;
+    newEl.innerText = newText;
+
+    wrapper.appendChild(oldEl);
+    wrapper.appendChild(newEl);
+    container.appendChild(wrapper);
+
+    setTimeout(() => {
+        if (wrapper.parentNode) wrapper.remove();
+        targetElement.classList.remove('transparent-text');
+    }, 500);
+}
+
 function renderCalendar(date) {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -418,8 +451,29 @@ function renderCalendar(date) {
 
     // Update Header
     const monthName = date.toLocaleString('default', { month: 'long' });
-    currentMonthText.innerText = monthName;
-    yearInput.value = year;
+
+    if (prevDateForAnim) {
+        const prevYear = prevDateForAnim.getFullYear();
+        const prevMonth = prevDateForAnim.getMonth();
+        const prevMonthName = prevDateForAnim.toLocaleString('default', { month: 'long' });
+
+        if (year !== prevYear) {
+            animateRoll(document.querySelector('.year-anim-container'), yearInput, prevYear.toString(), year.toString(), year > prevYear ? 1 : -1);
+        } else {
+            yearInput.value = year;
+        }
+
+        if (month !== prevMonth || year !== prevYear) {
+            const dir = (year > prevYear) || (year === prevYear && month > prevMonth) ? 1 : -1;
+            animateRoll(currentMonthText, currentMonthText, prevMonthName, monthName, dir);
+        } else {
+            currentMonthText.innerText = monthName;
+        }
+    } else {
+        currentMonthText.innerText = monthName;
+        yearInput.value = year;
+    }
+    prevDateForAnim = new Date(date);
 
     const lucky = calculateLuckyNumber(numerologyMonth, year);
     luckyNumDisplay.innerText = lucky;
@@ -565,6 +619,78 @@ yearInput.addEventListener("change", (e) => {
         renderCalendar(currentDate);
     }
 });
+
+function setupDrag(element, onDragComplete) {
+    let startY = 0;
+    let isDragging = false;
+    let lastTriggerTime = 0;
+
+    element.addEventListener("touchstart", (e) => {
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        lastTriggerTime = Date.now();
+    }, { passive: false });
+
+    element.addEventListener("touchmove", (e) => {
+        if (!isDragging) return;
+        // Prevent page scroll while dragging the odometer
+        e.preventDefault();
+
+        const currentY = e.touches[0].clientY;
+        const diff = currentY - startY;
+
+        // trigger every 30px, but enforce a 520ms cooldown to let animations play
+        if (Math.abs(diff) > 30 && (Date.now() - lastTriggerTime > 520)) {
+            onDragComplete(Math.sign(diff)); // 1 for down (prev), -1 for up (next)
+            startY = currentY; // reset to allow continuous scrolling ticks
+            lastTriggerTime = Date.now();
+        }
+    }, { passive: false });
+
+    element.addEventListener("touchend", () => {
+        isDragging = false;
+    });
+}
+
+setupDrag(yearInput, (dir) => {
+    const newYear = parseInt(yearInput.value) + dir;
+    if (!isNaN(newYear)) {
+        yearInput.value = newYear;
+        currentDate.setFullYear(newYear);
+        renderCalendar(currentDate);
+    }
+});
+
+setupDrag(currentMonthText, (dir) => {
+    currentDate.setMonth(currentDate.getMonth() + dir);
+    renderCalendar(currentDate);
+});
+
+let wheelTimeout;
+function handleWheel(e, action) {
+    e.preventDefault();
+    if (wheelTimeout) return;
+    wheelTimeout = setTimeout(() => { wheelTimeout = null; }, 520);
+    action(Math.sign(e.deltaY));
+}
+
+yearInput.addEventListener("wheel", (e) => {
+    handleWheel(e, (delta) => {
+        const newYear = parseInt(yearInput.value) + delta;
+        if (!isNaN(newYear)) {
+            yearInput.value = newYear;
+            currentDate.setFullYear(newYear);
+            renderCalendar(currentDate);
+        }
+    });
+});
+
+currentMonthText.addEventListener("wheel", (e) => {
+    handleWheel(e, (delta) => {
+        currentDate.setMonth(currentDate.getMonth() + delta);
+        renderCalendar(currentDate);
+    });
+}, { passive: false });
 
 function handleSearchUpdate() {
     const valLP = inputLP.value;

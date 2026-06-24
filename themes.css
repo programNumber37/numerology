@@ -451,11 +451,26 @@ body {
 }
 
 .calendar-nav button {
-    background: var(--th-cal-nav-btn) !important;
+    color: var(--th-text) !important;
 }
 
 .calendar-nav button:hover {
-    background: var(--th-cal-nav-btn-hover) !important;
+    color: var(--th-accent) !important;
+}
+
+[data-theme="dark"] .calendar-nav button,
+[data-theme="mystic"] .calendar-nav button {
+    background: var(--th-accent-bg) !important;
+    color: var(--th-accent) !important;
+    border: 1px solid var(--th-border) !important;
+    box-shadow: 0 0 12px var(--th-accent-bg) !important;
+}
+
+[data-theme="dark"] .calendar-nav button:hover,
+[data-theme="mystic"] .calendar-nav button:hover {
+    background: var(--th-surface-alt) !important;
+    border-color: var(--th-accent) !important;
+    box-shadow: 0 0 16px var(--th-accent-bg) !important;
 }
 
 #currentMonth {
@@ -746,11 +761,12 @@ body {
     flex-shrink: 0;
     background: var(--th-surface);
     border-radius: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 24px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 10px 24px rgba(0, 0, 0, 0.04);
     border: 1px solid var(--th-border-light);
     padding: 24px;
     position: sticky;
     top: 24px;
+    box-sizing: border-box;
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -847,6 +863,7 @@ body {
 .rd-sidebar .search-group input,
 .rd-sidebar .word-input-field {
     width: 100%;
+    max-width: 100%; /* Fix iOS Safari clipping */
     padding: 12px 14px;
     border: 1.5px solid var(--th-input-border);
     border-radius: 12px;
@@ -858,6 +875,8 @@ body {
     box-sizing: border-box;
     min-height: 46px;
     outline: none;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 .rd-input:focus,
@@ -1218,9 +1237,13 @@ body {
 
 /* No left-border per type — color lives only in the title */
 .rd-card--lifepath {}
+
 .rd-card--month {}
+
 .rd-card--day {}
+
 .rd-card--year {}
+
 .rd-card--chinese {}
 
 .rd-card__title {
@@ -1248,6 +1271,7 @@ body {
 .rd-card--lifepath .rd-card__title {
     color: var(--th-rd-lifepath-accent);
 }
+
 .rd-card--lifepath .rd-card__title::before {
     background: var(--th-rd-lifepath-accent);
 }
@@ -1255,6 +1279,7 @@ body {
 .rd-card--month .rd-card__title {
     color: var(--th-rd-month-accent);
 }
+
 .rd-card--month .rd-card__title::before {
     background: var(--th-rd-month-accent);
 }
@@ -1262,6 +1287,7 @@ body {
 .rd-card--day .rd-card__title {
     color: var(--th-rd-day-accent);
 }
+
 .rd-card--day .rd-card__title::before {
     background: var(--th-rd-day-accent);
 }
@@ -1269,6 +1295,7 @@ body {
 .rd-card--year .rd-card__title {
     color: var(--th-rd-year-accent);
 }
+
 .rd-card--year .rd-card__title::before {
     background: var(--th-rd-year-accent);
 }
@@ -1276,6 +1303,7 @@ body {
 .rd-card--chinese .rd-card__title {
     color: var(--th-rd-chinese-accent);
 }
+
 .rd-card--chinese .rd-card__title::before {
     background: var(--th-rd-chinese-accent);
 }
@@ -1638,11 +1666,13 @@ body {
     color: #58d28d;
     border-color: rgba(88, 210, 141, 0.25);
 }
+
 [data-theme="dark"] .rd-number-badge--neutral {
     background: rgba(139, 148, 158, 0.15);
     color: #8b949e;
     border-color: rgba(139, 148, 158, 0.25);
 }
+
 [data-theme="dark"] .rd-number-badge--enemy {
     background: rgba(255, 123, 114, 0.12);
     color: #ff7b72;
@@ -1655,11 +1685,13 @@ body {
     color: #86efac;
     border-color: rgba(134, 239, 172, 0.25);
 }
+
 [data-theme="mystic"] .rd-number-badge--neutral {
     background: rgba(168, 155, 199, 0.15);
     color: #a89bc7;
     border-color: rgba(168, 155, 199, 0.25);
 }
+
 [data-theme="mystic"] .rd-number-badge--enemy {
     background: rgba(248, 113, 113, 0.12);
     color: #f87171;
@@ -1671,6 +1703,7 @@ body {
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
