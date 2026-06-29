@@ -54,7 +54,7 @@ body {
 .side-panel {
     background: #fff;
     border-radius: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 10px 24px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 24px rgba(0,0,0,0.04);
     border: 1px solid var(--th-border-light);
     padding: 24px;
     width: 280px;
@@ -156,7 +156,7 @@ body {
     margin-top: 10px;
     background: #fff;
     border-radius: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 10px 24px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 24px rgba(0,0,0,0.04);
     border: 1px solid var(--th-border-light);
     padding: 24px;
     box-sizing: border-box;
@@ -402,11 +402,11 @@ body {
 
 /* --- Calendar Card --- */
 .calendar-card {
-    background: var(--th-surface, #fff);
+    background: #fff;
     border-radius: 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 10px 30px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 24px rgba(0,0,0,0.04);
     border: 1px solid var(--th-border-light);
-    padding: 32px;
+    padding: 24px;
     flex-grow: 1;
 }
 
@@ -414,168 +414,84 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+    gap: 10px;
 }
 
 .calendar-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.header-title-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    width: 100%;
-}
-
-.top-nav-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.calendar-title {
+.header-title-group {
     display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 8px;
-    margin: 0;
-}
-
-.anim-container {
-    position: relative;
-    display: inline-block;
+    align-items: center;
+    gap: 10px;
 }
 
 #currentMonth {
-    font-size: 2.25rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--th-text);
-    padding: 0 12px;
-    border-radius: 8px;
-    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s cubic-bezier(0.2, 0, 0, 1);
-    cursor: ns-resize;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#currentMonth:hover {
-    color: var(--th-accent);
-    transform: translateY(-2px);
-}
-
-.year-anim-container {
-    margin-left: -8px;
-    position: relative;
-    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
 }
 
 .year-input {
-    font-family: inherit;
-    font-size: 2.25rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--th-text-muted);
-    background: transparent;
-    border: none;
-    padding: 0 8px;
-    margin-left: 0;
-    border-radius: 8px;
-    width: 4.2ch;
-    box-sizing: content-box;
-    outline: none;
-    text-align: left;
-    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s cubic-bezier(0.2, 0, 0, 1);
-    cursor: ns-resize;
-}
-
-.year-input:hover,
-.year-input:focus {
-    color: var(--th-accent) !important;
-    background-color: transparent !important;
-    transform: translateY(-2px);
-}
-
-.year-input::-webkit-outer-spin-button,
-.year-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.year-input[type=number] {
-    -moz-appearance: textfield;
+    font-size: 1.3rem;
+    padding: 5px;
+    width: 80px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #333;
+    font-weight: bold;
 }
 
 .calendar-nav button {
-    background: var(--th-surface, #ffffff);
-    color: var(--th-cal-nav-btn, #0071e3);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    background: var(--th-cal-nav-btn);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease;
 }
 
 .calendar-nav button:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-    background-color: var(--th-bg, #f8f9fa);
+    background: var(--th-cal-nav-btn-hover);
 }
 
 .calendar-nav button:active {
     transform: scale(0.96);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-}
-
-.calendar-nav button svg {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .header-lucky {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 700;
-    color: var(--th-text-secondary);
+    background-color: #f8f9fa;
+    padding: 5px 15px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+    color: #555;
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
-    background: var(--th-surface-alt, #f8f9fa);
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--th-border-light, #ddd);
+    gap: 5px;
 }
 
 .header-lucky strong {
-    color: var(--th-accent);
-    font-size: 0.85rem;
+    color: #007bff;
+    font-size: 1.1rem;
 }
 
 .weekdays-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--th-text-muted);
-    margin-bottom: 16px;
-    font-size: 0.75rem;
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
 }
 
 .days-grid {
@@ -1255,18 +1171,6 @@ body {
         /* Reduce global padding to maximize horizontal real estate */
     }
 
-    .calendar-title {
-        font-size: 1.6rem;
-    }
-
-    .roll-value {
-        font-size: 1.6rem;
-    }
-
-    .calendar-nav button {
-        flex-shrink: 0;
-    }
-
     .calendar-card {
         padding: 5px;
         /* Reduce padding to maximize grid space */
@@ -1495,122 +1399,6 @@ body {
 }
 
 .rd-number-badge {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin-right: 8px;
-}
-
-/* Rolling Animation Classes */
-.roll-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    border-radius: 8px;
-}
-
-.roll-value {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: inherit;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: 2.25rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-}
-
-/* Specific alignments so the animated text matches the original perfectly */
-.anim-container .roll-value {
-    justify-content: center;
-    color: var(--th-text);
-}
-
-.year-anim-container .roll-value {
-    justify-content: flex-start;
-    padding-left: 8px;
-    color: var(--th-text-muted);
-}
-
-.roll-up-old {
-    animation: rollUpOld 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
-}
-
-.roll-up-new {
-    animation: rollUpNew 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
-}
-
-.roll-down-old {
-    animation: rollDownOld 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
-}
-
-.roll-down-new {
-    animation: rollDownNew 0.5s cubic-bezier(0.2, 0, 0, 1) forwards;
-}
-
-@keyframes rollUpOld {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-}
-
-@keyframes rollUpNew {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes rollDownOld {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-}
-
-@keyframes rollDownNew {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-#currentMonth.transparent-text,
-.year-input.transparent-text {
-    color: transparent !important;
-}
-
-.rd-number-badge {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -1668,7 +1456,6 @@ body {
         grid-template-columns: 1fr;
         gap: 16px;
     }
-
     .rd-compatibility-section {
         margin-top: 24px;
     }
@@ -1796,58 +1583,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-
-.energy-list strong {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 700;
-}
-
-.energy-list--do strong {
-    color: #2e7d32;
-}
-
-.energy-list--avoid strong {
-    color: #c62828;
-}
-
-.energy-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.energy-li {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--th-text-secondary);
-    position: relative;
-    padding-left: 16px;
-}
-
-.energy-list--do .energy-li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: #2e7d32;
-    font-weight: bold;
-}
-
-.energy-list--avoid .energy-li::before {
-    content: '✗';
-    position: absolute;
-    left: 0;
-    color: #c62828;
-    font-weight: bold;
-}
-
-.hidden {
-    display: none !important;
 }
 
 .energy-list strong {
