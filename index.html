@@ -12,19 +12,20 @@
         rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="themes.css">
+    <link rel="stylesheet" href="themes.css?v=2">
 </head>
 
 <body>
 
     <div class="main-container">
 
-        <div style="display: flex; justify-content: flex-end; margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 15px;">
+            <a href="reading.html" class="header-title-group pill-container report-btn" style="text-decoration: none; color: var(--th-text-secondary); padding: 4px 16px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; height: 32px; box-sizing: border-box;">
+                Report
+            </a>
             <div class="theme-toggle-bar" id="themeToggleBar">
                 <button class="theme-toggle-btn" data-theme="original" aria-label="Original theme">✦ Original</button>
                 <button class="theme-toggle-btn active" data-theme="warm" aria-label="Warm theme">◈ Warm</button>
-                <button class="theme-toggle-btn" data-theme="dark" aria-label="Dark theme">◉ Night</button>
-                <button class="theme-toggle-btn" data-theme="mystic" aria-label="Mystic theme">✧ Mystic</button>
             </div>
         </div>
 
@@ -39,7 +40,6 @@
                         <span id="finderChevron"
                             style="margin-left: 8px; font-size: 0.8rem; transition: transform 0.3s;">▼</span>
                     </div>
-                    <a href="reading.html" class="nav-link" style="font-size: 0.9rem;">My Reading &rarr;</a>
                 </div>
 
                 <div id="advancedSearchPanel" class="advanced-search-panel hidden">
@@ -99,9 +99,26 @@
                     <div class="calendar-nav">
                         <button id="prevBtn">&lt;</button>
 
-                        <div class="header-title-group">
-                            <span id="currentMonth">Month</span>
-                            <input type="number" id="yearInput" class="year-input" value="2026">
+                        <div class="header-title-group pill-container">
+                            <div class="scrollable-value" aria-label="Month (Scroll to change)" tabindex="-1">
+                                <select id="monthSelect" class="clean-select" aria-label="Month">
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10">November</option>
+                                    <option value="11">December</option>
+                                </select>
+                            </div>
+                            <div class="scrollable-value" aria-label="Year (Scroll to change)" tabindex="-1">
+                                <input type="number" id="yearInput" class="clean-input" value="2026" min="1" max="9999">
+                            </div>
                         </div>
 
                         <button id="nextBtn">&gt;</button>
@@ -124,6 +141,10 @@
                 <div class="days-grid" id="daysContainer">
                 </div>
             </div>
+
+            <button id="mobileToolsToggle" class="btn-secondary" style="display: none; width: 100%; max-width: 500px; padding: 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">
+                Show Tools (Finder & Legend) ▼
+            </button>
 
             <div class="side-panel legend-card">
                 <h3>Legend</h3>

@@ -1680,3 +1680,201 @@ body {
         scroll-behavior: auto !important;
     }
 }
+/* ============================================
+   PREMIUM CALENDAR EXPERIENCE
+   ============================================ */
+
+:root,
+[data-theme="original"] {
+    --th-bg: #f5f5f7;
+    --th-card-shadow: 0 1px 1px rgba(0, 0, 0, 0.03), 0 24px 70px rgba(0, 0, 0, 0.07);
+    --th-card-hover-shadow: 0 20px 46px rgba(0, 0, 0, 0.1);
+    --th-control-bg: #f5f5f7;
+    --th-control-hover: #e8e8ed;
+    --th-control-text: #1d1d1f;
+    --th-soft-panel: rgba(245, 245, 247, 0.82);
+}
+
+[data-theme="warm"] {
+    --th-bg: #f7f2ec;
+    --th-card-shadow: 0 1px 1px rgba(64, 42, 31, 0.03), 0 24px 70px rgba(64, 42, 31, 0.08);
+    --th-card-hover-shadow: 0 20px 46px rgba(64, 42, 31, 0.12);
+    --th-control-bg: #f4ebe2;
+    --th-control-hover: #eadbcc;
+    --th-control-text: #3e2a1f;
+    --th-soft-panel: rgba(250, 243, 236, 0.86);
+}
+
+[data-theme="dark"] {
+    --th-card-shadow: 0 1px 1px rgba(0, 0, 0, 0.35), 0 24px 70px rgba(0, 0, 0, 0.38);
+    --th-card-hover-shadow: 0 20px 46px rgba(0, 0, 0, 0.42);
+    --th-control-bg: #21262d;
+    --th-control-hover: #30363d;
+    --th-control-text: #e6edf3;
+    --th-soft-panel: rgba(31, 41, 55, 0.82);
+}
+
+[data-theme="mystic"] {
+    --th-card-shadow: 0 1px 1px rgba(0, 0, 0, 0.35), 0 24px 70px rgba(0, 0, 0, 0.42);
+    --th-card-hover-shadow: 0 20px 46px rgba(0, 0, 0, 0.46);
+    --th-control-bg: #1a1728;
+    --th-control-hover: #252038;
+    --th-control-text: #ede9f8;
+    --th-soft-panel: rgba(26, 23, 40, 0.82);
+}
+
+.side-panel,
+.calendar-card,
+.details-panel,
+.search-results-section {
+    border-color: var(--th-border-light) !important;
+    box-shadow: var(--th-card-shadow) !important;
+}
+
+.side-panel:hover,
+.calendar-card:hover,
+.details-panel:hover {
+    box-shadow: var(--th-card-shadow) !important;
+}
+
+.header-title-group,
+.advanced-search-panel {
+    background: var(--th-soft-panel) !important;
+    border-color: var(--th-border-light) !important;
+}
+
+.calendar-nav button {
+    background: var(--th-control-bg) !important;
+    color: var(--th-control-text) !important;
+}
+
+.calendar-nav button:hover {
+    background: var(--th-control-hover) !important;
+}
+
+.month-select,
+.year-input {
+    color: var(--th-text) !important;
+}
+
+.month-select:hover,
+.year-input:hover {
+    background: var(--th-surface) !important;
+}
+
+.search-group input:focus,
+.month-select:focus,
+.year-input:focus,
+.day-cell:focus {
+    box-shadow: 0 0 0 4px var(--th-input-focus-shadow) !important;
+}
+
+.btn-primary-small {
+    box-shadow: 0 10px 22px color-mix(in srgb, var(--th-accent) 24%, transparent) !important;
+}
+
+.btn-primary-small:hover {
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--th-accent) 30%, transparent) !important;
+}
+
+.report-btn {
+    transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s ease, background-color 0.2s ease !important;
+    will-change: transform;
+}
+
+.report-btn:hover {
+    box-shadow: var(--th-card-hover-shadow) !important;
+    transform: translateY(-2px) !important;
+    background: var(--th-surface) !important;
+}
+
+.report-btn:active {
+    transform: scale(0.96) !important;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05) !important;
+}
+
+.day-cell {
+    background: var(--th-soft-panel) !important;
+    border-color: var(--th-border-light) !important;
+    border-radius: 16px !important;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05) !important;
+}
+
+.day-cell:hover {
+    box-shadow: var(--th-card-hover-shadow) !important;
+}
+
+.day-cell.selected {
+    box-shadow: 0 0 0 4px var(--th-input-focus-shadow), var(--th-card-hover-shadow) !important;
+}
+
+.day-cell.today {
+    border-color: #ff3b30 !important;
+    box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.12), 0 14px 30px rgba(255, 59, 48, 0.12) !important;
+}
+
+.day-cell.master-33-cell {
+    background: rgba(255, 149, 0, 0.1) !important;
+    border-color: rgba(255, 149, 0, 0.55) !important;
+}
+
+.day-cell.master-22-cell {
+    background: rgba(0, 122, 255, 0.09) !important;
+    border-color: rgba(0, 122, 255, 0.42) !important;
+}
+
+.day-cell.master-11-cell,
+.day-cell.hidden-master-cell {
+    background: rgba(175, 82, 222, 0.08) !important;
+    border-color: rgba(175, 82, 222, 0.34) !important;
+}
+
+.day-cell.search-match {
+    background: rgba(52, 199, 89, 0.1) !important;
+    border-color: rgba(52, 199, 89, 0.65) !important;
+    box-shadow: 0 0 0 4px rgba(52, 199, 89, 0.14), 0 18px 34px rgba(52, 199, 89, 0.14) !important;
+}
+
+.details-header {
+    background: linear-gradient(180deg, var(--th-soft-panel), transparent) !important;
+}
+
+.detail-item,
+.hidden-energy-box,
+.energy-card,
+.rd-compatibility-card,
+.result-box {
+    box-shadow: none !important;
+}
+
+.detail-item:hover,
+.energy-card:hover,
+.rd-compatibility-card:hover,
+.result-box:hover {
+    box-shadow: var(--th-card-hover-shadow) !important;
+}
+
+.details-header button:hover,
+#finderToggle:hover,
+.nav-link:hover {
+    background: var(--th-control-bg) !important;
+}
+
+.detail-divider {
+    border-top-color: var(--th-border-light) !important;
+}
+
+.detail-insights {
+    background: var(--th-soft-panel) !important;
+    border-color: var(--th-border-light) !important;
+    color: var(--th-text-secondary) !important;
+}
+
+.detail-insights strong {
+    color: var(--th-text) !important;
+}
+
+.panel-chevron {
+    color: var(--th-text-muted) !important;
+}
+

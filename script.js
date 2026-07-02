@@ -135,7 +135,7 @@ let searchFilterDay = null;
 let searchFilterAny = null;
 
 const daysContainer = document.getElementById("daysContainer");
-const currentMonthText = document.getElementById("currentMonth");
+const monthSelect = document.getElementById("monthSelect");
 const yearInput = document.getElementById("yearInput");
 const luckyNumDisplay = document.getElementById("luckyNumDisplay");
 
@@ -417,8 +417,7 @@ function renderCalendar(date) {
     const numerologyMonth = month + 1;
 
     // Update Header
-    const monthName = date.toLocaleString('default', { month: 'long' });
-    currentMonthText.innerText = monthName;
+    monthSelect.value = String(month);
     yearInput.value = year;
 
     const lucky = calculateLuckyNumber(numerologyMonth, year);
@@ -558,13 +557,47 @@ function selectDay(cell, dateStr, day, month, year) {
 // 4. YEAR & INPUT LOGIC
 // ==========================================
 
-yearInput.addEventListener("change", (e) => {
-    const newYear = parseInt(e.target.value);
-    if (!isNaN(newYear)) {
-        currentDate.setFullYear(newYear);
-        renderCalendar(currentDate);
+function setCalendarMonthYear(month, year) {
+    if (Number.isNaN(month) || Number.isNaN(year)) return;
+    const day = Math.min(
+        currentDate.getDate(),
+        new Date(year, month + 1, 0).getDate()
+    );
+    currentDate = new Date(year, month, day);
+    renderCalendar(currentDate);
+}
+
+function handleScrollChange(e, type) {
+    e.preventDefault();
+    const delta = Math.sign(e.deltaY);
+    if (delta === 0) return;
+    
+    let newMonth = currentDate.getMonth();
+    let newYear = currentDate.getFullYear();
+    
+    if (type === 'month') {
+        newMonth += (delta > 0 ? 1 : -1);
+    } else if (type === 'year') {
+        newYear += (delta > 0 ? 1 : -1);
     }
-});
+    
+    setCalendarMonthYear(newMonth, newYear);
+}
+
+if (monthSelect) {
+    monthSelect.addEventListener("wheel", (e) => handleScrollChange(e, 'month'), { passive: false });
+    monthSelect.addEventListener("change", (e) => setCalendarMonthYear(parseInt(e.target.value, 10), currentDate.getFullYear()));
+}
+
+if (yearInput) {
+    yearInput.addEventListener("wheel", (e) => handleScrollChange(e, 'year'), { passive: false });
+    yearInput.addEventListener("change", (e) => {
+        const newYear = parseInt(e.target.value, 10);
+        if (!isNaN(newYear) && newYear >= 1 && newYear <= 9999) {
+            setCalendarMonthYear(currentDate.getMonth(), newYear);
+        }
+    });
+}
 
 function handleSearchUpdate() {
     const valLP = inputLP.value;
@@ -613,6 +646,20 @@ finderToggle.addEventListener("click", () => {
         finderChevron.style.transform = "rotate(180deg)";
     }
 });
+
+const mobileToolsToggle = document.getElementById("mobileToolsToggle");
+if (mobileToolsToggle) {
+    mobileToolsToggle.addEventListener("click", () => {
+        document.querySelectorAll(".side-panel").forEach(panel => {
+            panel.classList.toggle("mobile-show");
+        });
+        if (mobileToolsToggle.innerText.includes("Show Tools")) {
+            mobileToolsToggle.innerText = "Hide Tools (Finder & Legend) ▲";
+        } else {
+            mobileToolsToggle.innerText = "Show Tools (Finder & Legend) ▼";
+        }
+    });
+}
 
 // ==========================================
 // 5. FIND MATCHES ("SHOW LIST") LOGIC

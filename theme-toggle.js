@@ -3,7 +3,7 @@
 // ============================================
 
 (function initTheme() {
-    const saved = localStorage.getItem('numerologyTheme') || 'warm';
+    const saved = localStorage.getItem('numerologyTheme') || 'original';
     document.documentElement.setAttribute('data-theme', saved);
     document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.theme === saved);
