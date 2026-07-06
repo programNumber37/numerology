@@ -458,6 +458,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     cursor: pointer;
     font-size: 1.2rem;
     font-weight: 700;
@@ -695,28 +696,61 @@ body {
     display: none;
 }
 
+
 .details-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    padding-bottom: 16px;
     margin-bottom: 15px;
+    position: relative;
+    gap: 10px;
 }
 
 .details-header h3 {
     margin: 0;
-    color: #333;
+    color: var(--th-text, #3e2a1f);
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: inherit;
     display: flex;
     align-items: center;
+    gap: 8px;
+    border: 1px solid var(--th-border, #e0e0e0);
+    border-radius: 50px;
+    padding: 6px 20px;
+    background-color: var(--th-surface-alt, #fafafa);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 3px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+    text-wrap: balance;
 }
 
 .details-header button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    position: absolute;
+    right: 0;
+    flex-shrink: 0;
+    background-color: var(--th-surface-alt, #fafafa);
+    border: 1px solid var(--th-border, #e0e0e0);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    line-height: 1;
     cursor: pointer;
-    color: #777;
+    color: var(--th-text-muted, #aaa);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 3px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: color 0.2s cubic-bezier(0.2, 0, 0, 1), transform 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.details-header button:hover {
+    color: var(--th-text, #3e2a1f);
+    background-color: var(--th-surface, #fff);
+}
+
+.details-header button:active {
+    transform: scale(0.96);
 }
 
 .detail-grid {
@@ -1316,12 +1350,12 @@ body {
 }
 
 .rd-compatibility-card {
-    background: var(--th-surface);
+    background: transparent;
     border-radius: 24px;
     padding: 24px;
-    box-shadow: var(--th-card-shadow);
-    border: 1px solid var(--th-border-light);
-    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+    box-shadow: none;
+    border: 1px solid var(--th-border);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -1745,4 +1779,27 @@ body {
 
 .clean-input[type=number] {
     -moz-appearance: textfield;
+}
+
+/* Fix calendar nav overflow on very narrow screens */
+@media (max-width: 420px) {
+    .calendar-nav button {
+        width: 34px;
+        height: 34px;
+        font-size: 1.1rem;
+    }
+
+    .scrollable-value {
+        font-size: 1.15rem;
+        min-width: unset;
+    }
+
+    .pill-container {
+        padding: 2px 6px;
+        gap: 2px;
+    }
+
+    .clean-input {
+        width: 4.2ch;
+    }
 }

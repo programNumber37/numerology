@@ -173,7 +173,12 @@ function updateDetailsPanel(dateStr, day, month, year) {
     detailsPanel.classList.remove("hidden");
 
     const dateObj = new Date(dateStr);
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+    const dayNumStr = dateObj.getDate();
+    const monthName = dateObj.toLocaleDateString('en-US', { month: 'long' });
+    const yearStr = dateObj.getFullYear();
+    const formattedDate = `${dayName}, ${dayNumStr} ${monthName}, ${yearStr}`;
 
     const lp = calculateLifePath(day, month, year);
     const dayNum = calculateDayNumber(day);
@@ -194,7 +199,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
 
     const yearSplitForm = String(year).split('').join('+');
 
-    detailsDate.innerHTML = `${dateObj.toLocaleDateString('en-US', options)} <span class="detail-emoji">${dayEmojis}</span>`;
+    detailsDate.innerHTML = `${formattedDate} <span class="detail-emoji">${dayEmojis}</span>`;
 
     const isThirtyThree = lp.final === 33 || dayNum === 33 || hidden.visual === 33 || hidden.raw === 33 || hidden.dm.final === 33 || hidden.my.final === 33 || hidden.dmy.final === 33;
     const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum);
@@ -222,21 +227,21 @@ function updateDetailsPanel(dateStr, day, month, year) {
     if (energyGuideData) {
         const reducedLP = getSingleDigit(lp.final);
         const reducedDay = getSingleDigit(dayNum);
-        
+
         const lpEnergy = energyGuideData.find(item => item.day === reducedLP);
         const dayEnergy = energyGuideData.find(item => item.day === reducedDay);
-        
+
         const renderGuideCard = (titlePrefix, originalNum, energyObj, featuredClass) => {
             if (!energyObj) return '';
-            
+
             const doListHTML = energyObj.do.map(item => `
                 <li class="energy-li"><strong>${item.action}</strong>: ${item.details}</li>
             `).join('');
-            
+
             const avoidListHTML = energyObj.avoid.map(item => `
                 <li class="energy-li"><strong>${item.action}</strong>: ${item.details}</li>
             `).join('');
-            
+
             return `
                 <div class="energy-card ${featuredClass}">
                     <div class="energy-header">
@@ -261,10 +266,10 @@ function updateDetailsPanel(dateStr, day, month, year) {
                 </div>
             `;
         };
-        
+
         const lpCardHTML = renderGuideCard("Life Path", lp.final, lpEnergy, "energy-card--featured");
         const dayCardHTML = renderGuideCard("Day Number", dayNum, dayEnergy, "energy-card--day");
-        
+
         energyReadingHTML = `
             <div class="energy-reading-section">
                 <h4 class="energy-section-title">Daily Energy Guide</h4>
@@ -284,10 +289,10 @@ function updateDetailsPanel(dateStr, day, month, year) {
         `;
     }
 
-        const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
-        const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+    const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
+    const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
 
-        const compatibilityReadingHTML = `
+    const compatibilityReadingHTML = `
             <div class="rd-compatibility-section" style="margin-top: 24px;">
                 <h4 class="rd-compatibility-title">Number Compatibility</h4>
                 <div class="rd-compatibility-grid">
@@ -297,7 +302,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
             </div>
         `;
 
-        detailsContent.innerHTML = `
+    detailsContent.innerHTML = `
             <div class="detail-grid">
                 <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
                     <div class="item-header">
@@ -384,18 +389,56 @@ function updateDetailsPanel(dateStr, day, month, year) {
                     </div>
                 </div>
 
-                <div class="detail-item" onclick="this.classList.toggle('expanded')">
+                <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
                     <div class="item-header">
                         <div class="item-content">
                             <strong>Chinese Zodiac</strong> 
                             <span class="main-value text-master">${getChineseZodiac(year, month, day)}</span>
-                            <small>Lunar Year Based</small>
+                            <small>Lunar Year Based · click to reveal year energy</small>
                         </div>
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="detail-calculation">
-                        The <strong>Chinese Zodiac</strong> changes according to the Lunar New Year (usually late January to mid-February) and follows a 12-year animal cycle paired with a 10-year element cycle.<br><br>
-                        <strong>Date:</strong> ${day}.${month}.${year} &rarr; <strong>${getChineseZodiac(year, month, day)}</strong>
+                        ${(() => {
+            const zodiacStr = getChineseZodiac(year, month, day);
+            const animalName = zodiacStr.split(' ').pop();
+            const signData = typeof chineseSignDatabase !== 'undefined' && chineseSignDatabase[animalName];
+            const yearEnergy = signData ? signData.year_energy : null;
+
+            // Compute the Chinese year number for this date
+            let chineseYear = year;
+            if (typeof cnyDates !== 'undefined' && cnyDates[year]) {
+                const [cnyM, cnyD] = cnyDates[year];
+                if (month < cnyM || (month === cnyM && day < cnyD)) chineseYear -= 1;
+            }
+
+            // Build start/end date strings
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            let dateRangeHtml = '';
+            if (typeof cnyDates !== 'undefined') {
+                const startEntry = cnyDates[String(chineseYear)];
+                const nextEntry = cnyDates[String(chineseYear + 1)];
+                if (startEntry) {
+                    const startStr = `${startEntry[1]} ${monthNames[startEntry[0] - 1]} ${chineseYear}`;
+                    let endStr = '';
+                    if (nextEntry) {
+                        // end = day before next CNY
+                        const endDate = new Date(chineseYear + 1, nextEntry[0] - 1, nextEntry[1] - 1);
+                        endStr = `${endDate.getDate()} ${monthNames[endDate.getMonth()]} ${endDate.getFullYear()}`;
+                    }
+                    dateRangeHtml = `<div style="display:inline-flex;gap:10px;align-items:center;margin-bottom:12px;font-size:0.85rem;font-weight:600;opacity:0.75;">
+                                        <span>📅 ${startStr}</span>
+                                        <span style="opacity:0.5">→</span>
+                                        <span>${endStr || '?'}</span>
+                                    </div><br>`;
+                }
+            }
+
+            if (yearEnergy) {
+                return `${dateRangeHtml}<strong>Year Energy — ${zodiacStr}</strong><br><br>${yearEnergy.replace(/\n/g, '<br>')}`;
+            }
+            return `${dateRangeHtml}The <strong>Chinese Zodiac</strong> changes according to the Lunar New Year and follows a 12-year animal cycle.<br><br><strong>Date:</strong> ${day}.${month}.${year} &rarr; <strong>${zodiacStr}</strong>`;
+        })()}
                     </div>
                 </div>
             </div>
@@ -571,16 +614,16 @@ function handleScrollChange(e, type) {
     e.preventDefault();
     const delta = Math.sign(e.deltaY);
     if (delta === 0) return;
-    
+
     let newMonth = currentDate.getMonth();
     let newYear = currentDate.getFullYear();
-    
+
     if (type === 'month') {
         newMonth += (delta > 0 ? 1 : -1);
     } else if (type === 'year') {
         newYear += (delta > 0 ? 1 : -1);
     }
-    
+
     setCalendarMonthYear(newMonth, newYear);
 }
 

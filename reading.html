@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Numerology Reading</title>
+    <title>Numerology Reading</title>
+    <meta name="description"
+        content="Get your personal numerology reading. Explore birth date energies, gematria, and name analysis.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -13,159 +15,544 @@
     <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="themes.css">
+    <style>
+        /* ── Reading page layout ── */
+        .rp-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Top bar ── */
+        .rp-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 28px;
+            flex-shrink: 0;
+        }
+
+        .rp-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--th-text-secondary);
+            text-decoration: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            background: var(--th-surface);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: background 0.2s, color 0.2s, transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+            letter-spacing: 0.01em;
+        }
+
+        .rp-back:hover {
+            color: var(--th-text);
+            background: var(--th-surface-alt);
+        }
+
+        .rp-back:active {
+            transform: scale(0.96);
+        }
+
+        .rp-back svg {
+            flex-shrink: 0;
+        }
+
+        /* ── Tool nav ── */
+        .rp-tool-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 20px 28px 0;
+        }
+
+        .rp-tool-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            background: var(--th-surface);
+            color: var(--th-text-secondary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: background 0.2s cubic-bezier(0.2, 0, 0, 1),
+                color 0.2s cubic-bezier(0.2, 0, 0, 1),
+                box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1),
+                transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+            white-space: nowrap;
+        }
+
+        .rp-tool-btn:hover {
+            color: var(--th-text);
+            background: var(--th-surface-alt);
+        }
+
+        .rp-tool-btn:active {
+            transform: scale(0.96);
+        }
+
+        .rp-tool-btn.active {
+            background: var(--th-soft-panel);
+            color: var(--th-accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        .rp-tool-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .rp-tool-btn.active .rp-tool-icon {
+            opacity: 1;
+        }
+
+        /* ── Center form area ── */
+        .rp-form-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 28px 24px;
+            flex-shrink: 0;
+        }
+
+        .rp-form-card {
+            background: var(--th-surface);
+            border-radius: 24px;
+            padding: 32px 36px 28px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07),
+                0 1px 4px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .rp-form-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--th-text);
+            margin: 0 0 6px;
+            text-wrap: balance;
+        }
+
+        .rp-form-desc {
+            font-size: 0.84rem;
+            color: var(--th-text-muted);
+            margin: 0 0 24px;
+            text-wrap: pretty;
+        }
+
+        .rp-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .rp-input-group label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--th-text-secondary);
+        }
+
+        .rp-input {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1.5px solid var(--th-input-border);
+            background: var(--th-input-bg);
+            color: var(--th-text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .rp-input:focus {
+            border-color: var(--th-accent);
+            box-shadow: 0 0 0 3px rgba(var(--th-accent-rgb, 139, 90, 60), 0.12);
+        }
+
+        .rp-cta-btn {
+            width: 100%;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 14px;
+            background: var(--th-accent);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.14),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: background 0.2s, transform 0.15s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s;
+        }
+
+        .rp-cta-btn:hover {
+            background: var(--th-accent-hover);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.18);
+        }
+
+        .rp-cta-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* add-word secondary button */
+        .rp-add-btn {
+            display: block;
+            width: 100%;
+            padding: 9px 14px;
+            border: 1.5px dashed var(--th-input-border);
+            border-radius: 12px;
+            background: transparent;
+            color: var(--th-text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 18px;
+            transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+        }
+
+        .rp-add-btn:hover {
+            background: var(--th-surface-alt);
+            color: var(--th-text);
+            border-color: var(--th-accent);
+        }
+
+        .rp-add-btn:active {
+            transform: scale(0.96);
+        }
+
+        .rp-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .rp-checkbox-group label {
+            font-size: 0.82rem;
+            color: var(--th-text-secondary);
+            cursor: pointer;
+            text-transform: none;
+            letter-spacing: normal;
+            font-weight: 500;
+        }
+
+        .rp-checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--th-accent);
+            cursor: pointer;
+        }
+
+        /* ── Results area ── */
+        .rp-results-area {
+            flex: 1;
+            padding: 0 28px 40px;
+        }
+
+        .reading-result {
+            animation: rp-fade-in 0.35s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        @keyframes rp-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .rd-results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .rd-results-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--th-text);
+            margin: 0;
+        }
+
+        .rd-share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border: none;
+            border-radius: 20px;
+            background: var(--th-surface);
+            color: var(--th-text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+        }
+
+        .rd-share-btn:hover {
+            background: var(--th-surface-alt);
+            color: var(--th-text);
+        }
+
+        .rd-share-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* ── Empty state ── */
+        .rd-empty-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 28px 60px;
+        }
+
+        .rd-empty-card {
+            text-align: center;
+            max-width: 340px;
+        }
+
+        .rd-empty-symbol {
+            position: relative;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+        }
+
+        .rd-empty-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1.5px solid var(--th-accent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .rd-ring--outer {
+            width: 72px;
+            height: 72px;
+            opacity: 0.15;
+        }
+
+        .rd-ring--mid {
+            width: 50px;
+            height: 50px;
+            opacity: 0.25;
+        }
+
+        .rd-ring--inner {
+            width: 30px;
+            height: 30px;
+            opacity: 0.40;
+        }
+
+        .rd-empty-glyph {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.1rem;
+            color: var(--th-accent);
+        }
+
+        .rd-empty-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--th-text);
+            margin: 0 0 8px;
+            text-wrap: balance;
+        }
+
+        .rd-empty-text {
+            font-size: 0.84rem;
+            color: var(--th-text-muted);
+            margin: 0;
+            text-wrap: pretty;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .rp-topbar {
+                padding: 12px 16px;
+            }
+
+            .rp-tool-nav {
+                padding: 16px 16px 0;
+                gap: 4px;
+            }
+
+            .rp-tool-btn {
+                padding: 9px 14px;
+                font-size: 0.78rem;
+            }
+
+            .rp-form-area {
+                padding: 20px 16px 16px;
+            }
+
+            .rp-form-card {
+                padding: 24px 20px 20px;
+                border-radius: 20px;
+            }
+
+            .rp-results-area {
+                padding: 0 16px 32px;
+            }
+
+            .rd-empty-state {
+                padding: 16px 16px 40px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div class="main-container reading-page rp-page">
 
-    <div class="main-container reading-page">
-
-        <!-- Header -->
-        <header class="rd-header">
-            <a href="index.html" class="rd-back-link">
+        <!-- Top bar -->
+        <header class="rp-topbar">
+            <a href="index.html" class="header-title-group pill-container"
+                style="text-decoration: none; color: var(--th-text-secondary); padding: 4px 16px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; height: 32px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 7px; transition: transform 0.15s, background 0.2s; background: var(--th-surface); box-shadow: 0 1px 4px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6); border-radius: 20px;">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
-                Back to Calendar
+                Calendar
             </a>
             <div class="theme-toggle-bar" id="themeToggleBar">
-                <button class="theme-toggle-btn" data-theme="original" aria-label="Original theme">✦ Original</button>
-                <button class="theme-toggle-btn active" data-theme="warm" aria-label="Warm theme">◈ Warm</button>
-                <button class="theme-toggle-btn" data-theme="dark" aria-label="Dark theme">◉ Night</button>
-                <button class="theme-toggle-btn" data-theme="mystic" aria-label="Mystic theme">✧ Mystic</button>
+                <button class="theme-toggle-btn" data-theme="original" aria-label="Original theme">Original</button>
+                <button class="theme-toggle-btn active" data-theme="warm" aria-label="Warm theme">Warm</button>
             </div>
         </header>
 
-        <!-- Main Layout -->
-        <div class="rd-layout">
+        <!-- Tool navigation -->
+        <nav class="rp-tool-nav" role="tablist" aria-label="Reading tools" style="padding-top: 0;">
+            <button id="tabBirth" class="rp-tool-btn active" role="tab" aria-selected="true"
+                aria-controls="birthReadingForm">
+                Birth Reading
+            </button>
+            <button id="tabWord" class="rp-tool-btn" role="tab" aria-selected="false" aria-controls="wordReadingForm">
+                Gematria
+            </button>
+            <button id="tabName" class="rp-tool-btn" role="tab" aria-selected="false" aria-controls="nameReadingForm">
+                Name Reading
+            </button>
+        </nav>
 
-            <!-- Sidebar: Tabs + Form (unified card) -->
-            <aside class="rd-sidebar">
-                <nav class="rd-tabs">
-                    <button id="tabBirth" class="rd-tab active">
-                        <span class="rd-tab-icon">🔮</span>
-                        <span class="rd-tab-label">Birth</span>
+        <!-- Centered form area -->
+        <section class="rp-form-area" style="padding-top: 24px;">
+            <div class="rp-form-card">
+
+                <!-- Birth Reading Form -->
+                <div id="birthReadingForm">
+                    <h2 class="rp-form-title">Enter a Birthdate</h2>
+                    <div class="rp-input-group" style="margin-top: 24px;">
+                        <label for="birthDate">Date of Birth</label>
+                        <input type="date" id="birthDate" class="rp-input rd-input">
+                    </div>
+                    <button id="getReadingBtn" class="rp-cta-btn">Reveal Reading</button>
+                </div>
+
+                <!-- Gematria / Word Analysis Form -->
+                <div id="wordReadingForm" class="hidden">
+                    <h2 class="rp-form-title">Gematria Analysis</h2>
+                    <p class="rp-form-desc">Find the numerical value of any word or phrase and compare them.</p>
+                    <div id="wordInputsContainer">
+                        <div class="rp-input-group">
+                            <label>Word or Sentence 1</label>
+                            <input type="text" class="rp-input rd-input word-input-field" placeholder="e.g. WORD">
+                        </div>
+                    </div>
+                    <button id="addWordBtn" class="rp-add-btn">+ Add word to compare</button>
+                    <div class="rp-checkbox-group">
+                        <input type="checkbox" id="capitalSensitiveCheck">
+                        <label for="capitalSensitiveCheck">Capital-sensitive calculation</label>
+                    </div>
+                    <button id="getWordReadingBtn" class="rp-cta-btn">Analyze</button>
+                </div>
+
+                <!-- Name Reading Form -->
+                <div id="nameReadingForm" class="hidden">
+                    <h2 class="rp-form-title">Name Reading</h2>
+                    <p class="rp-form-desc">Discover the core numbers encoded in a full birth name.</p>
+                    <div class="rp-input-group">
+                        <label for="nameInput">Full Name at Birth</label>
+                        <input type="text" id="nameInput" class="rp-input rd-input" placeholder="e.g. JOHN DOE">
+                    </div>
+                    <button id="getNameReadingBtn" class="rp-cta-btn">Analyze Name</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Results area -->
+        <section class="rp-results-area">
+
+            <!-- Birth Reading Results -->
+            <div id="readingResult" class="reading-result hidden">
+                <div class="rd-results-header">
+                    <h2 class="rd-results-title">Numerology Reading</h2>
+                    <button id="shareReadingBtn" class="rd-share-btn">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 8V13C4 13.55 4.45 14 5 14H11C11.55 14 12 13.55 12 13V8" stroke="currentColor"
+                                stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M8 2V10M8 2L5.5 4.5M8 2L10.5 4.5" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Share
                     </button>
-                    <button id="tabWord" class="rd-tab">
-                        <span class="rd-tab-icon">📝</span>
-                        <span class="rd-tab-label">Word</span>
-                    </button>
-                    <button id="tabName" class="rd-tab">
-                        <span class="rd-tab-icon">✦</span>
-                        <span class="rd-tab-label">Name</span>
-                    </button>
-                </nav>
-
-                <div class="rd-form-content">
-
-                    <!-- Birth Reading Form -->
-                    <div id="birthReadingForm">
-                        <h3 class="rd-form-title">Enter Your Birthdate</h3>
-                        <p class="rd-form-desc">Discover the core energies that shape your path.</p>
-                        <div class="rd-input-group">
-                            <label for="birthDate">Date of Birth</label>
-                            <input type="date" id="birthDate" class="rd-input">
-                        </div>
-                        <button id="getReadingBtn" class="rd-cta-btn">✦ Reveal Reading</button>
-                    </div>
-
-                    <!-- Word Analysis Form -->
-                    <div id="wordReadingForm" class="hidden">
-                        <h3 class="rd-form-title">Analyze a Word</h3>
-                        <p class="rd-form-desc">Discover the numerical values of any word or sentence.</p>
-                        <div id="wordInputsContainer">
-                            <div class="rd-input-group">
-                                <label>Word or Sentence 1</label>
-                                <input type="text" class="rd-input word-input-field" placeholder="e.g. WORD">
-                            </div>
-                        </div>
-                        <button id="addWordBtn" class="rd-add-btn">+ Add Word to Compare</button>
-                        <div class="rd-checkbox-group">
-                            <input type="checkbox" id="capitalSensitiveCheck">
-                            <label for="capitalSensitiveCheck">Capital Sensitive Calculation</label>
-                        </div>
-                        <button id="getWordReadingBtn" class="rd-cta-btn">✦ Analyze Words</button>
-                    </div>
-
-                    <!-- Name Analysis Form -->
-                    <div id="nameReadingForm" class="hidden">
-                        <h3 class="rd-form-title">Full Name Analysis</h3>
-                        <p class="rd-form-desc">Discover the core numbers hidden in your name.</p>
-                        <div class="rd-input-group">
-                            <label for="nameInput">Full Name at Birth</label>
-                            <input type="text" id="nameInput" class="rd-input" placeholder="e.g. JOHN DOE">
-                        </div>
-                        <button id="getNameReadingBtn" class="rd-cta-btn">✦ Analyze Name</button>
-                    </div>
-
                 </div>
-            </aside>
+                <div class="detail-grid" id="readingGrid"></div>
+                <div id="compatibilitySection" class="rd-compatibility-section hidden"></div>
+                <div class="reading-quotes" id="readingQuotes"></div>
+            </div>
 
-            <!-- Main Content Area -->
-            <main class="rd-main">
+            <!-- Word / Gematria Results -->
+            <div id="wordResult" class="reading-result hidden">
+                <h2 class="rd-results-title" style="margin-bottom: 24px;">Gematria Results</h2>
+                <div id="wordAnalysisContent"></div>
+            </div>
 
-                <!-- Birth Reading Results -->
-                <div id="readingResult" class="reading-result hidden">
-                    <div class="rd-results-header">
-                        <h2 class="rd-results-title">Your Numerology Layout</h2>
-                        <button id="shareReadingBtn" class="rd-share-btn">
-                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                                <path d="M4 8V13C4 13.55 4.45 14 5 14H11C11.55 14 12 13.55 12 13V8"
-                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                <path d="M8 2V10M8 2L5.5 4.5M8 2L10.5 4.5" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            Share
-                        </button>
-                    </div>
-                    <div class="detail-grid" id="readingGrid">
-                        <!-- Filled by JS -->
-                    </div>
-                    <div id="compatibilitySection" class="rd-compatibility-section hidden">
-                        <!-- Filled by JS -->
-                    </div>
-                    <div class="reading-quotes" id="readingQuotes">
-                        <!-- Filled by JS -->
-                    </div>
-                </div>
+            <!-- Name Results -->
+            <div id="nameResult" class="reading-result hidden">
+                <h2 class="rd-results-title" style="margin-bottom: 24px;">Name Analysis</h2>
+                <div class="detail-grid" id="nameGrid"></div>
+                <div id="nameAnalysisContent"></div>
+            </div>
 
-                <!-- Word Results -->
-                <div id="wordResult" class="reading-result hidden">
-                    <h2 class="rd-results-title" style="margin-bottom: 24px;">Word Analysis</h2>
-                    <div id="wordAnalysisContent">
-                        <!-- Filled by JS -->
-                    </div>
-                </div>
+        </section>
 
-                <!-- Name Results -->
-                <div id="nameResult" class="reading-result hidden">
-                    <h2 class="rd-results-title" style="margin-bottom: 24px;">Name Analysis</h2>
-                    <div class="detail-grid" id="nameGrid">
-                        <!-- Filled by JS -->
-                    </div>
-                    <div id="nameAnalysisContent">
-                        <!-- Filled by JS -->
-                    </div>
-                </div>
-
-                <!-- Empty State -->
-                <div id="readingEmpty" class="rd-empty-state">
-                    <div class="rd-empty-card">
-                        <div class="rd-empty-symbol">
-                            <div class="rd-empty-ring rd-ring--outer"></div>
-                            <div class="rd-empty-ring rd-ring--mid"></div>
-                            <div class="rd-empty-ring rd-ring--inner"></div>
-                            <span class="rd-empty-glyph">✦</span>
-                        </div>
-                        <h3 class="rd-empty-title">Discover Your Numbers</h3>
-                        <p id="emptyMessage" class="rd-empty-text">Enter your birthdate to reveal your numerology
-                            reading.</p>
-                    </div>
-                </div>
-
-            </main>
-
-        </div>
     </div>
 
     <script src="theme-toggle.js"></script>

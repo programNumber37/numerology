@@ -746,7 +746,7 @@ body {
     flex-shrink: 0;
     background: var(--th-surface);
     border-radius: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 24px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 10px 24px rgba(0, 0, 0, 0.04);
     border: 1px solid var(--th-border-light);
     padding: 24px;
     position: sticky;
@@ -1218,9 +1218,13 @@ body {
 
 /* No left-border per type — color lives only in the title */
 .rd-card--lifepath {}
+
 .rd-card--month {}
+
 .rd-card--day {}
+
 .rd-card--year {}
+
 .rd-card--chinese {}
 
 .rd-card__title {
@@ -1248,6 +1252,7 @@ body {
 .rd-card--lifepath .rd-card__title {
     color: var(--th-rd-lifepath-accent);
 }
+
 .rd-card--lifepath .rd-card__title::before {
     background: var(--th-rd-lifepath-accent);
 }
@@ -1255,6 +1260,7 @@ body {
 .rd-card--month .rd-card__title {
     color: var(--th-rd-month-accent);
 }
+
 .rd-card--month .rd-card__title::before {
     background: var(--th-rd-month-accent);
 }
@@ -1262,6 +1268,7 @@ body {
 .rd-card--day .rd-card__title {
     color: var(--th-rd-day-accent);
 }
+
 .rd-card--day .rd-card__title::before {
     background: var(--th-rd-day-accent);
 }
@@ -1269,6 +1276,7 @@ body {
 .rd-card--year .rd-card__title {
     color: var(--th-rd-year-accent);
 }
+
 .rd-card--year .rd-card__title::before {
     background: var(--th-rd-year-accent);
 }
@@ -1276,6 +1284,7 @@ body {
 .rd-card--chinese .rd-card__title {
     color: var(--th-rd-chinese-accent);
 }
+
 .rd-card--chinese .rd-card__title::before {
     background: var(--th-rd-chinese-accent);
 }
@@ -1477,14 +1486,12 @@ body {
     }
 
     .theme-toggle-bar {
-        width: 100%;
         justify-content: center;
+        align-self: center;
     }
 
     .theme-toggle-btn {
-        flex: 1;
-        text-align: center;
-        padding: 8px 6px;
+        padding: 5px 12px;
         font-size: 0.73rem;
     }
 
@@ -1638,11 +1645,13 @@ body {
     color: #58d28d;
     border-color: rgba(88, 210, 141, 0.25);
 }
+
 [data-theme="dark"] .rd-number-badge--neutral {
     background: rgba(139, 148, 158, 0.15);
     color: #8b949e;
     border-color: rgba(139, 148, 158, 0.25);
 }
+
 [data-theme="dark"] .rd-number-badge--enemy {
     background: rgba(255, 123, 114, 0.12);
     color: #ff7b72;
@@ -1655,11 +1664,13 @@ body {
     color: #86efac;
     border-color: rgba(134, 239, 172, 0.25);
 }
+
 [data-theme="mystic"] .rd-number-badge--neutral {
     background: rgba(168, 155, 199, 0.15);
     color: #a89bc7;
     border-color: rgba(168, 155, 199, 0.25);
 }
+
 [data-theme="mystic"] .rd-number-badge--enemy {
     background: rgba(248, 113, 113, 0.12);
     color: #f87171;
@@ -1671,6 +1682,7 @@ body {
    ============================================ */
 
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -1680,6 +1692,7 @@ body {
         scroll-behavior: auto !important;
     }
 }
+
 /* ============================================
    PREMIUM CALENDAR EXPERIENCE
    ============================================ */
@@ -1790,14 +1803,14 @@ body {
 
 .report-btn:active {
     transform: scale(0.96) !important;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05) !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05) !important;
 }
 
 .day-cell {
     background: var(--th-soft-panel) !important;
     border-color: var(--th-border-light) !important;
     border-radius: 16px !important;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05) !important;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
 .day-cell:hover {
@@ -1836,7 +1849,14 @@ body {
 }
 
 .details-header {
-    background: linear-gradient(180deg, var(--th-soft-panel), transparent) !important;
+    background: transparent !important;
+}
+
+.details-header h3,
+.details-header button {
+    background: var(--th-soft-panel) !important;
+    border-color: var(--th-border-light) !important;
+    color: var(--th-text) !important;
 }
 
 .detail-item,
@@ -1878,3 +1898,25 @@ body {
     color: var(--th-text-muted) !important;
 }
 
+/* ============================================
+   GLOSSY HIGHLIGHT EXTENSIONS 
+   ============================================ */
+
+.calendar-nav button,
+.day-cell:not(.search-match):not(.selected):not(.today),
+.detail-item,
+.hidden-energy-box,
+.energy-card,
+.rd-compatibility-card,
+.result-box {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+.calendar-nav button:hover,
+.day-cell:not(.search-match):not(.selected):not(.today):hover,
+.detail-item:hover,
+.energy-card:hover,
+.rd-compatibility-card:hover,
+.result-box:hover {
+    box-shadow: var(--th-card-hover-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}

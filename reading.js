@@ -138,7 +138,7 @@ function switchTab(tab) {
         wordResult.classList.add('hidden');
         nameResult.classList.add('hidden');
 
-        readingEmpty.classList.remove('hidden');
+        if (readingEmpty) readingEmpty.classList.remove('hidden');
         if (emptyMessage) emptyMessage.textContent = "Enter your birthdate to reveal your numerology reading.";
     } else if (tab === 'word') {
         tabWord.classList.add('active');
@@ -154,7 +154,7 @@ function switchTab(tab) {
         wordResult.classList.add('hidden');
         nameResult.classList.add('hidden');
 
-        readingEmpty.classList.remove('hidden');
+        if (readingEmpty) readingEmpty.classList.remove('hidden');
         if (emptyMessage) emptyMessage.textContent = "Enter a word or sentence to reveal its numerical essence.";
     } else if (tab === 'name') {
         tabName.classList.add('active');
@@ -170,7 +170,7 @@ function switchTab(tab) {
         wordResult.classList.add('hidden');
         nameResult.classList.add('hidden');
 
-        readingEmpty.classList.remove('hidden');
+        if (readingEmpty) readingEmpty.classList.remove('hidden');
         if (emptyMessage) emptyMessage.textContent = "Enter your full name at birth to reveal your core numbers.";
     }
 }
@@ -435,7 +435,7 @@ getReadingBtn.addEventListener("click", () => {
         compatibilitySection.classList.remove("hidden");
     }
 
-    readingEmpty.classList.add("hidden");
+    if (readingEmpty) readingEmpty.classList.add("hidden");
     readingResult.classList.remove("hidden");
 
     if (window.innerWidth <= 768) {
@@ -605,7 +605,7 @@ getWordReadingBtn.addEventListener("click", () => {
 
     wordAnalysisContent.innerHTML = allWordsHTML;
 
-    readingEmpty.classList.add("hidden");
+    if (readingEmpty) readingEmpty.classList.add("hidden");
     readingResult.classList.add("hidden");
     nameResult.classList.add("hidden");
     wordResult.classList.remove("hidden");
@@ -731,7 +731,7 @@ getNameReadingBtn.addEventListener("click", () => {
         </div>
     `;
 
-    readingEmpty.classList.add("hidden");
+    if (readingEmpty) readingEmpty.classList.add("hidden");
     readingResult.classList.add("hidden");
     wordResult.classList.add("hidden");
     nameResult.classList.remove("hidden");
