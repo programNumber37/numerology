@@ -734,8 +734,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
-    line-height: 1;
     cursor: pointer;
     color: var(--th-text-muted, #aaa);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 3px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
@@ -1212,6 +1210,11 @@ body {
 
 /* --- Mobile Specific Calendar Optimizations --- */
 @media (max-width: 768px) {
+    /* Constrain the date pill so it can't grow under the right-side close button */
+    .details-header h3 {
+        max-width: calc(100% - 56px);
+    }
+
     body {
         padding: 10px;
         /* Reduce global padding to maximize horizontal real estate */
