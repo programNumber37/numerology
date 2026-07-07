@@ -195,11 +195,12 @@ function updateDetailsPanel(dateStr, day, month, year) {
         luckyVal
     ];
     const emojiArray = getEmojis(allEnergiesForEmojis);
-    const dayEmojis = emojiArray.join(' ');
+    const dayEmojis = emojiArray.join(' ').trim();
 
     const yearSplitForm = String(year).split('').join('+');
 
-    detailsDate.innerHTML = `<span class="date-line-day">${dayName}</span><span class="date-line-date">${dayNumStr} ${monthName}, ${yearStr} <span class="detail-emoji">${dayEmojis}</span></span>`;
+    const emojiHtml = dayEmojis ? ` <span class="detail-emoji">${dayEmojis}</span>` : '';
+    detailsDate.innerHTML = `<span class="date-line-day">${dayName}</span><span class="date-line-date">${dayNumStr} ${monthName}, ${yearStr}${emojiHtml}</span>`;
 
     const isThirtyThree = lp.final === 33 || dayNum === 33 || hidden.visual === 33 || hidden.raw === 33 || hidden.dm.final === 33 || hidden.my.final === 33 || hidden.dmy.final === 33;
     const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum);
