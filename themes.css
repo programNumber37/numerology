@@ -1199,21 +1199,92 @@ body {
 }
 
 .rd-card {
-    margin-bottom: 12px;
-    padding: 22px 24px;
+    margin-bottom: 10px;
+    padding: 0;
     background: var(--th-surface);
     border-radius: 16px;
-    box-shadow: var(--th-card-shadow);
+    /* Inset shadow — concave/pressed look, same principle as day-cells */
+    box-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.04),
+        inset 0 2px 6px rgba(0, 0, 0, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
     border: 1px solid var(--th-border-light);
-    transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.25s ease;
+    transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
     animation: rdCardFadeIn 0.4s ease both;
     position: relative;
     overflow: hidden;
 }
 
+/* No hover shadow — clean and flat */
 .rd-card:hover {
-    box-shadow: var(--th-card-hover-shadow);
-    transform: translateY(-2px);
+    /* intentionally empty */
+}
+
+.rd-card:active {
+    transform: scale(0.985);
+}
+
+/* ── Collapsible card inner layout ── */
+.rd-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+    min-height: 48px; /* minimum hit area */
+}
+
+.rd-card__header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.rd-card__preview {
+    font-size: 0.8rem;
+    color: var(--th-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: none; /* shown only when collapsed */
+}
+
+.rd-card.rd-card--collapsed .rd-card__preview {
+    display: block;
+}
+
+.rd-card__toggle-icon {
+    font-size: 0.75rem;
+    color: var(--th-text-muted);
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s;
+    flex-shrink: 0;
+    opacity: 0.6;
+    display: inline-block;
+}
+
+.rd-card.rd-card--collapsed .rd-card__toggle-icon {
+    transform: rotate(-90deg);
+}
+
+.rd-card__body {
+    padding: 0 22px 18px;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.2, 0, 0, 1),
+                opacity 0.25s cubic-bezier(0.2, 0, 0, 1);
+    max-height: 3000px;
+    opacity: 1;
+}
+
+.rd-card.rd-card--collapsed .rd-card__body {
+    max-height: 0;
+    opacity: 0;
+    padding-bottom: 0;
+    pointer-events: none;
 }
 
 /* No left-border per type — color lives only in the title */
@@ -1228,14 +1299,15 @@ body {
 .rd-card--chinese {}
 
 .rd-card__title {
-    margin: 0 0 12px 0;
-    font-size: 1.05rem;
+    margin: 0;
+    font-size: 1.0rem;
     font-weight: 700;
     font-family: 'Playfair Display', Georgia, serif;
     letter-spacing: 0.2px;
     display: flex;
     align-items: center;
     gap: 8px;
+    text-wrap: balance;
 }
 
 /* Colored dot before each title — replaces the left border accent */
@@ -1249,44 +1321,23 @@ body {
     background: var(--th-accent);
 }
 
-.rd-card--lifepath .rd-card__title {
-    color: var(--th-rd-lifepath-accent);
-}
-
-.rd-card--lifepath .rd-card__title::before {
-    background: var(--th-rd-lifepath-accent);
-}
-
-.rd-card--month .rd-card__title {
-    color: var(--th-rd-month-accent);
-}
-
-.rd-card--month .rd-card__title::before {
-    background: var(--th-rd-month-accent);
-}
-
-.rd-card--day .rd-card__title {
-    color: var(--th-rd-day-accent);
-}
-
-.rd-card--day .rd-card__title::before {
-    background: var(--th-rd-day-accent);
-}
-
-.rd-card--year .rd-card__title {
-    color: var(--th-rd-year-accent);
-}
-
-.rd-card--year .rd-card__title::before {
-    background: var(--th-rd-year-accent);
-}
-
+/* All card titles share the same accent color — no per-type variation */
+.rd-card__title,
+.rd-card--lifepath .rd-card__title,
+.rd-card--month .rd-card__title,
+.rd-card--day .rd-card__title,
+.rd-card--year .rd-card__title,
 .rd-card--chinese .rd-card__title {
-    color: var(--th-rd-chinese-accent);
+    color: var(--th-text);
 }
 
+/* All card dots share the single accent color */
+.rd-card--lifepath .rd-card__title::before,
+.rd-card--month .rd-card__title::before,
+.rd-card--day .rd-card__title::before,
+.rd-card--year .rd-card__title::before,
 .rd-card--chinese .rd-card__title::before {
-    background: var(--th-rd-chinese-accent);
+    background: var(--th-accent);
 }
 
 .rd-card__text {
@@ -1296,6 +1347,36 @@ body {
     margin: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-wrap: pretty;
+}
+
+/* ── Summary wrapper (desktop: centered surface box) ── */
+.rd-summary-wrapper {
+    margin-bottom: 28px;
+}
+
+@media (min-width: 601px) {
+    .rd-summary-wrapper {
+        background: var(--th-surface);
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow:
+            0 1px 3px rgba(0, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.03),
+            inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+        border: 1px solid var(--th-border-light);
+    }
+
+    /* Center the grid boxes — auto-sized columns, centered in the panel */
+    .rd-summary-wrapper .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 180px));
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        margin-bottom: 0 !important;
+    }
 }
 
 /* Collapsible Chinese Zodiac card */
@@ -1578,15 +1659,26 @@ body {
         font-size: 1.3rem;
     }
 
-    /* Reading cards */
+    /* Reading cards — on mobile, no padding override needed since padding lives in header/body */
     .rd-card {
-        padding: 16px 18px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         border-radius: 14px;
     }
 
+    .rd-card__header {
+        padding: 14px 16px;
+    }
+
+    .rd-card__body {
+        padding: 0 16px 14px;
+    }
+
+    .rd-card.rd-card--collapsed .rd-card__body {
+        padding-bottom: 0;
+    }
+
     .rd-card__title {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
     }
 
     .rd-card__text {

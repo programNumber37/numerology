@@ -253,10 +253,19 @@ getReadingBtn.addEventListener("click", () => {
     const lpLookupKey = readingsDatabase.lifepaths[lp.final] ? lp.final : getCompatibilityNumber(lp.final);
     if (readingsDatabase.lifepaths[lpLookupKey]) {
         const titleText = lp.final === lpLookupKey ? `Lifepath ${lp.final}` : `Lifepath ${lpLookupKey} (${lp.final})`;
+        const previewText = (readingsDatabase.lifepaths[lpLookupKey] || '').slice(0, 90).trimEnd() + '…';
         insightsHTML += `
-            <div class="rd-card rd-card--lifepath">
-                <h4 class="rd-card__title">${titleText}</h4>
-                <p class="rd-card__text">${readingsDatabase.lifepaths[lpLookupKey]}</p>
+            <div class="rd-card rd-card--lifepath" data-collapsible>
+                <div class="rd-card__header">
+                    <div class="rd-card__header-left">
+                        <h4 class="rd-card__title">${titleText}</h4>
+                        <span class="rd-card__preview">${previewText}</span>
+                    </div>
+                    <span class="rd-card__toggle-icon">▾</span>
+                </div>
+                <div class="rd-card__body">
+                    <p class="rd-card__text">${readingsDatabase.lifepaths[lpLookupKey]}</p>
+                </div>
             </div>
         `;
     }
@@ -266,30 +275,57 @@ getReadingBtn.addEventListener("click", () => {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const birthMonthName = monthNames[month - 1];
     if (typeof dayMonthDatabase !== 'undefined' && dayMonthDatabase[birthMonthDayKey]) {
+        const previewText = (dayMonthDatabase[birthMonthDayKey] || '').slice(0, 90).trimEnd() + '…';
         insightsHTML += `
-            <div class="rd-card rd-card--month">
-                <h4 class="rd-card__title">${birthMonthName} ${day} Reading</h4>
-                <p class="rd-card__text">${dayMonthDatabase[birthMonthDayKey]}</p>
+            <div class="rd-card rd-card--month" data-collapsible>
+                <div class="rd-card__header">
+                    <div class="rd-card__header-left">
+                        <h4 class="rd-card__title">${birthMonthName} ${day} Reading</h4>
+                        <span class="rd-card__preview">${previewText}</span>
+                    </div>
+                    <span class="rd-card__toggle-icon">▾</span>
+                </div>
+                <div class="rd-card__body">
+                    <p class="rd-card__text">${dayMonthDatabase[birthMonthDayKey]}</p>
+                </div>
             </div>
         `;
     }
 
     // Always show the Birth Day (1-31) reading from readingsDatabase
     if (readingsDatabase.days[day]) {
+        const previewText = (readingsDatabase.days[day] || '').slice(0, 90).trimEnd() + '…';
         insightsHTML += `
-            <div class="rd-card rd-card--day">
-                <h4 class="rd-card__title">Birth Day ${day}</h4>
-                <p class="rd-card__text">${readingsDatabase.days[day]}</p>
+            <div class="rd-card rd-card--day" data-collapsible>
+                <div class="rd-card__header">
+                    <div class="rd-card__header-left">
+                        <h4 class="rd-card__title">Birth Day ${day}</h4>
+                        <span class="rd-card__preview">${previewText}</span>
+                    </div>
+                    <span class="rd-card__toggle-icon">▾</span>
+                </div>
+                <div class="rd-card__body">
+                    <p class="rd-card__text">${readingsDatabase.days[day]}</p>
+                </div>
             </div>
         `;
     }
 
     // Add Year Number Reading (alongside days)
     if (readingsDatabase.years[yearReducer]) {
+        const previewText = (readingsDatabase.years[yearReducer] || '').slice(0, 90).trimEnd() + '…';
         insightsHTML += `
-            <div class="rd-card rd-card--year">
-                <h4 class="rd-card__title">Born in a ${yearReducer} Year:</h4>
-                <p class="rd-card__text">${readingsDatabase.years[yearReducer]}</p>
+            <div class="rd-card rd-card--year" data-collapsible>
+                <div class="rd-card__header">
+                    <div class="rd-card__header-left">
+                        <h4 class="rd-card__title">Born in a ${yearReducer} Year</h4>
+                        <span class="rd-card__preview">${previewText}</span>
+                    </div>
+                    <span class="rd-card__toggle-icon">▾</span>
+                </div>
+                <div class="rd-card__body">
+                    <p class="rd-card__text">${readingsDatabase.years[yearReducer]}</p>
+                </div>
             </div>
         `;
     }
@@ -359,17 +395,15 @@ getReadingBtn.addEventListener("click", () => {
         }
 
         insightsHTML += `
-            <div class="rd-card rd-card--chinese">
-                <div class="rd-collapsible-header" onclick="const body = this.nextElementSibling; body.classList.toggle('hidden'); const arrow = this.querySelector('.rd-arrow'); arrow.style.transform = body.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';">
-                    <div class="rd-collapsible-preview">
-                        <h4 class="rd-card__title" style="margin-bottom: 6px;">${czAnimal} Sign Reading</h4>
-                        <div class="rd-collapsible-preview-text">
-                            <p>Discover Ranking order, Hours ruled, the ${czAnimal} personality, ${czElement} type details, and more inner attributes...</p>
-                        </div>
+            <div class="rd-card rd-card--chinese" data-collapsible>
+                <div class="rd-card__header">
+                    <div class="rd-card__header-left">
+                        <h4 class="rd-card__title">${czAnimal} Sign Reading</h4>
+                        <span class="rd-card__preview">Discover ranking order, hours ruled, the ${czAnimal} personality, ${czElement} type details, and more…</span>
                     </div>
-                    <span class="rd-arrow">▼</span>
+                    <span class="rd-card__toggle-icon rd-arrow">▾</span>
                 </div>
-                <div class="rd-collapsible-body hidden">
+                <div class="rd-card__body">
                     <h5 class="rd-section-title">Sign Details</h5>
                     <p class="rd-section-text">${czData.stats}</p>
                     <p class="rd-section-text">
@@ -395,7 +429,7 @@ getReadingBtn.addEventListener("click", () => {
                     <div style="margin-top: 15px; margin-bottom: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
                         <div onclick="const body = this.nextElementSibling; body.classList.toggle('hidden'); const arrow = this.querySelector('.sub-arrow'); arrow.style.transform = body.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';" style="display: flex; align-items: center; cursor: pointer; color: var(--th-rd-chinese-accent);">
                             <strong>View all Yearly Fares for ${czAnimal}</strong>
-                            <span class="sub-arrow" style="margin-left: 8px; font-size: 0.8rem; transition: transform 0.3s ease; display: inline-block;">▼</span>
+                            <span class="sub-arrow" style="margin-left: 8px; font-size: 0.8rem; transition: transform 0.3s ease; display: inline-block;">▾</span>
                         </div>
                         <div class="hidden">
                             ${allFaresHTML}
@@ -408,13 +442,21 @@ getReadingBtn.addEventListener("click", () => {
                     
                     <h5 class="rd-section-title">The ${czAnimal} Child</h5>
                     <p class="rd-section-text" style="margin-bottom: 0;">${czData.child}</p>
-                    
                 </div>
             </div>
         `;
     }
 
     readingQuotes.innerHTML = insightsHTML;
+
+    // Wire up collapsible cards
+    readingQuotes.querySelectorAll('.rd-card[data-collapsible]').forEach(card => {
+        const header = card.querySelector('.rd-card__header');
+        if (!header) return;
+        header.addEventListener('click', () => {
+            card.classList.toggle('rd-card--collapsed');
+        });
+    });
 
     // Render Compatibility
     if (!compatibilityData) {
