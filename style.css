@@ -700,6 +700,8 @@ body {
     justify-content: center;
     align-items: center;
     padding-bottom: 16px;
+    padding-left: 50px;
+    padding-right: 50px;
     margin-bottom: 15px;
     position: relative;
     gap: 10px;
@@ -713,13 +715,36 @@ body {
     font-family: inherit;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
     border: 1px solid var(--th-border, #e0e0e0);
     border-radius: 50px;
-    padding: 6px 20px;
+    padding: 16px 24px;
+    position: relative;
     background-color: var(--th-surface-alt, #fafafa);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -1px 3px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
-    text-wrap: balance;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.date-line-day {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.55rem;
+    font-weight: 700;
+    opacity: 0.6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.date-line-date {
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
 }
 
 .details-header button {
@@ -1210,10 +1235,6 @@ body {
 
 /* --- Mobile Specific Calendar Optimizations --- */
 @media (max-width: 768px) {
-    /* Constrain the date pill so it can't grow under the right-side close button */
-    .details-header h3 {
-        max-width: calc(100% - 56px);
-    }
 
     body {
         padding: 10px;

@@ -178,7 +178,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
     const dayNumStr = dateObj.getDate();
     const monthName = dateObj.toLocaleDateString('en-US', { month: 'long' });
     const yearStr = dateObj.getFullYear();
-    const formattedDate = `${dayName}, ${dayNumStr} ${monthName}, ${yearStr}`;
+    // formattedDate removed, inline in detailsDate.innerHTML instead
 
     const lp = calculateLifePath(day, month, year);
     const dayNum = calculateDayNumber(day);
@@ -199,7 +199,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
 
     const yearSplitForm = String(year).split('').join('+');
 
-    detailsDate.innerHTML = `${formattedDate} <span class="detail-emoji">${dayEmojis}</span>`;
+    detailsDate.innerHTML = `<span class="date-line-day">${dayName}</span><span class="date-line-date">${dayNumStr} ${monthName}, ${yearStr} <span class="detail-emoji">${dayEmojis}</span></span>`;
 
     const isThirtyThree = lp.final === 33 || dayNum === 33 || hidden.visual === 33 || hidden.raw === 33 || hidden.dm.final === 33 || hidden.my.final === 33 || hidden.dmy.final === 33;
     const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum);
