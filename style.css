@@ -460,8 +460,6 @@ body {
     justify-content: center;
     flex-shrink: 0;
     cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: 700;
     transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
