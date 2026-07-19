@@ -350,6 +350,9 @@ function updateDetailsPanel(dateStr, day, month, year) {
                     <div class="detail-calculation">
                         The <strong>Year Reducer</strong> is the sum of the digits of the current calendar year.<br><br>
                         <strong>Calculation:</strong> ${year} &rarr; <strong>${yearReducer}</strong>
+                        ${typeof readingsDatabase !== 'undefined' && readingsDatabase.years && readingsDatabase.years[yearReducer] 
+                            ? `<br><br><strong>Year ${yearReducer} Energy:</strong><br>${readingsDatabase.years[yearReducer]}` 
+                            : ''}
                     </div>
                 </div>
 
