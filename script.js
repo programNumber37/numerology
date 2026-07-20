@@ -302,15 +302,23 @@ function updateDetailsPanel(dateStr, day, month, year) {
         `;
     }
 
-    const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
-    const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+    const isDoubleEnergy = getCompatibilityNumber(lp.final) === getCompatibilityNumber(dayNum);
+
+    let compatibilityGridHTML;
+    if (isDoubleEnergy) {
+        const combinedCompatibilityHTML = renderCompatibilityCard("Lifepath & Day Number", lp.final, "rd-compatibility-card--lifepath");
+        compatibilityGridHTML = combinedCompatibilityHTML;
+    } else {
+        const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
+        const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+        compatibilityGridHTML = lpCompatibilityHTML + dayCompatibilityHTML;
+    }
 
     const compatibilityReadingHTML = `
             <div class="rd-compatibility-section" style="margin-top: 24px;">
                 <h4 class="rd-compatibility-title">Number Compatibility</h4>
                 <div class="rd-compatibility-grid">
-                    ${lpCompatibilityHTML}
-                    ${dayCompatibilityHTML}
+                    ${compatibilityGridHTML}
                 </div>
             </div>
         `;
@@ -362,9 +370,9 @@ function updateDetailsPanel(dateStr, day, month, year) {
                     <div class="detail-calculation">
                         The <strong>Year Reducer</strong> is the sum of the digits of the current calendar year.<br><br>
                         <strong>Calculation:</strong> ${year} &rarr; <strong>${yearReducer}</strong>
-                        ${typeof readingsDatabase !== 'undefined' && readingsDatabase.years && readingsDatabase.years[yearReducer] 
-                            ? `<br><br><strong>Year ${yearReducer} Energy:</strong><br>${readingsDatabase.years[yearReducer]}` 
-                            : ''}
+                        ${typeof readingsDatabase !== 'undefined' && readingsDatabase.years && readingsDatabase.years[yearReducer]
+            ? `<br><br><strong>Year ${yearReducer} Energy:</strong><br>${readingsDatabase.years[yearReducer]}`
+            : ''}
                     </div>
                 </div>
 
