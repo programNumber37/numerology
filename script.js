@@ -232,7 +232,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
         const lpEnergy = energyGuideData.find(item => item.day === reducedLP);
         const dayEnergy = energyGuideData.find(item => item.day === reducedDay);
 
-        const renderGuideCard = (titlePrefix, originalNum, energyObj, featuredClass) => {
+        const renderGuideCard = (titlePrefix, originalNum, energyObj, featuredClass, showDouble = false) => {
             if (!energyObj) return '';
 
             const doListHTML = energyObj.do.map(item => `
@@ -243,10 +243,15 @@ function updateDetailsPanel(dateStr, day, month, year) {
                 <li class="energy-li"><strong>${item.action}</strong>: ${item.details}</li>
             `).join('');
 
+            const doubleTag = showDouble
+                ? `<span class="energy-double-tag">Double Energy</span>`
+                : '';
+
             return `
                 <div class="energy-card ${featuredClass}">
                     <div class="energy-header">
                         <span class="energy-badge">${titlePrefix} ${originalNum} Energy</span>
+                        ${doubleTag}
                         <h5 class="energy-title">${energyObj.title}</h5>
                     </div>
                     <p class="energy-desc">${energyObj.description}</p>
@@ -268,8 +273,15 @@ function updateDetailsPanel(dateStr, day, month, year) {
             `;
         };
 
-        const lpCardHTML = renderGuideCard("Life Path", lp.final, lpEnergy, "energy-card--featured");
-        const dayCardHTML = renderGuideCard("Day Number", dayNum, dayEnergy, "energy-card--day");
+        let lpCardHTML, dayCardHTML;
+        if (reducedLP === reducedDay) {
+            // Same energy — show one combined card with double energy label
+            lpCardHTML = renderGuideCard("Life Path & Day Number", lp.final, lpEnergy, "energy-card--featured", true);
+            dayCardHTML = '';
+        } else {
+            lpCardHTML = renderGuideCard("Life Path", lp.final, lpEnergy, "energy-card--featured");
+            dayCardHTML = renderGuideCard("Day Number", dayNum, dayEnergy, "energy-card--day");
+        }
 
         energyReadingHTML = `
             <div class="energy-reading-section">
@@ -350,6 +362,9 @@ function updateDetailsPanel(dateStr, day, month, year) {
                     <div class="detail-calculation">
                         The <strong>Year Reducer</strong> is the sum of the digits of the current calendar year.<br><br>
                         <strong>Calculation:</strong> ${year} &rarr; <strong>${yearReducer}</strong>
+                        ${typeof readingsDatabase !== 'undefined' && readingsDatabase.years && readingsDatabase.years[yearReducer] 
+                            ? `<br><br><strong>Year ${yearReducer} Energy:</strong><br>${readingsDatabase.years[yearReducer]}` 
+                            : ''}
                     </div>
                 </div>
 

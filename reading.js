@@ -311,24 +311,7 @@ getReadingBtn.addEventListener("click", () => {
         `;
     }
 
-    // Add Year Number Reading (alongside days)
-    if (readingsDatabase.years[yearReducer]) {
-        const previewText = (readingsDatabase.years[yearReducer] || '').slice(0, 90).trimEnd() + '…';
-        insightsHTML += `
-            <div class="rd-card rd-card--year" data-collapsible>
-                <div class="rd-card__header">
-                    <div class="rd-card__header-left">
-                        <h4 class="rd-card__title">Born in a ${yearReducer} Year</h4>
-                        <span class="rd-card__preview">${previewText}</span>
-                    </div>
-                    <span class="rd-card__toggle-icon">▾</span>
-                </div>
-                <div class="rd-card__body">
-                    <p class="rd-card__text">${readingsDatabase.years[yearReducer]}</p>
-                </div>
-            </div>
-        `;
-    }
+
 
     if (typeof chineseSignDatabase !== 'undefined' && chineseSignDatabase[czAnimal]) {
         const czData = chineseSignDatabase[czAnimal];

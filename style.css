@@ -1601,6 +1601,27 @@ body {
     opacity: 0.8;
 }
 
+.energy-double-tag {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    color: var(--th-accent);
+    background: color-mix(in srgb, var(--th-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--th-accent) 30%, transparent);
+    border-radius: 20px;
+    padding: 2px 8px;
+    white-space: nowrap;
+    animation: doubleEnergyPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes doubleEnergyPulse {
+    0%, 100% { opacity: 0.7; }
+    50%       { opacity: 1; }
+}
+
 .energy-card--day {
     /* subtle distinction via opacity */
     opacity: 0.95;
