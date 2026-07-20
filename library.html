@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="warm">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library of Ohara</title>
+    <meta name="description"
+        content="A curated reference library covering numerology, Chinese astrology, and gematria. Explore the symbolic systems that underpin this tradition.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="themes.css">
+    <style>
+        /* ── Page shell ── */
+        .lib-page {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Top bar ── */
+        .lib-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 28px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .lib-topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+
+        .lib-page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--th-text);
+            margin: 0;
+            letter-spacing: 0.01em;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ── Tab nav ── */
+        .lib-tab-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 20px 28px 0;
+            flex-wrap: wrap;
+        }
+
+        .lib-tab-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            background: var(--th-surface);
+            color: var(--th-text-secondary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition:
+                background 0.2s cubic-bezier(0.2, 0, 0, 1),
+                color 0.2s cubic-bezier(0.2, 0, 0, 1),
+                box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1),
+                transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+            white-space: nowrap;
+        }
+
+        .lib-tab-btn:hover {
+            color: var(--th-text);
+            background: var(--th-surface-alt);
+        }
+
+        .lib-tab-btn:active {
+            transform: scale(0.96);
+        }
+
+        .lib-tab-btn.active {
+            background: var(--th-soft-panel);
+            color: var(--th-accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        /* ── Content area ── */
+        .lib-content-area {
+            flex: 1;
+            padding: 32px 32px 48px;
+            width: 100%;
+            max-width: 780px;
+            margin: 24px auto;
+            box-sizing: border-box;
+            background: var(--th-surface);
+            border-radius: 24px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            border: 1px solid var(--th-border-light, rgba(0,0,0,0.05));
+        }
+
+        /* ── Tab panels ── */
+        .lib-panel {
+            display: none;
+            animation: lib-fadein 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .lib-panel.active {
+            display: block;
+        }
+
+        @keyframes lib-fadein {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Section header ── */
+        .lib-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.55rem;
+            font-weight: 600;
+            color: var(--th-text);
+            margin: 0 0 6px;
+            text-wrap: balance;
+        }
+
+        .lib-section-desc {
+            font-size: 0.85rem;
+            color: var(--th-text-muted);
+            margin: 0 0 28px;
+            text-wrap: pretty;
+            line-height: 1.6;
+        }
+
+        /* ── Entry cards ── */
+        .lib-entries {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .lib-entry {
+            background: var(--th-bg);
+            border-radius: 24px;
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.05),
+                0 1px 2px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            overflow: hidden;
+            transition: box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1), transform 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .lib-entry:hover,
+        .lib-entry.open {
+            background-color: var(--th-surface);
+            box-shadow:
+                0 4px 16px rgba(0, 0, 0, 0.08),
+                0 1px 3px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+
+
+        .lib-entry-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .lib-entry-header:active {
+            opacity: 0.7;
+        }
+
+        .lib-entry-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .lib-entry-num {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--th-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--th-accent);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .lib-entry-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--th-text);
+            margin: 0 0 2px;
+            transition: color 0.2s ease;
+        }
+
+        .lib-entry:hover .lib-entry-title,
+        .lib-entry.open .lib-entry-title {
+            color: var(--th-accent);
+        }
+
+        .lib-entry-subtitle {
+            font-size: 0.78rem;
+            color: var(--th-text-muted);
+            margin: 0;
+        }
+
+        .lib-entry-chevron {
+            flex-shrink: 0;
+            font-size: 0.75rem;
+            color: var(--th-text-muted);
+            transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1), color 0.2s ease;
+        }
+
+        .lib-entry:hover .lib-entry-chevron,
+        .lib-entry.open .lib-entry-chevron {
+            color: var(--th-accent);
+        }
+
+        .lib-entry.open .lib-entry-chevron {
+            transform: rotate(180deg);
+        }
+
+        .lib-entry-body {
+            display: none;
+            padding: 0 20px 20px;
+            font-size: 0.85rem;
+            color: var(--th-text-secondary);
+            line-height: 1.7;
+            border-top: 1px solid var(--th-border, rgba(0, 0, 0, 0.07));
+            padding-top: 16px;
+        }
+
+        .lib-entry.open .lib-entry-body {
+            display: block;
+            animation: lib-fadein 0.2s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .lib-entry-body p {
+            margin: 0 0 10px;
+        }
+
+        .lib-entry-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Empty state ── */
+        .lib-empty {
+            text-align: center;
+            padding: 64px 20px;
+            color: var(--th-text-muted);
+        }
+
+        .lib-empty-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .lib-empty-text {
+            font-size: 0.88rem;
+            font-style: italic;
+        }
+
+        /* ── Sub-category label & group ── */
+        .lib-category-group {
+            margin-top: 24px;
+            margin-bottom: 24px;
+            width: 100%;
+            border: 1px solid var(--th-border);
+            border-radius: 50px;
+            background-color: var(--th-bg);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.4);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .lib-category-group:first-child {
+            margin-top: 0;
+        }
+
+        .lib-category-group:not(.open):hover {
+            box-shadow: var(--th-card-hover-shadow);
+            transform: translateY(-2px);
+            background-color: var(--th-surface-alt);
+        }
+
+        .lib-category-group.open {
+            border-radius: 24px;
+            padding-bottom: 16px;
+        }
+
+        .lib-category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 12px 20px;
+            user-select: none;
+            width: 100%;
+            box-sizing: border-box;
+            background: transparent;
+            border: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .lib-category-header:active {
+            opacity: 0.7;
+        }
+
+        .lib-category-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--th-text-secondary);
+            margin: 0;
+        }
+
+        .lib-category-chevron {
+            font-size: 0.7rem;
+            color: var(--th-text-muted);
+            transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .lib-category-group.open .lib-category-chevron {
+            transform: rotate(180deg);
+        }
+
+        .lib-category-body {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            animation: lib-fadein 0.2s cubic-bezier(0.2, 0, 0, 1);
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .lib-category-group.open .lib-category-body {
+            display: flex;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .lib-topbar {
+                padding: 12px 12px;
+            }
+
+            .lib-page-title {
+                position: static;
+                transform: none;
+                flex: 1;
+                text-align: center;
+                font-size: 0.95rem;
+                margin: 0 8px;
+            }
+
+            .lib-topbar a[href="index.html"] {
+                padding: 4px 10px !important;
+                font-size: 0.75rem !important;
+            }
+
+            .theme-toggle-btn {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+
+            .lib-content-area {
+                padding: 16px 8px 40px;
+                margin: 12px auto;
+                border-radius: 12px;
+                border-left: none;
+                border-right: none;
+            }
+
+            .lib-tab-nav {
+                padding: 12px 12px 4px;
+                gap: 8px;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .lib-tab-nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            .lib-tab-btn {
+                padding: 8px 16px;
+                font-size: 0.78rem;
+            }
+
+            .lib-category-group.open {
+                padding-bottom: 8px;
+            }
+            .lib-category-body {
+                padding: 0 6px;
+            }
+            .lib-category-header {
+                padding: 10px 14px;
+            }
+            .lib-entry-body {
+                padding: 0 12px 14px;
+                font-size: 0.8rem;
+            }
+            .lib-entry-header {
+                padding: 12px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lib-page">
+
+        <header class="lib-topbar">
+            <div class="lib-topbar-left">
+                <a href="index.html" class="header-title-group pill-container report-btn"
+                    style="text-decoration: none; color: var(--th-text-secondary); padding: 4px 16px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; height: 32px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 7px; background: var(--th-surface); box-shadow: 0 1px 4px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6); border-radius: 20px;">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Calendar
+                </a>
+            </div>
+            <h1 class="lib-page-title">Library of Ohara</h1>
+            <div class="theme-toggle-bar" id="themeToggleBar">
+                <button class="theme-toggle-btn" data-theme="original" aria-label="Original theme">Original</button>
+                <button class="theme-toggle-btn active" data-theme="warm" aria-label="Warm theme">Warm</button>
+            </div>
+        </header>
+
+        <!-- Tab navigation -->
+        <nav class="lib-tab-nav" role="tablist" aria-label="Library sections">
+            <button id="tabNumerology" class="lib-tab-btn active" role="tab" aria-selected="true"
+                aria-controls="panelNumerology">
+                Numerology
+            </button>
+            <button id="tabChinese" class="lib-tab-btn" role="tab" aria-selected="false" aria-controls="panelChinese">
+                Chinese Astrology
+            </button>
+            <button id="tabGematria" class="lib-tab-btn" role="tab" aria-selected="false" aria-controls="panelGematria">
+                Gematria
+            </button>
+        </nav>
+
+        <!-- Content area -->
+        <main class="lib-content-area">
+
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!-- NUMEROLOGY PANEL -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <section id="panelNumerology" class="lib-panel active" role="tabpanel" aria-labelledby="tabNumerology">
+                <h2 class="lib-section-title">Numerology</h2>
+                <p class="lib-section-desc">
+                    A reference guide to the core numbers, master numbers, and calculation methods used in this system.
+                </p>
+
+                <div class="lib-entries" id="numerologyEntriesContainer">
+                    <div class="lib-entry" data-entry>
+                        <div class="lib-entry-header" onclick="toggleEntry(this)">
+                            <div class="lib-entry-left">
+                                <div class="lib-entry-num">?</div>
+                                <div>
+                                    <p class="lib-entry-title">Placeholder Entry</p>
+                                    <p class="lib-entry-subtitle">Content will be loaded dynamically</p>
+                                </div>
+                            </div>
+                            <span class="lib-entry-chevron">▼</span>
+                        </div>
+                        <div class="lib-entry-body">
+                            <p>This is a placeholder body text. The actual entries for Numerology will appear here once
+                                loaded.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!-- CHINESE ASTROLOGY PANEL -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <section id="panelChinese" class="lib-panel" role="tabpanel" aria-labelledby="tabChinese">
+                <h2 class="lib-section-title">Chinese Astrology</h2>
+                <p class="lib-section-desc">
+                    The twelve zodiac animals of the Chinese calendar and the Five Elements.
+                </p>
+
+                <div class="lib-entries" id="chineseEntriesContainer">
+                    <div class="lib-entry" data-entry>
+                        <div class="lib-entry-header" onclick="toggleEntry(this)">
+                            <div class="lib-entry-left">
+                                <div class="lib-entry-num">🖼️</div>
+                                <div>
+                                    <p class="lib-entry-title">Placeholder Animal</p>
+                                    <p class="lib-entry-subtitle">Content will be loaded dynamically</p>
+                                </div>
+                            </div>
+                            <span class="lib-entry-chevron">▼</span>
+                        </div>
+                        <div class="lib-entry-body">
+                            <p>This is a placeholder body text. The actual entries for Chinese Astrology will appear
+                                here once loaded.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <!-- GEMATRIA PANEL -->
+            <!-- ═══════════════════════════════════════════════════════════ -->
+            <section id="panelGematria" class="lib-panel" role="tabpanel" aria-labelledby="tabGematria">
+                <h2 class="lib-section-title">Gematria</h2>
+                <p class="lib-section-desc">
+                    Cipher systems and key concepts in the practice of assigning numerical values to letters.
+                </p>
+
+                <div class="lib-entries" id="gematriaEntriesContainer">
+                    <div class="lib-entry" data-entry>
+                        <div class="lib-entry-header" onclick="toggleEntry(this)">
+                            <div class="lib-entry-left">
+                                <div class="lib-entry-num" style="font-size:0.7rem;">ABC</div>
+                                <div>
+                                    <p class="lib-entry-title">Placeholder Cipher</p>
+                                    <p class="lib-entry-subtitle">Content will be loaded dynamically</p>
+                                </div>
+                            </div>
+                            <span class="lib-entry-chevron">▼</span>
+                        </div>
+                        <div class="lib-entry-body">
+                            <p>This is a placeholder body text. The actual entries for Gematria will appear here once
+                                loaded.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="theme-toggle.js"></script>
+    <script src="readingsDatabase.js"></script>
+    <script src="chineseSignDatabase.js"></script>
+    <script src="library.js"></script>
+    <script>
+        // ── Tab switching ──
+        const tabs = document.querySelectorAll('.lib-tab-btn');
+        const panels = document.querySelectorAll('.lib-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('aria-controls');
+
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                panels.forEach(p => p.classList.remove('active'));
+
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // ── Accordion entries ──
+        function toggleEntry(header) {
+            const entry = header.closest('[data-entry]');
+            entry.classList.toggle('open');
+        }
+
+        // ── Accordion groups ──
+        function toggleGroup(header) {
+            const group = header.closest('[data-group]');
+            group.classList.toggle('open');
+        }
+    </script>
+</body>
+
+</html>
