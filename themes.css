@@ -1,6 +1,6 @@
 /* ============================================
-   SHARED THEME SYSTEM — 4 Themes
-   Original (blue/clean) | Warm (earth) | Dark (midnight navy) | Mystic (celestial)
+   SHARED THEME SYSTEM — 2 Themes
+   Original (blue/clean) | Warm (earth)
    ============================================ */
 
 /* --- Theme: Original (Apple Light) --- */
@@ -9,6 +9,7 @@
     --th-bg: #f5f5f7;
     --th-surface: #ffffff;
     --th-surface-alt: #fafafa;
+    --th-water: #6a8ba8;
     --th-border: rgba(0, 0, 0, 0.1);
     --th-border-light: rgba(0, 0, 0, 0.05);
     --th-text: #1d1d1f;
@@ -89,6 +90,7 @@
     --th-bg: #FCDEC0;
     --th-surface: #fff;
     --th-surface-alt: #faf3ec;
+    --th-water: #5c7b94;
     --th-border: #E5B299;
     --th-border-light: #f0dcc8;
     --th-text: #3e2a1f;
@@ -164,11 +166,12 @@
     --th-rd-tab-active-shadow: 0 1px 4px rgba(125, 90, 80, 0.12);
 }
 
-/* --- Theme: Dark (Midnight Navy) --- */
-[data-theme="dark"] {
+/* --- DELETED THEME --- */
+[data-theme="deleted-dark"] {
     --th-bg: #0d1117;
     --th-surface: #161b22;
     --th-surface-alt: #1f2937;
+    --th-water: #0d2b4f;
     --th-border: rgba(139, 148, 158, 0.15);
     --th-border-light: rgba(139, 148, 158, 0.08);
     --th-text: #e6edf3;
@@ -244,11 +247,12 @@
     --th-rd-tab-active-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* --- Theme: Mystic (Celestial / Numerology Deep) --- */
-[data-theme="mystic"] {
+/* --- DELETED THEME --- */
+[data-theme="deleted-mystic"] {
     --th-bg: #0c0a14;
     --th-surface: #13111f;
     --th-surface-alt: #1a1728;
+    --th-water: #170b2e;
     --th-border: rgba(147, 112, 219, 0.2);
     --th-border-light: rgba(147, 112, 219, 0.1);
     --th-text: #ede9f8;
@@ -1731,8 +1735,8 @@ body {
     }
 }
 
-/* Dark Theme (Midnight Navy) Compatibility Badge Overrides */
-[data-theme="dark"] .rd-number-badge--friendly {
+/* DELETED THEME */
+[data-theme="deleted-dark"] .rd-number-badge--friendly {
     background: rgba(88, 210, 141, 0.12);
     color: #58d28d;
     border-color: rgba(88, 210, 141, 0.25);
@@ -1750,8 +1754,8 @@ body {
     border-color: rgba(255, 123, 114, 0.25);
 }
 
-/* Mystic Theme Compatibility Badge Overrides */
-[data-theme="mystic"] .rd-number-badge--friendly {
+/* DELETED THEME */
+[data-theme="deleted-mystic"] .rd-number-badge--friendly {
     background: rgba(134, 239, 172, 0.12);
     color: #86efac;
     border-color: rgba(134, 239, 172, 0.25);
@@ -1810,7 +1814,7 @@ body {
     --th-soft-panel: rgba(250, 243, 236, 0.86);
 }
 
-[data-theme="dark"] {
+[data-theme="deleted-dark"] {
     --th-card-shadow: 0 1px 1px rgba(0, 0, 0, 0.35), 0 24px 70px rgba(0, 0, 0, 0.38);
     --th-card-hover-shadow: 0 20px 46px rgba(0, 0, 0, 0.42);
     --th-control-bg: #21262d;
@@ -1819,7 +1823,7 @@ body {
     --th-soft-panel: rgba(31, 41, 55, 0.82);
 }
 
-[data-theme="mystic"] {
+[data-theme="deleted-mystic"] {
     --th-card-shadow: 0 1px 1px rgba(0, 0, 0, 0.35), 0 24px 70px rgba(0, 0, 0, 0.42);
     --th-card-hover-shadow: 0 20px 46px rgba(0, 0, 0, 0.46);
     --th-control-bg: #1a1728;

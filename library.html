@@ -41,6 +41,35 @@
             gap: 10px;
         }
 
+        .lib-earth-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--th-surface);
+            color: var(--th-accent);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+            border: 1px solid var(--th-border-light, rgba(0,0,0,0.05));
+            transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .lib-earth-btn:hover {
+            background: var(--th-surface-alt);
+            color: var(--th-accent-hover, var(--th-text));
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+            transform: translateY(-1px);
+        }
+
+        .lib-earth-btn:active {
+            transform: scale(0.96);
+        }
+
 
 
         .lib-page-title {
@@ -464,6 +493,15 @@
                             stroke-linejoin="round" />
                     </svg>
                     Calendar
+                </a>
+                <a href="map.html" class="lib-earth-btn" title="Explore Interactive Europe Map" aria-label="Explore Interactive Europe Map">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                        <path d="M2 12h20"></path>
+                        <path d="M3.6 9h16.8"></path>
+                        <path d="M3.6 15h16.8"></path>
+                    </svg>
                 </a>
             </div>
             <h1 class="lib-page-title">Library of Ohara</h1>

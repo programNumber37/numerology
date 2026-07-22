@@ -21,8 +21,8 @@ function populateNumerology() {
     const container = document.getElementById("numerologyEntriesContainer");
     if (!container) return;
 
-    container.innerHTML = ""; 
-    
+    container.innerHTML = "";
+
     // ═══════════════════════════════════════════════════════════
     // CORE NUMBERS GROUP
     // ═══════════════════════════════════════════════════════════
@@ -37,11 +37,13 @@ function populateNumerology() {
         <div class="lib-category-body" id="coreNumbersBody"></div>
     `;
     container.appendChild(coreGroup);
-    
+
     const coreBody = document.getElementById("coreNumbersBody");
 
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    
+
+
+
     numbers.forEach(num => {
         const text = readingsDatabase.lifepaths[num] || "";
         const formattedText = formatTextToParagraphs(text);
@@ -62,7 +64,7 @@ function populateNumerology() {
                 </div>
             </div>
         `;
-        
+
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = entryHtml.trim();
         coreBody.appendChild(tempDiv.firstChild);
@@ -135,17 +137,17 @@ function populateNumerology() {
     const compatibilityBody = document.getElementById("compatibilityBody");
 
     const compatibilityData = [
-      { "number": 1, "planet": "Sun", "friendly": [ 1, 2, 7, 8, 11, 28 ], "neutral": [ 3, 4, 5, 6, 22, 33 ], "enemy": [ 9 ] },
-      { "number": 2, "planet": "Moon", "friendly": [ 1, 3, 8 ], "neutral": [ 2, 4, 5, 6, 7, 11, 22, 33 ], "enemy": [ 9 ] },
-      { "number": 3, "planet": "Jupiter", "friendly": [ 2, 3, 5, 6, 7, 8, 11, 33 ], "neutral": [ 1, 7, 9, 22 ], "enemy": [ 4 ] },
-      { "number": 4, "planet": "Rahu", "friendly": [ 2, 4, 6, 7, 8, 9 ], "neutral": [ 1, 11, 22, 33 ], "enemy": [ 3, 5 ] },
-      { "number": 5, "planet": "Mercury", "friendly": [ 3, 5, 7, 8, 9, 33 ], "neutral": [ 1, 2, 11 ], "enemy": [ 4, 6, 22 ] },
-      { "number": 6, "planet": "Venus", "friendly": [ 3, 4, 8, 9, 22 ], "neutral": [ 1, 2, 6, 11, 33 ], "enemy": [ 5, 7 ] },
-      { "number": 7, "planet": "Ketu", "friendly": [ 1, 4, 5, 11, 22 ], "neutral": [ 2, 3, 7, 33 ], "enemy": [ 6, 8, 9 ] },
-      { "number": 8, "planet": "Saturn", "friendly": [ 1, 2, 3, 4, 5, 6, 22, 33 ], "neutral": [ 9, 11 ], "enemy": [ 7, 8 ] },
-      { "number": 9, "planet": "Mars", "friendly": [ 4, 5, 6 ], "neutral": [ 3, 8 ], "enemy": [ 1, 2, 7, 9, 11, 22, 33 ] }
+        { "number": 1, "planet": "Sun", "friendly": [1, 2, 7, 8, 11, 28], "neutral": [3, 4, 5, 6, 22, 33], "enemy": [9] },
+        { "number": 2, "planet": "Moon", "friendly": [1, 3, 8], "neutral": [2, 4, 5, 6, 7, 11, 22, 33], "enemy": [9] },
+        { "number": 3, "planet": "Jupiter", "friendly": [2, 3, 5, 6, 7, 8, 11, 33], "neutral": [1, 7, 9, 22], "enemy": [4] },
+        { "number": 4, "planet": "Rahu", "friendly": [2, 4, 6, 7, 8, 9], "neutral": [1, 11, 22, 33], "enemy": [3, 5] },
+        { "number": 5, "planet": "Mercury", "friendly": [3, 5, 7, 8, 9, 33], "neutral": [1, 2, 11], "enemy": [4, 6, 22] },
+        { "number": 6, "planet": "Venus", "friendly": [3, 4, 8, 9, 22], "neutral": [1, 2, 6, 11, 33], "enemy": [5, 7] },
+        { "number": 7, "planet": "Ketu", "friendly": [1, 4, 5, 11, 22], "neutral": [2, 3, 7, 33], "enemy": [6, 8, 9] },
+        { "number": 8, "planet": "Saturn", "friendly": [1, 2, 3, 4, 5, 6, 22, 33], "neutral": [9, 11], "enemy": [7, 8] },
+        { "number": 9, "planet": "Mars", "friendly": [4, 5, 6], "neutral": [3, 8], "enemy": [1, 2, 7, 9, 11, 22, 33] }
     ];
-    
+
     compatibilityData.forEach(data => {
         const entryHtml = `
             <div class="lib-entry" data-entry>
@@ -266,7 +268,7 @@ function populateChineseAstrology() {
     const container = document.getElementById("chineseEntriesContainer");
     if (!container) return;
 
-    container.innerHTML = ""; 
+    container.innerHTML = "";
 
     // ═══════════════════════════════════════════════════════════
     // THE ZODIAC RACE & HISTORY
@@ -319,7 +321,7 @@ function populateChineseAstrology() {
         <div class="lib-category-body" id="chineseZodiacBody"></div>
     `;
     container.appendChild(zodiacGroup);
-    
+
     const zodiacBody = document.getElementById("chineseZodiacBody");
 
     // We assume chineseSignDatabase is available globally
@@ -388,7 +390,7 @@ function populateChineseAstrology() {
                     </div>
                 </div>
             `;
-            
+
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = entryHtml.trim();
             zodiacBody.appendChild(tempDiv.firstChild);

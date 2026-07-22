@@ -1,0 +1,518 @@
+/* ============================================
+   INTERACTIVE MAP PAGE STYLES — Europe Map
+   ============================================ */
+
+/* ── Page Shell ── */
+.map-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--th-bg);
+    color: var(--th-text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+/* ── Topbar ── */
+.map-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    flex-shrink: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.map-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.map-back-btn {
+    text-decoration: none;
+    color: var(--th-text-secondary);
+    padding: 6px 18px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    height: 36px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--th-surface);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    border: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.05));
+    transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.map-back-btn:hover {
+    background: var(--th-surface-alt);
+    color: var(--th-accent-hover, var(--th-text));
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.map-back-btn:active {
+    transform: scale(0.96);
+}
+
+.map-page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--th-text);
+    margin: 0;
+    letter-spacing: 0.01em;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ── Main Layout Container ── */
+.map-container {
+    flex: 1;
+    width: 100%;
+    max-width: 1000px;
+    margin: 16px auto 48px;
+    padding: 0 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── Window Frame ── */
+.map-window {
+    background: var(--th-surface);
+    border-radius: 24px;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.06),
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--th-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Window Header */
+.map-window-header {
+    background: var(--th-surface);
+    border-bottom: 1px solid var(--th-border);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px 24px 0 0;
+    min-width: 0;
+}
+
+.map-window-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--th-text-muted);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.title-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Map Window Controls */
+.map-ctrl-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.08));
+    background: var(--th-surface);
+    color: var(--th-text);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.map-ctrl-btn:hover {
+    background: var(--th-accent-bg, rgba(0, 0, 0, 0.05));
+    color: var(--th-accent);
+}
+
+.map-ctrl-btn:active {
+    transform: scale(0.96);
+}
+
+/* Viewport & Movable Canvas */
+.map-viewport {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    background: var(--th-water, var(--th-bg));
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+}
+
+.map-viewport.grabbing {
+    cursor: grabbing;
+}
+
+/* SVG Canvas */
+.map-svg-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.map-svg-canvas.is-zooming #mapZoomContainer {
+    pointer-events: none !important;
+}
+
+/* Floating Map Overlay Hints & Floating Controls */
+.map-hint-pill {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    background: var(--th-surface);
+    color: var(--th-text-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.08));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 10;
+}
+
+.map-floating-ctrls {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 10;
+}
+
+/* Country SVG Elements */
+.country-path {
+    fill: var(--th-surface);
+    stroke: var(--th-border);
+    stroke-width: 0.5px;
+    vector-effect: non-scaling-stroke;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    transition: fill 0.2s cubic-bezier(0.2, 0, 0, 1), stroke 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.country-path.has-data {
+    cursor: pointer;
+    stroke-width: 0.8px;
+}
+
+.country-path.has-data:not(.active):hover,
+#countryGroup.has-selection .country-path.has-data:not(.active):hover {
+    fill: #c68c53; /* vibrant gold/brown shade */
+    stroke: #8d6e63; /* brown border */
+    stroke-width: 1.5px;
+    opacity: 1 !important;
+}
+
+#countryGroup.has-selection .country-path:not(.active) {
+    fill: var(--th-bg);
+    stroke: var(--th-border-light);
+    opacity: 1;
+}
+
+.country-path.active {
+    fill: #6d4c41;
+    stroke: #4e342e;
+    stroke-width: 1.5px;
+}
+
+/* City Marker Nodes */
+.city-node {
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, filter 0.2s ease;
+}
+
+.city-content {
+    will-change: transform;
+}
+
+.city-node.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Prevent hover glitching while the camera is moving */
+.map-svg-canvas.is-zooming * {
+    pointer-events: none !important;
+}
+
+.city-node:hover {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.city-dot {
+    fill: var(--th-surface);
+    /* Matches lighter unselected countries */
+    stroke: none;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), fill 0.2s ease;
+}
+
+.city-node:hover .city-dot {
+    transform: scale(2.0);
+    fill: var(--th-surface-alt);
+}
+
+.city-node.active .city-dot {
+    transform: scale(1.45);
+    fill: #0047AB;
+    /* Cobalt Blue */
+    stroke: #ffffff;
+    stroke-width: 1.5px;
+    vector-effect: non-scaling-stroke;
+}
+
+.city-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    fill: #3e2723;
+    pointer-events: none;
+    paint-order: stroke fill;
+    stroke: rgba(255, 255, 255, 0.95);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+    letter-spacing: 0.02em;
+    user-select: none;
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: opacity 0.3s cubic-bezier(0.2, 0, 0, 1), transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+    -webkit-font-smoothing: antialiased;
+}
+
+.city-node:hover .city-label,
+.city-node.active .city-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ── Location Info Display Panel (Below Map Window) ── */
+.map-info-panel {
+    background: var(--th-surface);
+    border-radius: 24px;
+    padding: 28px 32px;
+    min-height: 240px;
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.04),
+        0 1px 3px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--th-border);
+    transition: opacity 0.25s cubic-bezier(0.2, 0, 0, 1), transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.map-info-empty {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--th-text-muted);
+}
+
+.map-info-empty-icon {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.map-info-empty-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--th-text);
+    margin: 0 0 6px;
+}
+
+.map-info-empty-text {
+    font-size: 0.85rem;
+    color: var(--th-text-muted);
+    margin: 0;
+}
+
+/* Active Location Details Card */
+.map-info-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.07));
+}
+
+.map-info-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.map-info-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--th-accent-bg);
+    color: var(--th-accent);
+    width: fit-content;
+}
+
+.map-info-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--th-text);
+    margin: 4px 0 0;
+    line-height: 1.2;
+}
+
+.map-info-sub {
+    font-size: 0.88rem;
+    color: var(--th-text-secondary);
+    margin: 0;
+}
+
+.map-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.map-info-card {
+    background: var(--th-surface-alt);
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.05));
+}
+
+.map-info-card-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--th-text-muted);
+    margin: 0 0 6px;
+}
+
+.map-info-card-val {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--th-text);
+    margin: 0;
+}
+
+.map-info-body-text {
+    font-size: 0.9rem;
+    line-height: 1.68;
+    color: var(--th-text-secondary);
+    margin: 0 0 16px;
+    text-wrap: pretty;
+}
+
+.map-info-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.map-info-tag {
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: var(--th-bg);
+    border: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.08));
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--th-text-secondary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .map-page-title {
+        font-size: 1.25rem;
+    }
+
+    .map-window {
+        height: 60vh;
+    }
+
+    /* Enlarge city dots and text on mobile for better visibility */
+    .city-dot {
+        r: 7px;
+    }
+
+    .city-label {
+        font-size: 36px;
+        x: 24px;
+        y: 12px;
+    }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .map-topbar {
+        padding: 12px 16px;
+    }
+
+    .map-page-title {
+        position: static;
+        transform: none;
+        font-size: 1rem;
+    }
+
+    .map-container {
+        padding: 0 12px;
+        margin-bottom: 32px;
+    }
+
+    .map-viewport {
+        height: 380px;
+    }
+
+    .map-info-panel {
+        padding: 20px 18px;
+        border-radius: 16px;
+    }
+
+    .map-info-name {
+        font-size: 1.4rem;
+    }
+}
