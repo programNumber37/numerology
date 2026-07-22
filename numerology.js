@@ -85,7 +85,7 @@ function getChineseZodiac(year, month, day) {
             chineseYear -= 1;
         }
     } else {
-        // Fallback for years outside 1-2200
+        // Fallback for years outside 1-2200 (including BC dates)
         if (month === 1 || (month === 2 && day < 4)) {
             chineseYear -= 1;
         }
@@ -94,8 +94,11 @@ function getChineseZodiac(year, month, day) {
     const animals = ["Monkey", "Rooster", "Dog", "Boar", "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep"];
     const elements = ["Metal", "Metal", "Water", "Water", "Wood", "Wood", "Fire", "Fire", "Earth", "Earth"];
 
-    const animal = animals[chineseYear % 12];
-    const element = elements[chineseYear % 10];
+    const animalIdx = ((chineseYear % 12) + 12) % 12;
+    const elementIdx = ((chineseYear % 10) + 10) % 10;
+
+    const animal = animals[animalIdx];
+    const element = elements[elementIdx];
 
     return `${element} ${animal}`;
 }

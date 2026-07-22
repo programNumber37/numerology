@@ -98,6 +98,14 @@ class EuropeMapEngine {
     }
 
     async loadMapData() {
+        try {
+            const res = await fetch('foundingDates.json');
+            this.foundingDates = await res.json();
+        } catch (e) {
+            console.warn("Could not load founding dates", e);
+            this.foundingDates = {};
+        }
+
         // Inject fast using native parser and the pre-computed AOT SVG string
         this.countryGroup.node().innerHTML = MAP_PATHS_SVG;
 
@@ -363,7 +371,14 @@ class EuropeMapEngine {
     renderInfoPanel(data) {
         if (!this.infoPanel) return;
 
-        if (data.type === 'empty') {
+        const isCity = data.type === 'Major City' || data.country !== undefined;
+        const badgeText = isCity ? `CITY • ${data.country}` : `COUNTRY`;
+        const subtitleText = isCity ? `Major Center` : (data.type === 'empty' ? `Global Nation` : `Capital: ${data.capital}`);
+
+        let primaryNumber = data.number || "Unknown";
+        let boxLabel = "Primary Number Energy";
+
+        if (data.type === 'empty' && (!this.foundingDates || !this.foundingDates[data.name])) {
             this.infoPanel.innerHTML = `
                 <div class="map-info-header">
                     <div class="map-info-header-content">
@@ -378,11 +393,143 @@ class EuropeMapEngine {
             return;
         }
 
-        const isCity = data.type === 'Major City';
-        const badgeText = isCity ? `CITY • ${data.country}` : `COUNTRY`;
-        const subtitleText = isCity ? `Major European Center` : `Capital: ${data.capital}`;
+        const formatNum = (n) => {
+            if (n === 11) return "11/2";
+            if (n === 22) return "22/4";
+            if (n === 33) return "33/6";
+            return n;
+        };
+        const getNameNumber = (str) => {
+            let sum = 0;
+            for (let i = 0; i < str.length; i++) {
+                sum += str.charCodeAt(i);
+            }
+            return (sum % 9) + 1;
+        };
 
-        const landmarksHTML = (data.landmarks || []).map(l => `<span class="map-info-tag">${l}</span>`).join('');
+        let energyBoxesHTML = '';
+        let foundingHTML = '';
+        let hasDate = false;
+        primaryNumber = data.number || getNameNumber(data.name);
+        let currentBoxLabel = boxLabel;
+
+        if (this.foundingDates) {
+            const key = isCity ? `${data.name}_${data.country}` : data.name;
+            const datesArr = this.foundingDates[key];
+            if (datesArr && datesArr.length > 0) {
+                hasDate = true;
+                // Check for a full date to update Energy
+                const fullDateObj = datesArr.find(d => /^\d{4}-\d{2}-\d{2}$/.test(d.date));
+                if (fullDateObj && typeof calculateLifePath === 'function') {
+                    const [yyyy, mm, dd] = fullDateObj.date.split('-');
+                    const dayInt = parseInt(dd, 10);
+                    const monthInt = parseInt(mm, 10);
+                    const yearInt = parseInt(yyyy, 10);
+                    
+                    const lp = calculateLifePath(dayInt, monthInt, yearInt);
+                    const dayNum = typeof calculateDayNumber === 'function' ? calculateDayNumber(dayInt) : dayInt;
+                    const yearReducer = typeof calculateYearReducer === 'function' ? calculateYearReducer(yearInt) : yearInt;
+
+                    energyBoxesHTML = `
+                        <div class="map-info-card">
+                            <p class="map-info-card-label">Life Path</p>
+                            <p class="map-info-card-val" style="color: var(--th-accent);">Number ${formatNum(lp.final)}</p>
+                        </div>
+                        <div class="map-info-card">
+                            <p class="map-info-card-label">Day Energy</p>
+                            <p class="map-info-card-val" style="color: var(--th-accent);">Number ${formatNum(dayNum)}</p>
+                        </div>
+                        <div class="map-info-card">
+                            <p class="map-info-card-label">Year Energy</p>
+                            <p class="map-info-card-val" style="color: var(--th-accent);">Number ${formatNum(yearReducer)}</p>
+                        </div>
+                    `;
+                } else {
+                    // Check if there is at least a year
+                    const yearDateObj = datesArr.find(d => /^\d{4}/.test(d.date));
+                    if (yearDateObj && typeof calculateYearReducer === 'function') {
+                        const yyyyMatch = yearDateObj.date.match(/^(\d{4})/);
+                        if (yyyyMatch) {
+                            const yyyy = parseInt(yyyyMatch[1], 10);
+                            const yearNum = calculateYearReducer(yyyy);
+                            
+                            energyBoxesHTML = `
+                                <div class="map-info-card">
+                                    <p class="map-info-card-label">Year Energy</p>
+                                    <p class="map-info-card-val" style="color: var(--th-accent);">Number ${formatNum(yearNum)}</p>
+                                </div>
+                            `;
+                        }
+                    }
+                }
+
+                if (!energyBoxesHTML && data.number) {
+                    energyBoxesHTML = `
+                        <div class="map-info-card">
+                            <p class="map-info-card-label">${boxLabel}</p>
+                            <p class="map-info-card-val" style="color: var(--th-accent);">Number ${data.number}</p>
+                        </div>
+                    `;
+                }
+
+                foundingHTML = `
+                    <div style="margin-top: 18px;">
+                        <p class="map-info-card-label" style="margin-bottom: 8px;">Historical Timeline</p>
+                        <div class="map-info-highlights" style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start;">
+                            ${datesArr.map(d => {
+                                let zodiacBadge = '';
+                                if (typeof getChineseZodiac === 'function') {
+                                    let yyyy, mm = 7, dd = 1;
+                                    const isBC = d.date.includes('BC');
+                                    let cleanDate = d.date.replace(' BC', '');
+                                    
+                                    const matchFull = cleanDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+                                    if (matchFull) {
+                                        yyyy = parseInt(matchFull[1], 10);
+                                        mm = parseInt(matchFull[2], 10);
+                                        dd = parseInt(matchFull[3], 10);
+                                    } else {
+                                        const matchYear = cleanDate.match(/^(\d{4})/);
+                                        if (matchYear) yyyy = parseInt(matchYear[1], 10);
+                                    }
+                                    
+                                    if (yyyy !== undefined) {
+                                        if (isBC) yyyy = 1 - yyyy; // Convert to astronomical year
+                                        const zodiacStr = getChineseZodiac(yyyy, mm, dd);
+                                        zodiacBadge = ` <span style="margin-left:8px; background: rgba(255,215,0,0.15); color: #ffd700; border-radius: 4px; padding: 2px 6px; font-size: 0.85em; font-family: 'Inter', sans-serif;">☯ ${zodiacStr}</span>`;
+                                    }
+                                }
+                                return `<span class="map-info-tag" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-family: monospace;">${d.date} — ${d.event}${zodiacBadge}</span>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        if (!energyBoxesHTML) {
+            energyBoxesHTML = `
+                <div class="map-info-card">
+                    <p class="map-info-card-label">${hasDate ? currentBoxLabel : 'Name Energy'}</p>
+                    <p class="map-info-card-val" style="color: var(--th-accent);">Number ${primaryNumber}</p>
+                </div>
+            `;
+        }
+
+        if (!hasDate) {
+            foundingHTML = `
+                <div style="padding: 24px 32px; color: var(--th-text-muted); text-align: center; font-size: 0.9em; font-style: italic;">
+                    Information not researched yet.
+                </div>
+            `;
+        }
+
+        let gridColumns = energyBoxesHTML.includes('Life Path') ? '1fr 1fr 1fr' : '1fr';
+        
+        let coordsHTML = '';
+        if (isCity && data.lat !== undefined && data.lon !== undefined) {
+            coordsHTML = `<p class="map-info-sub" style="font-family: monospace; font-size: 0.85em; margin-top: 4px; opacity: 0.7;">Lat: ${data.lat.toFixed(4)}, Lon: ${data.lon.toFixed(4)}</p>`;
+        }
 
         this.infoPanel.innerHTML = `
             <div class="map-info-header">
@@ -390,29 +537,16 @@ class EuropeMapEngine {
                     <span class="map-info-badge">${badgeText}</span>
                     <h3 class="map-info-name">${data.name}</h3>
                     <p class="map-info-sub">${subtitleText}</p>
+                    ${coordsHTML}
                 </div>
             </div>
             
-            <div class="map-info-grid">
-                <div class="map-info-card">
-                    <p class="map-info-card-label">Primary Number Energy</p>
-                    <p class="map-info-card-val" style="color: var(--th-accent);">Number ${data.number}</p>
-                </div>
-                <div class="map-info-card">
-                    <p class="map-info-card-label">Vibrational Essence</p>
-                    <p class="map-info-card-val">${data.vibration}</p>
-                </div>
-            </div>
+            ${energyBoxesHTML ? `
+            <div class="map-info-grid" style="grid-template-columns: ${gridColumns}; gap: 12px;">
+                ${energyBoxesHTML}
+            </div>` : ''}
             
-            <p class="map-info-body-text">${data.description}</p>
-            ${data.energySummary ? `<p class="map-info-body-text" style="font-style: italic; opacity: 0.9;">"${data.energySummary}"</p>` : ''}
-            
-            <div style="margin-top: 18px;">
-                <p class="map-info-card-label" style="margin-bottom: 8px;">Key Landmarks & Focal Points</p>
-                <div class="map-info-highlights">
-                    ${landmarksHTML}
-                </div>
-            </div>
+            ${foundingHTML}
         `;
     }
 

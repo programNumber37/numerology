@@ -1,0 +1,2986 @@
+{
+  "Bangkok_Thailand": [
+    {
+      "date": "1932",
+      "event": "150th anniversary of the founding of Rattanakosin"
+    },
+    {
+      "date": "1882",
+      "event": "100th anniversary of the founding of Rattanakosin"
+    },
+    {
+      "date": "1782-04-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Kabul_Afghanistan": [
+    {
+      "date": "1200",
+      "event": "Original Founding"
+    }
+  ],
+  "Georgetown_Guyana": [
+    {
+      "date": "1781",
+      "event": "Original Founding"
+    }
+  ],
+  "Barquisimeto_Venezuela": [
+    {
+      "date": "1552",
+      "event": "Original Founding"
+    }
+  ],
+  "Thimphu_Bhutan": [
+    {
+      "date": "1955",
+      "event": "Original Founding"
+    }
+  ],
+  "Adelaide_Australia": [
+    {
+      "date": "1836-12-28",
+      "event": "Original Founding"
+    }
+  ],
+  "Durban_South Africa": [
+    {
+      "date": "1835",
+      "event": "Original Founding"
+    }
+  ],
+  "Lagos_Nigeria": [
+    {
+      "date": "1472",
+      "event": "Original Founding"
+    }
+  ],
+  "Antalya_Turkey": [
+    {
+      "date": "0149 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Seoul_South Korea": [
+    {
+      "date": "1395-06-14",
+      "event": "Original Founding"
+    }
+  ],
+  "Windhoek_Namibia": [
+    {
+      "date": "1840",
+      "event": "Original Founding"
+    }
+  ],
+  "Velenje_Slovenia": [
+    {
+      "date": "1889",
+      "event": "Original Founding"
+    }
+  ],
+  "Mary_Turkmenistan": [
+    {
+      "date": "1884",
+      "event": "Original Founding"
+    }
+  ],
+  "London_United Kingdom": [
+    {
+      "date": "0047",
+      "event": "Original Founding"
+    }
+  ],
+  "Nuuk_Greenland": [
+    {
+      "date": "1721",
+      "event": "Original Founding"
+    }
+  ],
+  "São Paulo_Brazil": [
+    {
+      "date": "1554-02-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Innsbruck_Austria": [
+    {
+      "date": "1234",
+      "event": "Original Founding"
+    }
+  ],
+  "Caracas_Venezuela": [
+    {
+      "date": "1567-08-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Dubai_United Arab Emirates": [
+    {
+      "date": "1833-06-09",
+      "event": "Original Founding"
+    }
+  ],
+  "Copenhagen_Denmark": [
+    {
+      "date": "1167",
+      "event": "Original Founding"
+    }
+  ],
+  "Singapore_Singapore": [
+    {
+      "date": "1826",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1965-08-09",
+      "event": "Original Founding"
+    }
+  ],
+  "Alexandria_Egypt": [
+    {
+      "date": "0330 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Toronto_Canada": [
+    {
+      "date": "1750",
+      "event": "Original Founding"
+    }
+  ],
+  "Guatemala City_Guatemala": [
+    {
+      "date": "1524-08-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Mexico City_Mexico": [
+    {
+      "date": "1521",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1325-03-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Milan_Italy": [
+    {
+      "date": "0599 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Havana_Cuba": [
+    {
+      "date": "1515",
+      "event": "Original Founding"
+    }
+  ],
+  "Dar es Salaam_Tanzania": [
+    {
+      "date": "1862",
+      "event": "Original Founding"
+    }
+  ],
+  "Luxembourg_Luxembourg": [
+    {
+      "date": "0963",
+      "event": "Original Founding"
+    }
+  ],
+  "Łódź_Poland": [
+    {
+      "date": "1423-08-07",
+      "event": "Original Founding"
+    }
+  ],
+  "Celje_Slovenia": [
+    {
+      "date": "1451",
+      "event": "Original Founding"
+    }
+  ],
+  "Vilnius_Lithuania": [
+    {
+      "date": "1323",
+      "event": "Original Founding"
+    }
+  ],
+  "Ho Chi Minh City_Vietnam": [
+    {
+      "date": "1976",
+      "event": "Original Founding"
+    }
+  ],
+  "Amsterdam_Netherlands": [
+    {
+      "date": "1300",
+      "event": "Original Founding"
+    }
+  ],
+  "Bengaluru_India": [
+    {
+      "date": "1537",
+      "event": "Original Founding"
+    }
+  ],
+  "Stockholm_Sweden": [
+    {
+      "date": "1187",
+      "event": "Original Founding"
+    }
+  ],
+  "Taipei_Taiwan": [
+    {
+      "date": "1967-07-01",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1945-11-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Mumbai_India": [
+    {
+      "date": "1507",
+      "event": "Original Founding"
+    }
+  ],
+  "Bratislava_Slovakia": [
+    {
+      "date": "0907",
+      "event": "Original Founding"
+    }
+  ],
+  "Chelyabinsk_Russia": [
+    {
+      "date": "1736",
+      "event": "Original Founding"
+    }
+  ],
+  "Helsinki_Finland": [
+    {
+      "date": "1550-06-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Reykjavík_Iceland": [
+    {
+      "date": "1786",
+      "event": "Original Founding"
+    }
+  ],
+  "New York City_United States of America": [
+    {
+      "date": "1624",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1898-01-01",
+      "event": "City Consolidation"
+    }
+  ],
+  "Kuala Lumpur_Malaysia": [
+    {
+      "date": "1857",
+      "event": "Original Founding"
+    }
+  ],
+  "Phnom Penh_Cambodia": [
+    {
+      "date": "1372",
+      "event": "Original Founding"
+    }
+  ],
+  "Edmonton_Canada": [
+    {
+      "date": "1892-01-09",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1904-10-08",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1795",
+      "event": "Original Founding"
+    }
+  ],
+  "Tbilisi_Georgia": [
+    {
+      "date": "0455",
+      "event": "Original Founding"
+    }
+  ],
+  "San Marino_San Marino": [
+    {
+      "date": "0301",
+      "event": "Original Founding"
+    }
+  ],
+  "Bern_Switzerland": [
+    {
+      "date": "1191",
+      "event": "Original Founding"
+    }
+  ],
+  "Katowice_Poland": [
+    {
+      "date": "1598",
+      "event": "Original Founding"
+    }
+  ],
+  "Sydney_Australia": [
+    {
+      "date": "1788-01-26",
+      "event": "Original Founding"
+    }
+  ],
+  "Bujumbura_Burundi": [
+    {
+      "date": "1871",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1897",
+      "event": "Original Founding"
+    }
+  ],
+  "Algiers_Algeria": [
+    {
+      "date": "0944",
+      "event": "Original Founding"
+    }
+  ],
+  "Rabat_Morocco": [
+    {
+      "date": "1146",
+      "event": "Original Founding"
+    }
+  ],
+  "Manama_Bahrain": [
+    {
+      "date": "1345",
+      "event": "Original Founding"
+    }
+  ],
+  "Belmopan_Belize": [
+    {
+      "date": "1970-08-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Quito_Ecuador": [
+    {
+      "date": "1534-12-16",
+      "event": "Original Founding"
+    }
+  ],
+  "Canberra_Australia": [
+    {
+      "date": "1913-03-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Panama City_Panama": [
+    {
+      "date": "1519-09-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Freetown_Sierra Leone": [
+    {
+      "date": "1792",
+      "event": "Original Founding"
+    }
+  ],
+  "Harare_Zimbabwe": [
+    {
+      "date": "1890",
+      "event": "Original Founding"
+    }
+  ],
+  "Paramaribo_Suriname": [
+    {
+      "date": "1613",
+      "event": "Original Founding"
+    }
+  ],
+  "Bissau_Guinea-Bissau": [
+    {
+      "date": "1687",
+      "event": "Original Founding"
+    }
+  ],
+  "Maputo_Mozambique": [
+    {
+      "date": "1781",
+      "event": "Original Founding"
+    }
+  ],
+  "Zadar_Croatia": [
+    {
+      "date": "0383 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Kathmandu_Nepal": [
+    {
+      "date": "0723",
+      "event": "Original Founding"
+    }
+  ],
+  "Perth_Australia": [
+    {
+      "date": "1829",
+      "event": "Original Founding"
+    }
+  ],
+  "Lusaka_Zambia": [
+    {
+      "date": "1905",
+      "event": "Original Founding"
+    }
+  ],
+  "Libreville_Gabon": [
+    {
+      "date": "1849",
+      "event": "Original Founding"
+    }
+  ],
+  "Asmara_Eritrea": [
+    {
+      "date": "1897",
+      "event": "Original Founding"
+    }
+  ],
+  "Lilongwe_Malawi": [
+    {
+      "date": "1902",
+      "event": "Original Founding"
+    }
+  ],
+  "Lima_Peru": [
+    {
+      "date": "1535-01-28",
+      "event": "Original Founding"
+    }
+  ],
+  "Gaborone_Botswana": [
+    {
+      "date": "1965",
+      "event": "Original Founding"
+    }
+  ],
+  "San José_Costa Rica": [
+    {
+      "date": "1737-05-21",
+      "event": "Original Founding"
+    }
+  ],
+  "N'Djamena_Chad": [
+    {
+      "date": "1900-05-29",
+      "event": "Original Founding"
+    }
+  ],
+  "Melbourne_Australia": [
+    {
+      "date": "1835-08-30",
+      "event": "Original Founding"
+    }
+  ],
+  "Addis Ababa_Ethiopia": [
+    {
+      "date": "1886",
+      "event": "Original Founding"
+    }
+  ],
+  "Yaoundé_Cameroon": [
+    {
+      "date": "1888",
+      "event": "Original Founding"
+    }
+  ],
+  "Port Louis_Mauritius": [
+    {
+      "date": "1735",
+      "event": "Original Founding"
+    }
+  ],
+  "Praia_Cape Verde": [
+    {
+      "date": "1858",
+      "event": "Original Founding"
+    }
+  ],
+  "Monrovia_Liberia": [
+    {
+      "date": "1822-04-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Malmö_Sweden": [
+    {
+      "date": "1353",
+      "event": "Original Founding"
+    }
+  ],
+  "Asunción_Paraguay": [
+    {
+      "date": "1537",
+      "event": "Original Founding"
+    }
+  ],
+  "Djibouti_Djibouti": [
+    {
+      "date": "1888",
+      "event": "Original Founding"
+    }
+  ],
+  "Sucre_Bolivia": [
+    {
+      "date": "1538",
+      "event": "Original Founding"
+    }
+  ],
+  "Luanda_Angola": [
+    {
+      "date": "1575",
+      "event": "Original Founding"
+    }
+  ],
+  "Maseru_Lesotho": [
+    {
+      "date": "1869",
+      "event": "Original Founding"
+    }
+  ],
+  "Prešov_Slovakia": [
+    {
+      "date": "1247",
+      "event": "Original Founding"
+    }
+  ],
+  "Trnava_Slovakia": [
+    {
+      "date": "1211",
+      "event": "Original Founding"
+    }
+  ],
+  "Douglas_Isle of Man": [
+    {
+      "date": "1670",
+      "event": "Original Founding"
+    }
+  ],
+  "Ulaanbaatar_Mongolia": [
+    {
+      "date": "1649",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1639",
+      "event": "Original Founding"
+    }
+  ],
+  "Bergen_Norway": [
+    {
+      "date": "1070",
+      "event": "Original Founding"
+    }
+  ],
+  "Tirana_Albania": [
+    {
+      "date": "1614",
+      "event": "Original Founding"
+    }
+  ],
+  "Ashgabat_Turkmenistan": [
+    {
+      "date": "1881",
+      "event": "Original Founding"
+    }
+  ],
+  "Trondheim_Norway": [
+    {
+      "date": "0997",
+      "event": "Original Founding"
+    }
+  ],
+  "Liverpool_United Kingdom": [
+    {
+      "date": "1207",
+      "event": "Original Founding"
+    }
+  ],
+  "Valletta_Malta": [
+    {
+      "date": "1566",
+      "event": "Original Founding"
+    }
+  ],
+  "Bristol_United Kingdom": [
+    {
+      "date": "1155",
+      "event": "Original Founding"
+    }
+  ],
+  "Žilina_Slovakia": [
+    {
+      "date": "1069",
+      "event": "Original Founding"
+    }
+  ],
+  "Esbjerg_Denmark": [
+    {
+      "date": "1868",
+      "event": "Original Founding"
+    }
+  ],
+  "Kolding_Denmark": [
+    {
+      "date": "1231",
+      "event": "Original Founding"
+    }
+  ],
+  "Poprad_Slovakia": [
+    {
+      "date": "1250",
+      "event": "Original Founding"
+    }
+  ],
+  "Nitra_Slovakia": [
+    {
+      "date": "0826",
+      "event": "Original Founding"
+    }
+  ],
+  "Dire Dawa_Ethiopia": [
+    {
+      "date": "1902",
+      "event": "Original Founding"
+    }
+  ],
+  "Guantánamo_Cuba": [
+    {
+      "date": "1510",
+      "event": "Original Founding"
+    }
+  ],
+  "Garðabær_Iceland": [
+    {
+      "date": "1878",
+      "event": "Original Founding"
+    }
+  ],
+  "Herceg Novi_Montenegro": [
+    {
+      "date": "1382",
+      "event": "Original Founding"
+    }
+  ],
+  "Blantyre_Malawi": [
+    {
+      "date": "1876",
+      "event": "Original Founding"
+    }
+  ],
+  "Ilulissat_Greenland": [
+    {
+      "date": "1741",
+      "event": "Original Founding"
+    }
+  ],
+  "Kumasi_Ghana": [
+    {
+      "date": "1680",
+      "event": "Original Founding"
+    }
+  ],
+  "Maracaibo_Venezuela": [
+    {
+      "date": "1529-09-18",
+      "event": "Original Founding"
+    }
+  ],
+  "Cochabamba_Bolivia": [
+    {
+      "date": "1571-08-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Irbid_Jordan": [
+    {
+      "date": "1399 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Faisalabad_Pakistan": [
+    {
+      "date": "1892",
+      "event": "Original Founding"
+    }
+  ],
+  "Ashdod_Israel": [
+    {
+      "date": "1956",
+      "event": "Original Founding"
+    }
+  ],
+  "Balkanabat_Turkmenistan": [
+    {
+      "date": "1933",
+      "event": "Original Founding"
+    }
+  ],
+  "Wollongong_Australia": [
+    {
+      "date": "1834",
+      "event": "Original Founding"
+    }
+  ],
+  "Bender_Moldova": [
+    {
+      "date": "1408",
+      "event": "Original Founding"
+    }
+  ],
+  "Villa Canales_Guatemala": [
+    {
+      "date": "1912",
+      "event": "Original Founding"
+    }
+  ],
+  "Karakol_Kyrgyzstan": [
+    {
+      "date": "1869-07-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Netanya_Israel": [
+    {
+      "date": "1929",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1929-02-18",
+      "event": "Original Founding"
+    }
+  ],
+  "Pori_Finland": [
+    {
+      "date": "1558",
+      "event": "Original Founding"
+    }
+  ],
+  "Ciudad del Este_Paraguay": [
+    {
+      "date": "1957-02-03",
+      "event": "Original Founding"
+    }
+  ],
+  "Bulawayo_Zimbabwe": [
+    {
+      "date": "1840",
+      "event": "Original Founding"
+    }
+  ],
+  "Cali_Colombia": [
+    {
+      "date": "1536",
+      "event": "Original Founding"
+    }
+  ],
+  "Medellín_Colombia": [
+    {
+      "date": "1675-11-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Miskolc_Hungary": [
+    {
+      "date": "1365",
+      "event": "Original Founding"
+    }
+  ],
+  "Tyre_Lebanon": [
+    {
+      "date": "2749 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Newcastle_Australia": [
+    {
+      "date": "1804",
+      "event": "Original Founding"
+    }
+  ],
+  "Cluj-Napoca_Romania": [
+    {
+      "date": "1213",
+      "event": "Original Founding"
+    }
+  ],
+  "Konya_Turkey": [
+    {
+      "date": "0699 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Puente Alto_Chile": [
+    {
+      "date": "1898",
+      "event": "Original Founding"
+    }
+  ],
+  "Callao_Peru": [
+    {
+      "date": "1537-03-16",
+      "event": "Original Founding"
+    }
+  ],
+  "Mississauga_Canada": [
+    {
+      "date": "1968",
+      "event": "Original Founding"
+    }
+  ],
+  "Cuenca_Ecuador": [
+    {
+      "date": "1557-04-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Valencia_Venezuela": [
+    {
+      "date": "1555-04-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Alytus_Lithuania": [
+    {
+      "date": "1377",
+      "event": "Original Founding"
+    }
+  ],
+  "Daşoguz_Turkmenistan": [
+    {
+      "date": "1681",
+      "event": "Original Founding"
+    }
+  ],
+  "Türkmenabat_Turkmenistan": [
+    {
+      "date": "1511",
+      "event": "Original Founding"
+    }
+  ],
+  "Pula_Croatia": [
+    {
+      "date": "0176 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Zagreb_Croatia": [
+    {
+      "date": "1094",
+      "event": "Original Founding"
+    }
+  ],
+  "Karlovac_Croatia": [
+    {
+      "date": "1579-07-23",
+      "event": "Original Founding"
+    }
+  ],
+  "Varaždin_Croatia": [
+    {
+      "date": "1181",
+      "event": "Original Founding"
+    }
+  ],
+  "Namangan_Uzbekistan": [
+    {
+      "date": "1610",
+      "event": "Original Founding"
+    }
+  ],
+  "Narsaq_Greenland": [
+    {
+      "date": "1830",
+      "event": "Original Founding"
+    }
+  ],
+  "Aasiaat_Greenland": [
+    {
+      "date": "1759",
+      "event": "Original Founding"
+    }
+  ],
+  "Santa Clara_Cuba": [
+    {
+      "date": "1689-07-15",
+      "event": "Original Founding"
+    }
+  ],
+  "Seltjarnarnes_Iceland": [
+    {
+      "date": "1947",
+      "event": "Original Founding"
+    }
+  ],
+  "Drogheda_Ireland": [
+    {
+      "date": "1194",
+      "event": "Original Founding"
+    }
+  ],
+  "Budapest_Hungary": [
+    {
+      "date": "1873-11-17",
+      "event": "Original Founding"
+    }
+  ],
+  "Sisimiut_Greenland": [
+    {
+      "date": "1764",
+      "event": "Original Founding"
+    }
+  ],
+  "Machala_Ecuador": [
+    {
+      "date": "1573",
+      "event": "Original Founding"
+    }
+  ],
+  "Berane_Montenegro": [
+    {
+      "date": "1862",
+      "event": "Original Founding"
+    }
+  ],
+  "Belize City_Belize": [
+    {
+      "date": "1638",
+      "event": "Original Founding"
+    }
+  ],
+  "Jyväskylä_Finland": [
+    {
+      "date": "1837",
+      "event": "Original Founding"
+    }
+  ],
+  "Mwanza_Tanzania": [
+    {
+      "date": "1892",
+      "event": "Original Founding"
+    }
+  ],
+  "Kohtla-Järve_Estonia": [
+    {
+      "date": "1946",
+      "event": "Original Founding"
+    }
+  ],
+  "Oranjestad_Aruba": [
+    {
+      "date": "1796",
+      "event": "Original Founding"
+    }
+  ],
+  "Bayamo_Cuba": [
+    {
+      "date": "1513-11-05",
+      "event": "Original Founding"
+    }
+  ],
+  "Tijuana_Mexico": [
+    {
+      "date": "1889",
+      "event": "Original Founding"
+    }
+  ],
+  "Narva_Estonia": [
+    {
+      "date": "1345",
+      "event": "Original Founding"
+    }
+  ],
+  "Kyiv_Ukraine": [
+    {
+      "date": "0482",
+      "event": "Original Founding"
+    }
+  ],
+  "Akranes_Iceland": [
+    {
+      "date": "1604",
+      "event": "Original Founding"
+    }
+  ],
+  "Santiago de Cuba_Cuba": [
+    {
+      "date": "1514",
+      "event": "Original Founding"
+    }
+  ],
+  "Pärnu_Estonia": [
+    {
+      "date": "1251",
+      "event": "Original Founding"
+    }
+  ],
+  "Vantaa_Finland": [
+    {
+      "date": "1428",
+      "event": "Original Founding"
+    }
+  ],
+  "Šiauliai_Lithuania": [
+    {
+      "date": "1236",
+      "event": "Original Founding"
+    }
+  ],
+  "Kuressaare_Estonia": [
+    {
+      "date": "1154",
+      "event": "Original Founding"
+    }
+  ],
+  "Viljandi_Estonia": [
+    {
+      "date": "1263",
+      "event": "Original Founding"
+    }
+  ],
+  "Limón_Costa Rica": [
+    {
+      "date": "1854",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1992-08-10",
+      "event": "Original Founding"
+    }
+  ],
+  "Belo Horizonte_Brazil": [
+    {
+      "date": "1701",
+      "event": "Original Founding"
+    }
+  ],
+  "Calgary_Canada": [
+    {
+      "date": "1884-11-07",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1875",
+      "event": "Original Founding"
+    }
+  ],
+  "Tampere_Finland": [
+    {
+      "date": "1779-10-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Akureyri_Iceland": [
+    {
+      "date": "1786",
+      "event": "Original Founding"
+    }
+  ],
+  "Bydgoszcz_Poland": [
+    {
+      "date": "1038",
+      "event": "Original Founding"
+    }
+  ],
+  "Turku_Finland": [
+    {
+      "date": "1229",
+      "event": "Original Founding"
+    }
+  ],
+  "Lahti_Finland": [
+    {
+      "date": "1905",
+      "event": "Original Founding"
+    }
+  ],
+  "Yangon_Myanmar": [
+    {
+      "date": "1035",
+      "event": "Original Founding"
+    }
+  ],
+  "Bridgetown_Barbados": [
+    {
+      "date": "1628",
+      "event": "Original Founding"
+    }
+  ],
+  "Apia_Samoa": [
+    {
+      "date": "1850",
+      "event": "Original Founding"
+    }
+  ],
+  "Auckland_New Zealand": [
+    {
+      "date": "1840",
+      "event": "Original Founding"
+    }
+  ],
+  "Hamilton_Bermuda": [
+    {
+      "date": "1793",
+      "event": "Original Founding"
+    }
+  ],
+  "Fortaleza_Brazil": [
+    {
+      "date": "1726-04-13",
+      "event": "Original Founding"
+    }
+  ],
+  "Guayaquil_Ecuador": [
+    {
+      "date": "1534-08-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Puntarenas_Costa Rica": [
+    {
+      "date": "1858-09-17",
+      "event": "Original Founding"
+    }
+  ],
+  "Oulu_Finland": [
+    {
+      "date": "1605",
+      "event": "Original Founding"
+    }
+  ],
+  "Beersheba_Israel": [
+    {
+      "date": "1900",
+      "event": "Original Founding"
+    }
+  ],
+  "Tel Aviv_Israel": [
+    {
+      "date": "1909-04-11",
+      "event": "Original Founding"
+    }
+  ],
+  "Nottingham_United Kingdom": [
+    {
+      "date": "0600",
+      "event": "Original Founding"
+    }
+  ],
+  "Castries_Saint Lucia": [
+    {
+      "date": "1650",
+      "event": "Original Founding"
+    }
+  ],
+  "Alajuela_Costa Rica": [
+    {
+      "date": "1782-10-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Bursa_Turkey": [
+    {
+      "date": "0202",
+      "event": "Original Founding"
+    }
+  ],
+  "Espoo_Finland": [
+    {
+      "date": "1458",
+      "event": "Original Founding"
+    }
+  ],
+  "Kingstown_Saint Vincent and the Grenadines": [
+    {
+      "date": "1722",
+      "event": "Original Founding"
+    }
+  ],
+  "Oruro_Bolivia": [
+    {
+      "date": "1606-11-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Lublin_Poland": [
+    {
+      "date": "1317",
+      "event": "Original Founding"
+    }
+  ],
+  "Basseterre_Saint Kitts and Nevis": [
+    {
+      "date": "1627",
+      "event": "Original Founding"
+    }
+  ],
+  "Kuwait City_Kuwait": [
+    {
+      "date": "1752",
+      "event": "Original Founding"
+    }
+  ],
+  "Kingston_Jamaica": [
+    {
+      "date": "1692",
+      "event": "Original Founding"
+    }
+  ],
+  "Haifa_Israel": [
+    {
+      "date": "1761",
+      "event": "Original Founding"
+    }
+  ],
+  "Brisbane_Australia": [
+    {
+      "date": "1824",
+      "event": "Original Founding"
+    }
+  ],
+  "Almaty_Kazakhstan": [
+    {
+      "date": "1854",
+      "event": "Original Founding"
+    }
+  ],
+  "Jaffna_Sri Lanka": [
+    {
+      "date": "1621",
+      "event": "Original Founding"
+    }
+  ],
+  "Chiclayo_Peru": [
+    {
+      "date": "1835",
+      "event": "Original Founding"
+    }
+  ],
+  "Khulna_Bangladesh": [
+    {
+      "date": "1884",
+      "event": "Original Founding"
+    }
+  ],
+  "Taichung_Taiwan": [
+    {
+      "date": "2010-12-25",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1945-12-17",
+      "event": "Original Founding"
+    }
+  ],
+  "Mombasa_Kenya": [
+    {
+      "date": "1593",
+      "event": "Original Founding"
+    }
+  ],
+  "Sharjah_United Arab Emirates": [
+    {
+      "date": "1793",
+      "event": "Original Founding"
+    }
+  ],
+  "Erdenet_Mongolia": [
+    {
+      "date": "1975",
+      "event": "Original Founding"
+    }
+  ],
+  "David_Panama": [
+    {
+      "date": "1602",
+      "event": "Original Founding"
+    }
+  ],
+  "Kitwe_Zambia": [
+    {
+      "date": "1936",
+      "event": "Original Founding"
+    }
+  ],
+  "Bo_Sierra Leone": [
+    {
+      "date": "1787",
+      "event": "Original Founding"
+    }
+  ],
+  "Cairo_Egypt": [
+    {
+      "date": "0969-07-11",
+      "event": "Original Founding"
+    }
+  ],
+  "Las Piedras_Uruguay": [
+    {
+      "date": "1744",
+      "event": "Original Founding"
+    }
+  ],
+  "Bartica_Guyana": [
+    {
+      "date": "1842",
+      "event": "Original Founding"
+    }
+  ],
+  "La Chorrera_Panama": [
+    {
+      "date": "1855-09-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Klaipėda_Lithuania": [
+    {
+      "date": "1252",
+      "event": "Original Founding"
+    }
+  ],
+  "Lviv_Ukraine": [
+    {
+      "date": "1256",
+      "event": "Original Founding"
+    }
+  ],
+  "Zarqa_Jordan": [
+    {
+      "date": "1902",
+      "event": "Original Founding"
+    }
+  ],
+  "Zapopan_Mexico": [
+    {
+      "date": "1541-12-18",
+      "event": "Original Founding"
+    }
+  ],
+  "Tainan_Taiwan": [
+    {
+      "date": "2010-12-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Gold Coast_Australia": [
+    {
+      "date": "1958",
+      "event": "Original Founding"
+    }
+  ],
+  "Donetsk_Ukraine": [
+    {
+      "date": "1869",
+      "event": "Original Founding"
+    }
+  ],
+  "Kharkiv_Ukraine": [
+    {
+      "date": "1654",
+      "event": "Original Founding"
+    }
+  ],
+  "Dubăsari_Moldova": [
+    {
+      "date": "1523",
+      "event": "Original Founding"
+    }
+  ],
+  "Sonsonate_El Salvador": [
+    {
+      "date": "1553-05-28",
+      "event": "Original Founding"
+    }
+  ],
+  "Munich_Germany": [
+    {
+      "date": "1158",
+      "event": "Original Founding"
+    }
+  ],
+  "Philadelphia_United States of America": [
+    {
+      "date": "1682-10-27",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1701-10-25",
+      "event": "City Charter"
+    }
+  ],
+  "Tokyo_Japan": [
+    {
+      "date": "1868-09-06",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1868-09-03",
+      "event": "Original Founding"
+    }
+  ],
+  "Punta Gorda_Belize": [
+    {
+      "date": "1802",
+      "event": "Original Founding"
+    }
+  ],
+  "Montego Bay_Jamaica": [
+    {
+      "date": "1980",
+      "event": "Original Founding"
+    }
+  ],
+  "Tokmok_Kyrgyzstan": [
+    {
+      "date": "1825",
+      "event": "Original Founding"
+    }
+  ],
+  "Soroca_Moldova": [
+    {
+      "date": "1499",
+      "event": "Original Founding"
+    }
+  ],
+  "Portmore_Jamaica": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Rivera_Uruguay": [
+    {
+      "date": "1867",
+      "event": "Original Founding"
+    }
+  ],
+  "Corozal_Belize": [
+    {
+      "date": "1848",
+      "event": "Original Founding"
+    }
+  ],
+  "Dangriga_Belize": [
+    {
+      "date": "1802",
+      "event": "Original Founding"
+    }
+  ],
+  "Istanbul_Turkey": [
+    {
+      "date": "1453-06-07",
+      "event": "Original Founding"
+    }
+  ],
+  "San Lorenzo_Paraguay": [
+    {
+      "date": "1775-08-10",
+      "event": "Original Founding"
+    }
+  ],
+  "Mixco_Guatemala": [
+    {
+      "date": "1526",
+      "event": "Original Founding"
+    }
+  ],
+  "Moundou_Chad": [
+    {
+      "date": "1923-11-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Quetzaltenango_Guatemala": [
+    {
+      "date": "1524",
+      "event": "Original Founding"
+    }
+  ],
+  "Maracay_Venezuela": [
+    {
+      "date": "1701-03-05",
+      "event": "Original Founding"
+    }
+  ],
+  "Francistown_Botswana": [
+    {
+      "date": "1897",
+      "event": "Original Founding"
+    }
+  ],
+  "Kuopio_Finland": [
+    {
+      "date": "1653",
+      "event": "Original Founding"
+    }
+  ],
+  "Santa Cruz de la Sierra_Bolivia": [
+    {
+      "date": "1561-03-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Marijampolė_Lithuania": [
+    {
+      "date": "1667",
+      "event": "Original Founding"
+    }
+  ],
+  "Villa Nueva_Guatemala": [
+    {
+      "date": "1763-04-17",
+      "event": "Original Founding"
+    }
+  ],
+  "Manila_Philippines": [
+    {
+      "date": "1571-07-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Tehran_Iran": [
+    {
+      "date": "1794-03-20",
+      "event": "Original Founding"
+    }
+  ],
+  "Jakarta_Indonesia": [
+    {
+      "date": "1527-07-02",
+      "event": "Original Founding"
+    }
+  ],
+  "Tasiilaq_Greenland": [
+    {
+      "date": "1894",
+      "event": "Original Founding"
+    }
+  ],
+  "Rio de Janeiro_Brazil": [
+    {
+      "date": "1565-03-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Karachi_Pakistan": [
+    {
+      "date": "1729",
+      "event": "Original Founding"
+    }
+  ],
+  "Paphos_Cyprus": [
+    {
+      "date": "0299 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Nagoya_Japan": [
+    {
+      "date": "1616",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1889-10-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Osaka_Japan": [
+    {
+      "date": "1889-04-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Chennai_India": [
+    {
+      "date": "1639",
+      "event": "Original Founding"
+    }
+  ],
+  "Guadalajara_Mexico": [
+    {
+      "date": "1542-02-24",
+      "event": "Original Founding"
+    }
+  ],
+  "Zaragoza_Spain": [
+    {
+      "date": "1118-12-18",
+      "event": "Original Founding"
+    }
+  ],
+  "Khovd_Mongolia": [
+    {
+      "date": "1731",
+      "event": "Original Founding"
+    }
+  ],
+  "Battambang_Cambodia": [
+    {
+      "date": "1907",
+      "event": "Original Founding"
+    }
+  ],
+  "Islamabad_Pakistan": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Ottawa_Canada": [
+    {
+      "date": "1855-01-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Brussels_Belgium": [
+    {
+      "date": "1795-10-01",
+      "event": "Original Founding"
+    },
+    {
+      "date": "0979",
+      "event": "founding of Brussels"
+    },
+    {
+      "date": "0976",
+      "event": "Original Founding"
+    }
+  ],
+  "Buenos Aires_Argentina": [
+    {
+      "date": "1580-06-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Baghdad_Iraq": [
+    {
+      "date": "0762",
+      "event": "Original Founding"
+    }
+  ],
+  "New Delhi_India": [
+    {
+      "date": "1911",
+      "event": "Original Founding"
+    }
+  ],
+  "Quezon City_Philippines": [
+    {
+      "date": "1939-10-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Berlin_Germany": [
+    {
+      "date": "1244",
+      "event": "Original Founding"
+    }
+  ],
+  "Panevėžys_Lithuania": [
+    {
+      "date": "1503",
+      "event": "Original Founding"
+    }
+  ],
+  "Mandeville_Jamaica": [
+    {
+      "date": "1816",
+      "event": "Original Founding"
+    }
+  ],
+  "May Pen_Jamaica": [
+    {
+      "date": "1660",
+      "event": "Original Founding"
+    }
+  ],
+  "Santiago_Chile": [
+    {
+      "date": "1541",
+      "event": "Original Founding"
+    }
+  ],
+  "Dortmund_Germany": [
+    {
+      "date": "0882",
+      "event": "Original Founding"
+    }
+  ],
+  "Salvador_Brazil": [
+    {
+      "date": "1549",
+      "event": "Original Founding"
+    }
+  ],
+  "Antofagasta_Chile": [
+    {
+      "date": "1868-10-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Dallas_United States of America": [
+    {
+      "date": "1841",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1856-02-02",
+      "event": "Incorporation"
+    }
+  ],
+  "Hanoi_Vietnam": [
+    {
+      "date": "1010",
+      "event": "Original Founding"
+    }
+  ],
+  "Sapporo_Japan": [
+    {
+      "date": "1899-10-01",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1870",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1922-08-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Kobe_Japan": [
+    {
+      "date": "1889-04-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Saitama_Japan": [
+    {
+      "date": "2001-05-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Yokohama_Japan": [
+    {
+      "date": "1889-04-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Kaunas_Lithuania": [
+    {
+      "date": "1361",
+      "event": "Original Founding"
+    }
+  ],
+  "Wellington_New Zealand": [
+    {
+      "date": "1839",
+      "event": "Original Founding"
+    }
+  ],
+  "Cape Town_South Africa": [
+    {
+      "date": "1652",
+      "event": "Original Founding"
+    }
+  ],
+  "Dili_Timor-Leste": [
+    {
+      "date": "1520",
+      "event": "Original Founding"
+    }
+  ],
+  "Fukuoka_Japan": [
+    {
+      "date": "1889-04-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Kyoto_Japan": [
+    {
+      "date": "1889-04-01",
+      "event": "Original Founding"
+    },
+    {
+      "date": "0794-11-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Bogotá_Colombia": [
+    {
+      "date": "1538-08-16",
+      "event": "Original Founding"
+    }
+  ],
+  "Vatican City_Vatican City": [
+    {
+      "date": "1929-02-11",
+      "event": "Original Founding"
+    }
+  ],
+  "La Paz_Bolivia": [
+    {
+      "date": "1548-10-30",
+      "event": "Original Founding"
+    }
+  ],
+  "Monaco_Monaco": [
+    {
+      "date": "1297-01-15",
+      "event": "Original Founding"
+    }
+  ],
+  "Rome_Italy": [
+    {
+      "date": "0752-04-13 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Vancouver_Canada": [
+    {
+      "date": "1886",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1825",
+      "event": "Original Founding"
+    }
+  ],
+  "Montevideo_Uruguay": [
+    {
+      "date": "1726-12-24",
+      "event": "Original Founding"
+    }
+  ],
+  "Antananarivo_Madagascar": [
+    {
+      "date": "1625",
+      "event": "Original Founding"
+    }
+  ],
+  "Doha_Qatar": [
+    {
+      "date": "1850",
+      "event": "Original Founding"
+    }
+  ],
+  "Astana_Kazakhstan": [
+    {
+      "date": "1830",
+      "event": "Original Founding"
+    }
+  ],
+  "Oslo_Norway": [
+    {
+      "date": "1048",
+      "event": "Original Founding"
+    }
+  ],
+  "Vaduz_Liechtenstein": [
+    {
+      "date": "1150",
+      "event": "Original Founding"
+    }
+  ],
+  "Riyadh_Saudi Arabia": [
+    {
+      "date": "1746",
+      "event": "Original Founding"
+    }
+  ],
+  "Phoenix_United States of America": [
+    {
+      "date": "1867",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1881-02-25",
+      "event": "Incorporation"
+    }
+  ],
+  "Kristiansand_Norway": [
+    {
+      "date": "1641",
+      "event": "Original Founding"
+    }
+  ],
+  "Stavanger_Norway": [
+    {
+      "date": "1125",
+      "event": "Original Founding"
+    }
+  ],
+  "Kawasaki_Japan": [
+    {
+      "date": "1924-07-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Viña del Mar_Chile": [
+    {
+      "date": "1878",
+      "event": "Original Founding"
+    }
+  ],
+  "Saint Petersburg_Russia": [
+    {
+      "date": "1703-05-27",
+      "event": "Original Founding"
+    }
+  ],
+  "Pretoria_South Africa": [
+    {
+      "date": "1855-11-16",
+      "event": "Original Founding"
+    }
+  ],
+  "Sihanoukville_Cambodia": [
+    {
+      "date": "1964",
+      "event": "Original Founding"
+    }
+  ],
+  "Kazan_Russia": [
+    {
+      "date": "1005",
+      "event": "Original Founding"
+    }
+  ],
+  "Valparaíso_Chile": [
+    {
+      "date": "1536",
+      "event": "Original Founding"
+    }
+  ],
+  "Kigali_Rwanda": [
+    {
+      "date": "1907",
+      "event": "Original Founding"
+    }
+  ],
+  "Dnipro_Ukraine": [
+    {
+      "date": "1776",
+      "event": "Original Founding"
+    }
+  ],
+  "Kryvyi Rih_Ukraine": [
+    {
+      "date": "1775-05-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Ogre_Latvia": [
+    {
+      "date": "1928",
+      "event": "Original Founding"
+    }
+  ],
+  "San Jose_United States of America": [
+    {
+      "date": "1777-11-29",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1850-03-27",
+      "event": "Incorporation"
+    }
+  ],
+  "San Diego_United States of America": [
+    {
+      "date": "1769-07-16",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1850-03-27",
+      "event": "Incorporation"
+    }
+  ],
+  "Incheon_South Korea": [
+    {
+      "date": "1883",
+      "event": "Original Founding"
+    }
+  ],
+  "Liepāja_Latvia": [
+    {
+      "date": "1625",
+      "event": "Original Founding"
+    }
+  ],
+  "Jēkabpils_Latvia": [
+    {
+      "date": "1670",
+      "event": "Original Founding"
+    }
+  ],
+  "Rēzekne_Latvia": [
+    {
+      "date": "1773",
+      "event": "Original Founding"
+    }
+  ],
+  "Gdańsk_Poland": [
+    {
+      "date": "0997",
+      "event": "Original Founding"
+    }
+  ],
+  "Jūrmala_Latvia": [
+    {
+      "date": "1785",
+      "event": "Original Founding"
+    }
+  ],
+  "Los Angeles_United States of America": [
+    {
+      "date": "1781-09-04",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1850-04-04",
+      "event": "Incorporation"
+    }
+  ],
+  "Valmiera_Latvia": [
+    {
+      "date": "1293",
+      "event": "Original Founding"
+    }
+  ],
+  "Riga_Latvia": [
+    {
+      "date": "1201",
+      "event": "Original Founding"
+    }
+  ],
+  "Jelgava_Latvia": [
+    {
+      "date": "1226",
+      "event": "Original Founding"
+    }
+  ],
+  "Ventspils_Latvia": [
+    {
+      "date": "1290-08-15",
+      "event": "Original Founding"
+    }
+  ],
+  "Houston_United States of America": [
+    {
+      "date": "1836-08-30",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1837-06-05",
+      "event": "Incorporation"
+    }
+  ],
+  "Taraz_Kazakhstan": [
+    {
+      "date": "1720",
+      "event": "Original Founding"
+    }
+  ],
+  "Balzers_Liechtenstein": [
+    {
+      "date": "0842",
+      "event": "Original Founding"
+    }
+  ],
+  "Helsingborg_Sweden": [
+    {
+      "date": "1085",
+      "event": "Original Founding"
+    }
+  ],
+  "Rundu_Namibia": [
+    {
+      "date": "1936",
+      "event": "Original Founding"
+    }
+  ],
+  "Daugavpils_Latvia": [
+    {
+      "date": "1275",
+      "event": "Original Founding"
+    }
+  ],
+  "Cartagena_Colombia": [
+    {
+      "date": "1533",
+      "event": "Original Founding"
+    }
+  ],
+  "Strasbourg_France": [
+    {
+      "date": "0011 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "San Antonio_United States of America": [
+    {
+      "date": "1718-05-01",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1837-06-05",
+      "event": "Incorporation"
+    }
+  ],
+  "Wrocław_Poland": [
+    {
+      "date": "1214",
+      "event": "Original Founding"
+    }
+  ],
+  "Craiova_Romania": [
+    {
+      "date": "1475-06-10",
+      "event": "Original Founding"
+    }
+  ],
+  "Novi Pazar_Serbia": [
+    {
+      "date": "1461",
+      "event": "Original Founding"
+    }
+  ],
+  "Johor Bahru_Malaysia": [
+    {
+      "date": "1855",
+      "event": "Original Founding"
+    }
+  ],
+  "Kragujevac_Serbia": [
+    {
+      "date": "1476",
+      "event": "Original Founding"
+    }
+  ],
+  "Novi Sad_Serbia": [
+    {
+      "date": "1694",
+      "event": "Original Founding"
+    }
+  ],
+  "Salto_Uruguay": [
+    {
+      "date": "1756",
+      "event": "Original Founding"
+    }
+  ],
+  "Varna_Bulgaria": [
+    {
+      "date": "0574 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Winnipeg_Canada": [
+    {
+      "date": "1738",
+      "event": "Original Founding"
+    }
+  ],
+  "Tegucigalpa_Honduras": [
+    {
+      "date": "1578-09-29",
+      "event": "Original Founding"
+    }
+  ],
+  "Chaguanas_Trinidad and Tobago": [
+    {
+      "date": "1797",
+      "event": "Original Founding"
+    }
+  ],
+  "Bucharest_Romania": [
+    {
+      "date": "1459",
+      "event": "Original Founding"
+    }
+  ],
+  "Dublin_Ireland": [
+    {
+      "date": "0841",
+      "event": "Original Founding"
+    }
+  ],
+  "Managua_Nicaragua": [
+    {
+      "date": "1819-03-24",
+      "event": "Original Founding"
+    }
+  ],
+  "Port-au-Prince_Haiti": [
+    {
+      "date": "1749",
+      "event": "Original Founding"
+    }
+  ],
+  "San Salvador_El Salvador": [
+    {
+      "date": "1525-04-11",
+      "event": "Original Founding"
+    }
+  ],
+  "Pinsk_Belarus": [
+    {
+      "date": "1097",
+      "event": "Original Founding"
+    }
+  ],
+  "Granada_Nicaragua": [
+    {
+      "date": "1524-05-01",
+      "event": "Original Founding"
+    }
+  ],
+  "León_Nicaragua": [
+    {
+      "date": "1524-06-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Babruysk_Belarus": [
+    {
+      "date": "1387",
+      "event": "Original Founding"
+    }
+  ],
+  "Ouagadougou_Burkina Faso": [
+    {
+      "date": "1050",
+      "event": "Original Founding"
+    }
+  ],
+  "Nairobi_Kenya": [
+    {
+      "date": "1899",
+      "event": "Original Founding"
+    }
+  ],
+  "Pokhara_Nepal": [
+    {
+      "date": "1962",
+      "event": "Original Founding"
+    }
+  ],
+  "Bishkek_Kyrgyzstan": [
+    {
+      "date": "1825",
+      "event": "Original Founding"
+    }
+  ],
+  "Siem Reap_Cambodia": [
+    {
+      "date": "0802",
+      "event": "Original Founding"
+    }
+  ],
+  "Örebro_Sweden": [
+    {
+      "date": "1200",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1404",
+      "event": "Original Founding"
+    }
+  ],
+  "Estelí_Nicaragua": [
+    {
+      "date": "1891-12-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Aalborg_Denmark": [
+    {
+      "date": "1342-06-24",
+      "event": "Original Founding"
+    }
+  ],
+  "Barranquilla_Colombia": [
+    {
+      "date": "1813-04-07",
+      "event": "Original Founding"
+    }
+  ],
+  "Catania_Italy": [
+    {
+      "date": "0728 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Minsk_Belarus": [
+    {
+      "date": "1067",
+      "event": "Original Founding"
+    }
+  ],
+  "Yerevan_Armenia": [
+    {
+      "date": "0781 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Rosario_Argentina": [
+    {
+      "date": "1852-08-05",
+      "event": "Original Founding"
+    }
+  ],
+  "Mendoza_Argentina": [
+    {
+      "date": "1561",
+      "event": "Original Founding"
+    }
+  ],
+  "San Miguel de Tucumán_Argentina": [
+    {
+      "date": "1565",
+      "event": "Original Founding"
+    }
+  ],
+  "Córdoba_Argentina": [
+    {
+      "date": "1573",
+      "event": "Original Founding"
+    }
+  ],
+  "Marseille_France": [
+    {
+      "date": "0599 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Dammam_Saudi Arabia": [
+    {
+      "date": "1922",
+      "event": "Original Founding"
+    }
+  ],
+  "Port Moresby_Papua New Guinea": [
+    {
+      "date": "1873",
+      "event": "Original Founding"
+    }
+  ],
+  "Tabuk_Saudi Arabia": [
+    {
+      "date": "1915",
+      "event": "Original Founding"
+    }
+  ],
+  "Chinandega_Nicaragua": [
+    {
+      "date": "1839",
+      "event": "Original Founding"
+    }
+  ],
+  "San Pedro Sula_Honduras": [
+    {
+      "date": "1536-06-27",
+      "event": "Original Founding"
+    }
+  ],
+  "Vitebsk_Belarus": [
+    {
+      "date": "0974",
+      "event": "Original Founding"
+    }
+  ],
+  "Surabaya_Indonesia": [
+    {
+      "date": "1293-06-07",
+      "event": "Original Founding"
+    }
+  ],
+  "Santa Tecla_El Salvador": [
+    {
+      "date": "1854-08-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Bekasi_Indonesia": [
+    {
+      "date": "1997-03-10",
+      "event": "Original Founding"
+    }
+  ],
+  "Matagalpa_Nicaragua": [
+    {
+      "date": "1851-04-05",
+      "event": "Original Founding"
+    }
+  ],
+  "Bandung_Indonesia": [
+    {
+      "date": "1810-09-25",
+      "event": "Original Founding"
+    }
+  ],
+  "La Ceiba_Honduras": [
+    {
+      "date": "1872",
+      "event": "Original Founding"
+    }
+  ],
+  "Tiraspol_Moldova": [
+    {
+      "date": "1792",
+      "event": "Original Founding"
+    }
+  ],
+  "Camagüey_Cuba": [
+    {
+      "date": "1514",
+      "event": "Original Founding"
+    }
+  ],
+  "Las Tunas_Cuba": [
+    {
+      "date": "1759",
+      "event": "Original Founding"
+    }
+  ],
+  "Homs_Syria": [
+    {
+      "date": "1999 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Ganja_Azerbaijan": [
+    {
+      "date": "0660",
+      "event": "Original Founding"
+    }
+  ],
+  "Samara_Russia": [
+    {
+      "date": "1586",
+      "event": "Original Founding"
+    }
+  ],
+  "Omsk_Russia": [
+    {
+      "date": "1716",
+      "event": "Original Founding"
+    }
+  ],
+  "Yekaterinburg_Russia": [
+    {
+      "date": "1723",
+      "event": "Original Founding"
+    }
+  ],
+  "Novosibirsk_Russia": [
+    {
+      "date": "1893",
+      "event": "Original Founding"
+    }
+  ],
+  "Odense_Denmark": [
+    {
+      "date": "1355",
+      "event": "Original Founding"
+    }
+  ],
+  "Barysaw_Belarus": [
+    {
+      "date": "1102",
+      "event": "Original Founding"
+    }
+  ],
+  "Medan_Indonesia": [
+    {
+      "date": "1590-07-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Kota Bharu_Malaysia": [
+    {
+      "date": "1844",
+      "event": "Original Founding"
+    }
+  ],
+  "Comayagua_Honduras": [
+    {
+      "date": "1537",
+      "event": "Original Founding"
+    }
+  ],
+  "San Miguel_El Salvador": [
+    {
+      "date": "1530-05-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Trujillo_Peru": [
+    {
+      "date": "1535-03-15",
+      "event": "Original Founding"
+    }
+  ],
+  "Santa Ana_El Salvador": [
+    {
+      "date": "1569-07-26",
+      "event": "Original Founding"
+    }
+  ],
+  "Las Palmas de Gran Canaria_Spain": [
+    {
+      "date": "1478-07-03",
+      "event": "Original Founding"
+    }
+  ],
+  "Pikine_Senegal": [
+    {
+      "date": "1952",
+      "event": "Original Founding"
+    }
+  ],
+  "Arequipa_Peru": [
+    {
+      "date": "1540-08-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Jinotega_Nicaragua": [
+    {
+      "date": "1851-04-05",
+      "event": "Original Founding"
+    }
+  ],
+  "Mahilyow_Belarus": [
+    {
+      "date": "1267",
+      "event": "Original Founding"
+    }
+  ],
+  "Masaya_Nicaragua": [
+    {
+      "date": "1839-09-02",
+      "event": "Original Founding"
+    }
+  ],
+  "Poland": [
+    {
+      "date": "1918-11-11",
+      "event": "Official State Founding"
+    }
+  ],
+  "Germany": [
+    {
+      "date": "1871-01-18",
+      "event": "Official State Founding"
+    }
+  ],
+  "France": [
+    {
+      "date": "1958-10-04",
+      "event": "Official State Founding"
+    }
+  ],
+  "United Kingdom": [
+    {
+      "date": "1801-01-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Italy": [
+    {
+      "date": "1946-06-02",
+      "event": "Official State Founding"
+    }
+  ],
+  "Spain": [
+    {
+      "date": "1978-12-29",
+      "event": "Official State Founding"
+    }
+  ],
+  "Russia": [
+    {
+      "date": "1991-12-25",
+      "event": "Official State Founding"
+    }
+  ],
+  "Ukraine": [
+    {
+      "date": "1991-08-24",
+      "event": "Official State Founding"
+    }
+  ],
+  "Sweden": [
+    {
+      "date": "1523-06-06",
+      "event": "Official State Founding"
+    }
+  ],
+  "Norway": [
+    {
+      "date": "1905-06-07",
+      "event": "Official State Founding"
+    }
+  ],
+  "Denmark": [
+    {
+      "date": "1849-06-05",
+      "event": "Official State Founding"
+    }
+  ],
+  "Finland": [
+    {
+      "date": "1917-12-06",
+      "event": "Official State Founding"
+    }
+  ],
+  "Ireland": [
+    {
+      "date": "1922-12-06",
+      "event": "Official State Founding"
+    }
+  ],
+  "Portugal": [
+    {
+      "date": "1143-10-05",
+      "event": "Official State Founding"
+    }
+  ],
+  "Netherlands": [
+    {
+      "date": "1581-07-26",
+      "event": "Official State Founding"
+    }
+  ],
+  "Belgium": [
+    {
+      "date": "1830-10-04",
+      "event": "Official State Founding"
+    }
+  ],
+  "Switzerland": [
+    {
+      "date": "1291-08-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Austria": [
+    {
+      "date": "1955-07-27",
+      "event": "Official State Founding"
+    }
+  ],
+  "Hungary": [
+    {
+      "date": "1989-10-23",
+      "event": "Official State Founding"
+    }
+  ],
+  "Czech Republic": [
+    {
+      "date": "1993-01-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Slovakia": [
+    {
+      "date": "1993-01-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Greece": [
+    {
+      "date": "1821-03-25",
+      "event": "Official State Founding"
+    }
+  ],
+  "Turkey": [
+    {
+      "date": "1923-10-29",
+      "event": "Official State Founding"
+    }
+  ],
+  "Romania": [
+    {
+      "date": "1877-05-09",
+      "event": "Official State Founding"
+    }
+  ],
+  "Bulgaria": [
+    {
+      "date": "1908-10-05",
+      "event": "Official State Founding"
+    }
+  ],
+  "Serbia": [
+    {
+      "date": "2006-06-05",
+      "event": "Official State Founding"
+    }
+  ],
+  "Croatia": [
+    {
+      "date": "1991-06-25",
+      "event": "Official State Founding"
+    }
+  ],
+  "United States of America": [
+    {
+      "date": "1776-07-04",
+      "event": "Official State Founding"
+    }
+  ],
+  "United States": [
+    {
+      "date": "1776-07-04",
+      "event": "Official State Founding"
+    }
+  ],
+  "Canada": [
+    {
+      "date": "1867-07-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Mexico": [
+    {
+      "date": "1821-09-27",
+      "event": "Official State Founding"
+    }
+  ],
+  "Cuba": [
+    {
+      "date": "1902-05-20",
+      "event": "Official State Founding"
+    }
+  ],
+  "Jamaica": [
+    {
+      "date": "1962-08-06",
+      "event": "Official State Founding"
+    }
+  ],
+  "Brazil": [
+    {
+      "date": "1822-09-07",
+      "event": "Official State Founding"
+    }
+  ],
+  "Argentina": [
+    {
+      "date": "1816-07-09",
+      "event": "Official State Founding"
+    }
+  ],
+  "Colombia": [
+    {
+      "date": "1810-07-20",
+      "event": "Official State Founding"
+    }
+  ],
+  "Peru": [
+    {
+      "date": "1821-07-28",
+      "event": "Official State Founding"
+    }
+  ],
+  "Chile": [
+    {
+      "date": "1818-02-12",
+      "event": "Official State Founding"
+    }
+  ],
+  "Venezuela": [
+    {
+      "date": "1811-07-05",
+      "event": "Official State Founding"
+    }
+  ],
+  "Ecuador": [
+    {
+      "date": "1822-05-24",
+      "event": "Official State Founding"
+    }
+  ],
+  "Bolivia": [
+    {
+      "date": "1825-08-06",
+      "event": "Official State Founding"
+    }
+  ],
+  "Paraguay": [
+    {
+      "date": "1811-05-14",
+      "event": "Official State Founding"
+    }
+  ],
+  "Uruguay": [
+    {
+      "date": "1825-08-25",
+      "event": "Official State Founding"
+    }
+  ],
+  "China": [
+    {
+      "date": "1949-10-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Japan": [
+    {
+      "date": "1947-05-03",
+      "event": "Official State Founding"
+    }
+  ],
+  "South Korea": [
+    {
+      "date": "1948-08-15",
+      "event": "Official State Founding"
+    }
+  ],
+  "North Korea": [
+    {
+      "date": "1948-09-09",
+      "event": "Official State Founding"
+    }
+  ],
+  "Vietnam": [
+    {
+      "date": "1945-09-02",
+      "event": "Official State Founding"
+    }
+  ],
+  "Thailand": [
+    {
+      "date": "1932-06-24",
+      "event": "Official State Founding"
+    }
+  ],
+  "Indonesia": [
+    {
+      "date": "1945-08-17",
+      "event": "Official State Founding"
+    }
+  ],
+  "Philippines": [
+    {
+      "date": "1898-06-12",
+      "event": "Official State Founding"
+    }
+  ],
+  "Malaysia": [
+    {
+      "date": "1957-08-31",
+      "event": "Official State Founding"
+    }
+  ],
+  "Singapore": [
+    {
+      "date": "1965-08-09",
+      "event": "Official State Founding"
+    }
+  ],
+  "Pakistan": [
+    {
+      "date": "1947-08-14",
+      "event": "Official State Founding"
+    }
+  ],
+  "Bangladesh": [
+    {
+      "date": "1971-03-26",
+      "event": "Official State Founding"
+    }
+  ],
+  "Iran": [
+    {
+      "date": "1979-04-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Iraq": [
+    {
+      "date": "1932-10-03",
+      "event": "Official State Founding"
+    }
+  ],
+  "Saudi Arabia": [
+    {
+      "date": "1932-09-23",
+      "event": "Official State Founding"
+    }
+  ],
+  "Israel": [
+    {
+      "date": "1948-05-14",
+      "event": "Official State Founding"
+    }
+  ],
+  "United Arab Emirates": [
+    {
+      "date": "1971-12-02",
+      "event": "Official State Founding"
+    }
+  ],
+  "United States of America": [
+    {
+      "date": "1776-07-04",
+      "event": "Official State Founding"
+    }
+  ],
+  "Canada": [
+    {
+      "date": "1867-07-01",
+      "event": "Official State Founding"
+    }
+  ],
+  "Mexico": [
+    {
+      "date": "1810-09-16",
+      "event": "Official State Founding"
+    }
+  ],
+  "Brazil": [
+    {
+      "date": "1822-09-07",
+      "event": "Official State Founding"
+    }
+  ],
+  "Argentina": [
+    {
+      "date": "1816-07-09",
+      "event": "Official State Founding"
+    }
+  ],
+  "Chicago_United States of America": [
+    {
+      "date": "1833-08-12",
+      "event": "Town Organized"
+    },
+    {
+      "date": "1837-03-04",
+      "event": "City Incorporation"
+    }
+  ]
+}
