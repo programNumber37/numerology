@@ -285,9 +285,10 @@ class EuropeMapEngine {
 
                 const cityContents = cityEnter.append('g').attr('class', 'city-content');
                 
+                // Tweak the bigger hitbox to be smaller (10 instead of 24) to avoid overlap for close cities
                 cityContents.append('circle')
                     .attr('class', 'city-hit-area')
-                    .attr('r', 24)
+                    .attr('r', 10)
                     .style('fill', 'transparent');
 
                 cityContents.append('circle')
@@ -296,8 +297,8 @@ class EuropeMapEngine {
 
                 cityContents.append('text')
                     .attr('class', 'city-label')
-                    .attr('x', 18)
-                    .attr('y', 7)
+                    .attr('x', 14)
+                    .attr('y', 5)
                     .text(d => d[1].name);
                 
                 // Immediately apply inverse zoom scale to text/dots
