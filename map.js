@@ -106,6 +106,18 @@ class EuropeMapEngine {
             this.foundingDates = {};
         }
 
+        try {
+            const res = await fetch('flags/flag-icons-main/country.json');
+            const arr = await res.json();
+            this.countryToCode = {};
+            for (let c of arr) {
+                this.countryToCode[c.name.toLowerCase()] = c.code;
+            }
+        } catch (e) {
+            console.warn("Could not load country flags data", e);
+            this.countryToCode = {};
+        }
+
         // Inject fast using native parser and the pre-computed AOT SVG string
         this.countryGroup.node().innerHTML = MAP_PATHS_SVG;
 
@@ -373,7 +385,7 @@ class EuropeMapEngine {
 
         const isCity = data.type === 'Major City' || data.country !== undefined;
         const badgeText = isCity ? `CITY • ${data.country}` : `COUNTRY`;
-        const subtitleText = isCity ? `Major Center` : (data.type === 'empty' ? `Global Nation` : `Capital: ${data.capital}`);
+        const subtitleText = isCity ? '' : (data.type === 'empty' ? `Global Nation` : `Capital: ${data.capital}`);
 
         let primaryNumber = data.number || "Unknown";
         let boxLabel = "Primary Number Energy";
@@ -531,14 +543,37 @@ class EuropeMapEngine {
             coordsHTML = `<p class="map-info-sub" style="font-family: monospace; font-size: 0.85em; margin-top: 4px; opacity: 0.7;">Lat: ${data.lat.toFixed(4)}, Lon: ${data.lon.toFixed(4)}</p>`;
         }
 
+        let flagHTML = '';
+        const cName = isCity ? data.country : data.name;
+        if (this.countryToCode && cName) {
+            let searchName = cName.toLowerCase().trim();
+            // TopoJSON and extendedCities might use 'United States' or 'USA', but country.json uses 'United States of America'
+            if (searchName === 'united states' || searchName === 'usa') {
+                searchName = 'united states of america';
+            }
+            
+            // Handle some common topojson vs country.json mismatches
+            const code = this.countryToCode[searchName];
+            if (code) {
+                flagHTML = `<img src="flags/flag-icons-main/flags/4x3/${code}.svg" style="width: 56px; height: auto; border-radius: 4px;">`;
+            } else {
+                // Try fuzzy search if exact match fails
+                const fuzzyCode = Object.keys(this.countryToCode).find(k => k.includes(searchName) || searchName.includes(k));
+                if (fuzzyCode) {
+                    flagHTML = `<img src="flags/flag-icons-main/flags/4x3/${this.countryToCode[fuzzyCode]}.svg" style="width: 56px; height: auto; border-radius: 4px;">`;
+                }
+            }
+        }
+
         this.infoPanel.innerHTML = `
-            <div class="map-info-header">
+            <div class="map-info-header" style="align-items: center;">
                 <div class="map-info-title-group">
                     <span class="map-info-badge">${badgeText}</span>
                     <h3 class="map-info-name">${data.name}</h3>
-                    <p class="map-info-sub">${subtitleText}</p>
+                    ${subtitleText ? `<p class="map-info-sub">${subtitleText}</p>` : ''}
                     ${coordsHTML}
                 </div>
+                ${flagHTML}
             </div>
             
             ${energyBoxesHTML ? `

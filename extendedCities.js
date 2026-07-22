@@ -8226,7 +8226,7 @@ const EXTENDED_CITIES = {
 // Merge into EUROPE_DATA.cities but avoid duplicates (like double capitals)
 if (typeof EUROPE_DATA !== 'undefined' && EUROPE_DATA.cities) {
     const existingNames = new Set(Object.values(EUROPE_DATA.cities).map(c => c.name.toLowerCase() + '|' + c.country.toLowerCase()));
-    
+
     for (const [key, city] of Object.entries(EXTENDED_CITIES)) {
         const uniqueKey = city.name.toLowerCase() + '|' + city.country.toLowerCase();
         if (!existingNames.has(uniqueKey)) {
