@@ -139,42 +139,7 @@ class EuropeMapEngine {
                 }
             });
 
-        // Draw Cities
-        const cityEntries = Object.entries(EUROPE_DATA.cities);
-        const cityNodes = this.cityGroup.selectAll('.city-node')
-            .data(cityEntries)
-            .enter()
-            .append('g')
-            .attr('class', 'city-node')
-            .attr('data-city', d => d[0])
-            .attr('transform', d => {
-                const [x, y] = this.projection([d[1].lon, d[1].lat]);
-                return `translate(${x}, ${y})`;
-            })
-            .on('click', (event, d) => {
-                if (event.defaultPrevented) return;
-                event.stopPropagation();
-                this.selectLocation('city', d[0], event.currentTarget);
-            });
-
-        const cityContents = cityNodes.append('g')
-            .attr('class', 'city-content');
-
-        // Invisible hit area for easier clicking
-        cityContents.append('circle')
-            .attr('class', 'city-hit-area')
-            .attr('r', 24)
-            .style('fill', 'transparent');
-
-        cityContents.append('circle')
-            .attr('class', 'city-dot')
-            .attr('r', 4.5);
-
-        cityContents.append('text')
-            .attr('class', 'city-label')
-            .attr('x', 18)
-            .attr('y', 7)
-            .text(d => d[1].name);
+        // City rendering is now entirely dynamic (handled by Canvas and D3 update pattern in selectLocation)
     }
 
     getCityHit(event) {
@@ -280,7 +245,7 @@ class EuropeMapEngine {
 
     resetView() {
         this.svg.transition().duration(400).call(this.zoom.transform, d3.zoomIdentity);
-        this.cityGroup.selectAll('.city-node').classed('visible', false);
+        this.cityGroup.selectAll('.city-node').remove();
         this.visibleCityContents = d3.selectAll('.none');
     }
 
@@ -293,8 +258,69 @@ class EuropeMapEngine {
             if (element) {
                 element.classList.add('active');
                 this.countryGroup.classed('has-selection', true);
+                
+                const data = type === 'country' ? EUROPE_DATA.countries[key] : { name: key, type: 'empty' };
+                
+                // PERFORMANCE FIX: Only render SVG cities for the selected country
+                const countryCities = Object.entries(EUROPE_DATA.cities).filter(d => d[1].country === data.name);
+                
+                const cityNodes = this.cityGroup.selectAll('.city-node')
+                    .data(countryCities, d => d[0]);
+                
+                cityNodes.exit().remove();
+                
+                const cityEnter = cityNodes.enter()
+                    .append('g')
+                    .attr('class', 'city-node visible') // Always visible since they are the only ones in the DOM
+                    .attr('data-city', d => d[0])
+                    .attr('transform', d => {
+                        const [x, y] = this.projection([d[1].lon, d[1].lat]);
+                        return `translate(${x}, ${y})`;
+                    })
+                    .on('click', (event, d) => {
+                        if (event.defaultPrevented) return;
+                        event.stopPropagation();
+                        this.selectLocation('city', d[0], event.currentTarget);
+                    });
+
+                const cityContents = cityEnter.append('g').attr('class', 'city-content');
+                
+                cityContents.append('circle')
+                    .attr('class', 'city-hit-area')
+                    .attr('r', 24)
+                    .style('fill', 'transparent');
+
+                cityContents.append('circle')
+                    .attr('class', 'city-dot')
+                    .attr('r', 4.5);
+
+                cityContents.append('text')
+                    .attr('class', 'city-label')
+                    .attr('x', 18)
+                    .attr('y', 7)
+                    .text(d => d[1].name);
+                
+                // Immediately apply inverse zoom scale to text/dots
+                this.visibleCityContents = this.cityGroup.selectAll('.city-content');
+                const currentScale = d3.zoomTransform(this.svg.node()).k;
+                this.visibleCityContents.attr('transform', `scale(${1 / currentScale})`);
+
                 this.renderCanvasCities();
                 d3.select('#activeCountryUse').attr('href', '#' + element.id);
+                
+                // Auto-zoom to bounding box
+                if (element.tagName === 'path') {
+                    const boundsAttr = element.getAttribute('data-bounds');
+                    if (boundsAttr) {
+                        const [dx, dy, x, y] = boundsAttr.split(',').map(Number);
+                        const scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / 1000, dy / 700)));
+                        const translate = [500 - scale * x, 350 - scale * y];
+
+                        this.svg.transition()
+                            .duration(400)
+                            .call(this.zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+                    }
+                }
             }
         } else if (type === 'city') {
             document.querySelectorAll('.city-node.active').forEach(el => el.classList.remove('active'));
@@ -306,31 +332,6 @@ class EuropeMapEngine {
         let data = null;
         if (type === 'country' || type === 'empty_country') {
             data = type === 'country' ? EUROPE_DATA.countries[key] : { name: key, type: 'empty' };
-
-            // Toggle cities for this country
-            this.cityGroup.selectAll('.city-node').classed('visible', d => {
-                const belongsToCountry = (d[1].country === data.name);
-                return belongsToCountry;
-            });
-            this.visibleCityContents = this.cityGroup.selectAll('.city-node.visible .city-content');
-
-            // Re-apply current zoom scale to newly visible cities to prevent jarring pop
-            const currentScale = d3.zoomTransform(this.svg.node()).k;
-            this.visibleCityContents.attr('transform', `scale(${1 / currentScale})`);
-
-            // Auto-zoom to bounding box
-            if (element && element.tagName === 'path') {
-                const boundsAttr = element.getAttribute('data-bounds');
-                if (boundsAttr) {
-                    const [dx, dy, x, y] = boundsAttr.split(',').map(Number);
-                    const scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / 1000, dy / 700)));
-                    const translate = [500 - scale * x, 350 - scale * y];
-
-                    this.svg.transition()
-                        .duration(400)
-                        .call(this.zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
-                }
-            }
         } else if (type === 'city') {
             data = EUROPE_DATA.cities[key];
         }
@@ -351,7 +352,7 @@ class EuropeMapEngine {
         this.renderCanvasCities();
         d3.select('#activeCountryUse').attr('href', null);
         this.renderEmptyState();
-        this.cityGroup.selectAll('.city-node').classed('visible', false);
+        this.cityGroup.selectAll('.city-node').remove();
         this.visibleCityContents = d3.selectAll('.none');
 
         const titleEl = document.getElementById('mapWindowTitleText');
