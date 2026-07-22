@@ -98,35 +98,24 @@ class EuropeMapEngine {
     }
 
     async loadMapData() {
-        // Fetch 50m TopoJSON world atlas
-        const response = await fetch('https://unpkg.com/world-atlas@2.0.2/countries-50m.json');
-        const world = await response.json();
-        const countriesGeo = topojson.feature(world, world.objects.countries).features;
+        // Inject fast using native parser and the pre-computed AOT SVG string
+        this.countryGroup.node().innerHTML = MAP_PATHS_SVG;
 
-        // Build a mapping from full name to our country code
-        const nameToCode = {};
+        // Build a mapping from code to full name for title
+        const codeToName = {};
         for (const [code, data] of Object.entries(EUROPE_DATA.countries)) {
-            nameToCode[data.name] = code;
+            codeToName[code] = data.name;
         }
 
-        // Draw ALL Countries (not just Europe)
+        // Attach events to all paths
         this.countryGroup.selectAll('.country-path')
-            .data(countriesGeo)
-            .enter()
-            .append('path')
-            .attr('id', d => {
-                const code = nameToCode[d.properties.name] || d.properties.name.replace(/\s+/g, '-');
-                return 'country-' + code;
-            })
-            .attr('class', 'country-path has-data')
-            .attr('d', this.pathGenerator)
-            .attr('data-code', d => nameToCode[d.properties.name] || d.properties.name)
-            .on('mouseenter', (event, d) => {
+            .on('mouseenter', (event) => {
                 d3.select(event.currentTarget).raise();
-                const code = nameToCode[d.properties.name];
+                const code = event.currentTarget.getAttribute('data-code');
+                const fullName = codeToName[code] || event.currentTarget.getAttribute('data-name');
                 const titleEl = document.getElementById('mapWindowTitleText');
                 if (titleEl) {
-                    titleEl.textContent = d.properties.name;
+                    titleEl.textContent = fullName;
                 }
             })
             .on('mouseleave', () => {
@@ -135,14 +124,18 @@ class EuropeMapEngine {
                     titleEl.textContent = this.activeCountryName || 'WORLD';
                 }
             })
-            .on('click', (event, d) => {
+            .on('click', (event) => {
                 if (event.defaultPrevented) return;
                 event.stopPropagation();
-                const code = nameToCode[d.properties.name];
-                if (code) {
-                    this.selectLocation('country', code, event.currentTarget, d);
+                
+                const target = event.currentTarget;
+                const code = target.getAttribute('data-code');
+                const name = target.getAttribute('data-name');
+                
+                if (EUROPE_DATA.countries[code]) {
+                    this.selectLocation('country', code, target);
                 } else {
-                    this.selectLocation('empty_country', d.properties.name, event.currentTarget, d);
+                    this.selectLocation('empty_country', name, target);
                 }
             });
 
@@ -217,7 +210,7 @@ class EuropeMapEngine {
         const isCountrySelected = this.countryGroup.classed('has-selection');
         const activeCountryEl = this.countryGroup.select('.country-path.active');
         if (isCountrySelected && !activeCountryEl.empty()) {
-            return city.data.country === activeCountryEl.datum().properties.name;
+            return city.data.country === activeCountryEl.node().getAttribute('data-name');
         }
         return true;
     }
@@ -291,7 +284,7 @@ class EuropeMapEngine {
         this.visibleCityContents = d3.selectAll('.none');
     }
 
-    selectLocation(type, key, element, geoData = null) {
+    selectLocation(type, key, element) {
         if (type === 'country' || type === 'empty_country') {
             if (element && element.classList.contains('active')) {
                 return; // Already selected, ignore click to prevent unselecting/jumping
@@ -300,7 +293,7 @@ class EuropeMapEngine {
             if (element) {
                 element.classList.add('active');
                 this.countryGroup.classed('has-selection', true);
-            this.renderCanvasCities();
+                this.renderCanvasCities();
                 d3.select('#activeCountryUse').attr('href', '#' + element.id);
             }
         } else if (type === 'city') {
@@ -326,38 +319,18 @@ class EuropeMapEngine {
             this.visibleCityContents.attr('transform', `scale(${1 / currentScale})`);
 
             // Auto-zoom to bounding box
-            if (geoData) {
-                let targetGeo = geoData;
+            if (element && element.tagName === 'path') {
+                const boundsAttr = element.getAttribute('data-bounds');
+                if (boundsAttr) {
+                    const [dx, dy, x, y] = boundsAttr.split(',').map(Number);
+                    const scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / 1000, dy / 700)));
+                    const translate = [500 - scale * x, 350 - scale * y];
 
-                // If it's a MultiPolygon, find the largest polygon by projected area 
-                // to avoid zooming out to overseas territories (e.g. French Guiana)
-                if (geoData.geometry && geoData.geometry.type === 'MultiPolygon') {
-                    const polys = geoData.geometry.coordinates.map(coords => ({
-                        type: 'Feature',
-                        geometry: { type: 'Polygon', coordinates: coords }
-                    }));
-                    polys.sort((a, b) => this.pathGenerator.area(b) - this.pathGenerator.area(a));
-                    targetGeo = polys[0]; // Pick the largest polygon (e.g. Metropolitan France)
+                    this.svg.transition()
+                        .duration(400)
+                        .call(this.zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
                 }
-
-                const bounds = this.pathGenerator.bounds(targetGeo);
-                const dx = bounds[1][0] - bounds[0][0];
-                const dy = bounds[1][1] - bounds[0][1];
-                const x = (bounds[0][0] + bounds[1][0]) / 2;
-                const y = (bounds[0][1] + bounds[1][1]) / 2;
-
-                // Calculate scale to fit box with padding
-                const scale = Math.max(1, Math.min(8, 0.6 / Math.max(dx / 1000, dy / 700)));
-                const translate = [1000 / 2 - scale * x, 700 / 2 - scale * y];
-
-                this.svg.transition()
-                    .duration(400)
-                    .call(
-                        this.zoom.transform,
-                        d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale)
-                    );
             }
-
         } else if (type === 'city') {
             data = EUROPE_DATA.cities[key];
         }
