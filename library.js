@@ -59,6 +59,16 @@ function populateNumerology() {
                 </div>
                 <div class="lib-entry-body">
                     ${formattedText}
+                    ${readingsDatabase.cheiro && readingsDatabase.cheiro[num] ? `
+                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--th-border);">
+                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From Cheiro's Book of Numbers:</p>
+                    ${formatTextToParagraphs(readingsDatabase.cheiro[num])}
+                    ` : ""}
+                    ${readingsDatabase.numerologyMadePlain && readingsDatabase.numerologyMadePlain[num] ? `
+                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--th-border);">
+                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From Numerology Made Plain:</p>
+                    ${formatTextToParagraphs(readingsDatabase.numerologyMadePlain[num])}
+                    ` : ""}
                 </div>
             </div>
         `;
@@ -66,6 +76,62 @@ function populateNumerology() {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = entryHtml.trim();
         coreBody.appendChild(tempDiv.firstChild);
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // PERSONAL YEARS GROUP
+    // ═══════════════════════════════════════════════════════════
+    const personalYearsGroup = document.createElement("div");
+    personalYearsGroup.className = "lib-category-group";
+    personalYearsGroup.setAttribute("data-group", "");
+    personalYearsGroup.innerHTML = `
+        <div class="lib-category-header" onclick="toggleGroup(this)">
+            <p class="lib-category-label">Personal Years (1–9)</p>
+            <span class="lib-category-chevron">▼</span>
+        </div>
+        <div class="lib-category-body" id="personalYearsBody"></div>
+    `;
+    container.appendChild(personalYearsGroup);
+
+    const personalYearsBody = document.getElementById("personalYearsBody");
+
+    const personalYearsNums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    
+    personalYearsNums.forEach(num => {
+        const data = readingsDatabase.personalYearDetails && readingsDatabase.personalYearDetails[num];
+        if (!data) return;
+        const entryHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num">${num}</div>
+                        <div>
+                            <p class="lib-entry-title">${data.title}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    <p style="margin-bottom: 16px;">${data.text}</p>
+                    <div style="margin-top: 16px; padding: 12px; background: rgba(46, 204, 113, 0.1); border-left: 3px solid #27ae60; border-radius: 0 4px 4px 0;">
+                        <strong style="color: #27ae60; display: block; margin-bottom: 4px;">Do:</strong>
+                        <p style="margin: 0; font-size: 0.9em;">${data.do}</p>
+                    </div>
+                    <div style="margin-top: 12px; margin-bottom: 8px; padding: 12px; background: rgba(231, 76, 60, 0.1); border-left: 3px solid #c0392b; border-radius: 0 4px 4px 0;">
+                        <strong style="color: #c0392b; display: block; margin-bottom: 4px;">Don't:</strong>
+                        <p style="margin: 0; font-size: 0.9em;">${data.dont}</p>
+                    </div>
+                    ${readingsDatabase.years && readingsDatabase.years[num] ? `
+                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--th-border);">
+                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From the numerological cycle:</p>
+                    ${formatTextToParagraphs(readingsDatabase.years[num])}
+                    ` : ""}
+                </div>
+            </div>
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entryHtml.trim();
+        personalYearsBody.appendChild(tempDiv.firstChild);
     });
 
     // ═══════════════════════════════════════════════════════════
@@ -146,6 +212,32 @@ function populateNumerology() {
       { "number": 9, "planet": "Mars", "friendly": [ 4, 5, 6 ], "neutral": [ 3, 8 ], "enemy": [ 1, 2, 7, 9, 11, 22, 33 ] }
     ];
     
+    const planetMap = {
+        1: "Sun",
+        2: "Moon",
+        3: "Jupiter",
+        4: "Rahu",
+        5: "Mercury",
+        6: "Venus",
+        7: "Ketu",
+        8: "Saturn",
+        9: "Mars",
+        11: "Master Number",
+        22: "Master Number",
+        33: "Master Number",
+        28: "Wealth"
+    };
+
+    const createBadgesHTML = (list, relationType, sourceNum) => {
+        if (!list || list.length === 0) return `<span style="font-size: 0.85rem; color: var(--th-text-muted); font-style: italic;">None</span>`;
+        return list.map(n => {
+            const planet = planetMap[n] || "Unknown";
+            return `<span class="rd-number-badge rd-number-badge--${relationType}" title="Number ${n} (${planet}): ${relationType.charAt(0).toUpperCase() + relationType.slice(1)} relationship with Number ${sourceNum}">
+                ${n}
+            </span>`;
+        }).join('');
+    };
+
     compatibilityData.forEach(data => {
         const entryHtml = `
             <div class="lib-entry" data-entry>
@@ -158,18 +250,36 @@ function populateNumerology() {
                     </div>
                     <span class="lib-entry-chevron">▼</span>
                 </div>
-                <div class="lib-entry-body">
-                    <div style="margin-bottom:12px;">
-                        <strong style="color:var(--th-text-primary); font-size:0.85rem;">Ruling Planet:</strong> ${data.planet}
-                    </div>
-                    <div style="margin-bottom:12px;">
-                        <strong style="color:var(--th-text-primary); font-size:0.85rem;">Friendly Numbers:</strong> ${data.friendly.join(', ')}
-                    </div>
-                    <div style="margin-bottom:12px;">
-                        <strong style="color:var(--th-text-primary); font-size:0.85rem;">Neutral Numbers:</strong> ${data.neutral.join(', ')}
-                    </div>
-                    <div style="margin-bottom:12px;">
-                        <strong style="color:var(--th-text-primary); font-size:0.85rem;">Enemy Numbers:</strong> ${data.enemy.join(', ')}
+                <div class="lib-entry-body" style="padding-top: 20px;">
+                    <div class="rd-compatibility-card rd-compatibility-card--day" style="margin: 0; box-shadow: none; border: 1px solid var(--th-border);">
+                        <div class="rd-comp-header">
+                            <div class="rd-comp-title-group">
+                                <span class="rd-comp-type">Number</span>
+                                <span class="rd-comp-number">${data.number}</span>
+                            </div>
+                            <span class="rd-comp-planet-badge">Ruling: ${data.planet}</span>
+                        </div>
+                        
+                        <div class="rd-comp-group">
+                            <span class="rd-comp-group-title">Friendly (Goes Well)</span>
+                            <div class="rd-comp-badges">
+                                ${createBadgesHTML(data.friendly, "friendly", data.number)}
+                            </div>
+                        </div>
+                        
+                        <div class="rd-comp-group">
+                            <span class="rd-comp-group-title">Neutral</span>
+                            <div class="rd-comp-badges">
+                                ${createBadgesHTML(data.neutral, "neutral", data.number)}
+                            </div>
+                        </div>
+                        
+                        <div class="rd-comp-group">
+                            <span class="rd-comp-group-title">Enemy (Avoid/Caution)</span>
+                            <div class="rd-comp-badges">
+                                ${createBadgesHTML(data.enemy, "enemy", data.number)}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
