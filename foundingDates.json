@@ -277,7 +277,7 @@
       "event": "Original Founding"
     },
     {
-      "date": "1898-01-01",
+      "date": "1898",
       "event": "City Consolidation"
     }
   ],
@@ -1647,7 +1647,7 @@
   ],
   "Ottawa_Canada": [
     {
-      "date": "1855-01-01",
+      "date": "1855",
       "event": "Original Founding"
     }
   ],
@@ -2593,17 +2593,33 @@
     {
       "date": "1871-01-18",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1949-05-23",
+      "event": "Original Founding"
     }
   ],
   "France": [
     {
       "date": "1958-10-04",
       "event": "Official State Founding"
+    },
+    {
+      "date": "481",
+      "event": "Original Founding"
+    },
+    {
+      "date": "843-08-01",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1804-05-18",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "United Kingdom": [
     {
-      "date": "1801-01-01",
+      "date": "1801",
       "event": "Official State Founding"
     }
   ],
@@ -2611,18 +2627,50 @@
     {
       "date": "1946-06-02",
       "event": "Official State Founding"
+    },
+    {
+      "date": "476",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1861-03-17",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1946-06-18",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Spain": [
     {
       "date": "1978-12-29",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1516-03-24",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1715",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1812-03-19",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1931-12-09",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Russia": [
     {
       "date": "1991-12-25",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1263",
+      "event": "Original Founding"
     }
   ],
   "Ukraine": [
@@ -2635,18 +2683,38 @@
     {
       "date": "1523-06-06",
       "event": "Official State Founding"
+    },
+    {
+      "date": "900",
+      "event": "Original Founding"
     }
   ],
   "Norway": [
     {
       "date": "1905-06-07",
       "event": "Official State Founding"
+    },
+    {
+      "date": "900",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1814-05-17",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1905-10-26",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Denmark": [
     {
       "date": "1849-06-05",
       "event": "Official State Founding"
+    },
+    {
+      "date": "800",
+      "event": "Original Founding"
     }
   ],
   "Finland": [
@@ -2659,18 +2727,42 @@
     {
       "date": "1922-12-06",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1937-12-29",
+      "event": "Original Founding"
     }
   ],
   "Portugal": [
     {
       "date": "1143-10-05",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1128-07-01",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1139-08-01",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1179-05-30",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Netherlands": [
     {
       "date": "1581-07-26",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1795-01-19",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1954-12-29",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Belgium": [
@@ -2683,29 +2775,41 @@
     {
       "date": "1291-08-01",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1848-09-12",
+      "event": "Original Founding"
     }
   ],
   "Austria": [
     {
       "date": "1955-07-27",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1918-11-12",
+      "event": "Original Founding"
     }
   ],
   "Hungary": [
     {
       "date": "1989-10-23",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1000",
+      "event": "Original Founding"
     }
   ],
   "Czech Republic": [
     {
-      "date": "1993-01-01",
+      "date": "1993",
       "event": "Official State Founding"
     }
   ],
   "Slovakia": [
     {
-      "date": "1993-01-01",
+      "date": "1993",
       "event": "Official State Founding"
     }
   ],
@@ -2713,6 +2817,10 @@
     {
       "date": "1821-03-25",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1821-04-06",
+      "event": "Original Founding"
     }
   ],
   "Turkey": [
@@ -2725,18 +2833,30 @@
     {
       "date": "1877-05-09",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1859-02-05",
+      "event": "Original Founding"
     }
   ],
   "Bulgaria": [
     {
       "date": "1908-10-05",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1878-07-13",
+      "event": "Original Founding"
     }
   ],
   "Serbia": [
     {
       "date": "2006-06-05",
       "event": "Official State Founding"
+    },
+    {
+      "date": "2006",
+      "event": "Original Founding"
     }
   ],
   "Croatia": [
@@ -2765,7 +2885,7 @@
   ],
   "Mexico": [
     {
-      "date": "1821-09-27",
+      "date": "1810-09-16",
       "event": "Official State Founding"
     }
   ],
@@ -2773,12 +2893,20 @@
     {
       "date": "1902-05-20",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1898-12-10",
+      "event": "Original Founding"
     }
   ],
   "Jamaica": [
     {
       "date": "1962-08-06",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1962",
+      "event": "Original Founding"
     }
   ],
   "Brazil": [
@@ -2797,6 +2925,10 @@
     {
       "date": "1810-07-20",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1810",
+      "event": "Original Founding"
     }
   ],
   "Peru": [
@@ -2809,30 +2941,50 @@
     {
       "date": "1818-02-12",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1810-09-18",
+      "event": "Original Founding"
     }
   ],
   "Venezuela": [
     {
       "date": "1811-07-05",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1845-03-30",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Ecuador": [
     {
       "date": "1822-05-24",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1840-02-16",
+      "event": "Original Founding"
     }
   ],
   "Bolivia": [
     {
       "date": "1825-08-06",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1825",
+      "event": "Original Founding"
     }
   ],
   "Paraguay": [
     {
       "date": "1811-05-14",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1811",
+      "event": "Original Founding"
     }
   ],
   "Uruguay": [
@@ -2869,12 +3021,28 @@
     {
       "date": "1945-09-02",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1804",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1976-07-02",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Thailand": [
     {
       "date": "1932-06-24",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1238",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1768-12-28",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Indonesia": [
@@ -2887,12 +3055,32 @@
     {
       "date": "1898-06-12",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1565",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1901-07-04",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1935-11-15",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1946-07-04",
+      "event": "Historical Imprint / Re-founding"
     }
   ],
   "Malaysia": [
     {
       "date": "1957-08-31",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1963-09-16",
+      "event": "Original Founding"
     }
   ],
   "Singapore": [
@@ -2923,12 +3111,20 @@
     {
       "date": "1932-10-03",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1932",
+      "event": "Original Founding"
     }
   ],
   "Saudi Arabia": [
     {
       "date": "1932-09-23",
       "event": "Official State Founding"
+    },
+    {
+      "date": "1727",
+      "event": "Original Founding"
     }
   ],
   "Israel": [
@@ -2941,36 +3137,10 @@
     {
       "date": "1971-12-02",
       "event": "Official State Founding"
-    }
-  ],
-  "United States of America": [
+    },
     {
-      "date": "1776-07-04",
-      "event": "Official State Founding"
-    }
-  ],
-  "Canada": [
-    {
-      "date": "1867-07-01",
-      "event": "Official State Founding"
-    }
-  ],
-  "Mexico": [
-    {
-      "date": "1810-09-16",
-      "event": "Official State Founding"
-    }
-  ],
-  "Brazil": [
-    {
-      "date": "1822-09-07",
-      "event": "Official State Founding"
-    }
-  ],
-  "Argentina": [
-    {
-      "date": "1816-07-09",
-      "event": "Official State Founding"
+      "date": "1971",
+      "event": "Original Founding"
     }
   ],
   "Chicago_United States of America": [
@@ -2981,6 +3151,1690 @@
     {
       "date": "1837-03-04",
       "event": "City Incorporation"
+    }
+  ],
+  "Sofia_Bulgaria": [
+    {
+      "date": "1885",
+      "event": "Original Founding"
+    }
+  ],
+  "Sarajevo_Bosnia and Herz.": [
+    {
+      "date": "1462",
+      "event": "Original Founding"
+    }
+  ],
+  "Nassau_Bahamas": [
+    {
+      "date": "1695",
+      "event": "Original Founding"
+    }
+  ],
+  "Moscow_Russia": [
+    {
+      "date": "NaN-known/genid/913274a91b9d1a1be425d18af5edd198-undefined",
+      "event": "Original Founding"
+    }
+  ],
+  "Athens_Greece": [
+    {
+      "date": "7000 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Warsaw_Poland": [
+    {
+      "date": "2004",
+      "event": "Original Founding"
+    }
+  ],
+  "Tallinn_Estonia": [
+    {
+      "date": "NaN-known/genid/6635ab50cea60c13512640dd5e0a94f3-undefined",
+      "event": "Original Founding"
+    }
+  ],
+  "Madrid_Spain": [
+    {
+      "date": "1939-04-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Paris_France": [
+    {
+      "date": "300 BC",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1790-01-13",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Andorra la Vella_Andorra": [
+    {
+      "date": "900",
+      "event": "Original Founding"
+    }
+  ],
+  "Vienna_Austria": [
+    {
+      "date": "100 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Vagharshapat_Armenia": [
+    {
+      "date": "684 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Hrazdan_Armenia": [
+    {
+      "date": "1930-09-09",
+      "event": "Original Founding"
+    }
+  ],
+  "Banja Luka_Bosnia and Herz.": [
+    {
+      "date": "1494-02-15",
+      "event": "Original Founding"
+    }
+  ],
+  "Mostar_Bosnia and Herz.": [
+    {
+      "date": "1452",
+      "event": "Original Founding"
+    }
+  ],
+  "Prijedor_Bosnia and Herz.": [
+    {
+      "date": "2012-07-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Speightstown_Barbados": [
+    {
+      "date": "1630",
+      "event": "Original Founding"
+    }
+  ],
+  "Liège_Belgium": [
+    {
+      "date": "800",
+      "event": "Original Founding"
+    }
+  ],
+  "Leuven_Belgium": [
+    {
+      "date": "1831",
+      "event": "Original Founding"
+    }
+  ],
+  "Plovdiv_Bulgaria": [
+    {
+      "date": "1999-01-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Burgas_Bulgaria": [
+    {
+      "date": "1999-01-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Ruse_Bulgaria": [
+    {
+      "date": "1999-01-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Stara Zagora_Bulgaria": [
+    {
+      "date": "1999-01-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Pleven_Bulgaria": [
+    {
+      "date": "1999-01-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Sliven_Bulgaria": [
+    {
+      "date": "1999-01-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Dobrich_Bulgaria": [
+    {
+      "date": "1999-01-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Shumen_Bulgaria": [
+    {
+      "date": "1885",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1999-01-08",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Freeport_Bahamas": [
+    {
+      "date": "1955-08-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Hrodna_Belarus": [
+    {
+      "date": "1000",
+      "event": "Original Founding"
+    }
+  ],
+  "Brest_Belarus": [
+    {
+      "date": "1017",
+      "event": "Original Founding"
+    }
+  ],
+  "North York_Canada": [
+    {
+      "date": "1922-06-13",
+      "event": "Original Founding"
+    }
+  ],
+  "Scarborough_Canada": [
+    {
+      "date": "1850",
+      "event": "Original Founding"
+    }
+  ],
+  "Lausanne_Switzerland": [
+    {
+      "date": "1900",
+      "event": "Original Founding"
+    }
+  ],
+  "San Francisco_Costa Rica": [
+    {
+      "date": "1999-07-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Liberia_Costa Rica": [
+    {
+      "date": "1769-09-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Curridabat_Costa Rica": [
+    {
+      "date": "1929-08-21",
+      "event": "Original Founding"
+    }
+  ],
+  "San Vicente_Costa Rica": [
+    {
+      "date": "1914-08-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Arroyo Naranjo_Cuba": [
+    {
+      "date": "1845",
+      "event": "Original Founding"
+    }
+  ],
+  "Horsens_Denmark": [
+    {
+      "date": "1200",
+      "event": "Original Founding"
+    }
+  ],
+  "Randers_Denmark": [
+    {
+      "date": "1100",
+      "event": "Original Founding"
+    }
+  ],
+  "Barcelona_Spain": [
+    {
+      "date": "1928",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1979-12-31",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Valencia_Spain": [
+    {
+      "date": "137 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Sevilla_Spain": [
+    {
+      "date": "1924-06-14",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1942-03-16",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Málaga_Spain": [
+    {
+      "date": "800 BC",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1982",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Bilbao_Spain": [
+    {
+      "date": "1300",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1919",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Lyon_France": [
+    {
+      "date": "1838",
+      "event": "Original Founding"
+    }
+  ],
+  "Nantes_France": [
+    {
+      "date": "1838",
+      "event": "Original Founding"
+    }
+  ],
+  "Bordeaux_France": [
+    {
+      "date": "500 BC",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1838",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Lille_France": [
+    {
+      "date": "1838",
+      "event": "Original Founding"
+    }
+  ],
+  "Birmingham_United Kingdom": [
+    {
+      "date": "601",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1868-11-17",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1974-04-01",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2000-05-31",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Sheffield_United Kingdom": [
+    {
+      "date": "701",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1832-12-08",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1843",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1974-04-01",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1979",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2000-10-26",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Glasgow_United Kingdom": [
+    {
+      "date": "1832-12-08",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1868-11-17",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1979",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1999",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2000-05-31",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Leicester_United Kingdom": [
+    {
+      "date": "1801",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1979",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Edinburgh_United Kingdom": [
+    {
+      "date": "601",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1357",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1801",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1832-12-08",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2000-10-31",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2016-04-01",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Leeds_United Kingdom": [
+    {
+      "date": "1868-11-17",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1974-04-01",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1979",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2001-05-31",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2022-10-25",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Kutaisi_Georgia": [
+    {
+      "date": "300 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "San Juan Sacatepéquez_Guatemala": [
+    {
+      "date": "1525",
+      "event": "Original Founding"
+    }
+  ],
+  "Chinautla_Guatemala": [
+    {
+      "date": "1526",
+      "event": "Original Founding"
+    }
+  ],
+  "Chimaltenango_Guatemala": [
+    {
+      "date": "1526",
+      "event": "Original Founding"
+    }
+  ],
+  "Choloma_Honduras": [
+    {
+      "date": "1894-05-13",
+      "event": "Original Founding"
+    }
+  ],
+  "Jacmel_Haiti": [
+    {
+      "date": "1698",
+      "event": "Original Founding"
+    }
+  ],
+  "Waterford_Ireland": [
+    {
+      "date": "1923",
+      "event": "Original Founding"
+    }
+  ],
+  "Dundalk_Ireland": [
+    {
+      "date": "3499 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Bologna_Italy": [
+    {
+      "date": "1980",
+      "event": "Original Founding"
+    }
+  ],
+  "Shymkent_Kazakhstan": [
+    {
+      "date": "1101",
+      "event": "Original Founding"
+    }
+  ],
+  "Gros Islet_Saint Lucia": [
+    {
+      "date": "1749",
+      "event": "Original Founding"
+    }
+  ],
+  "Monte-Carlo_Monaco": [
+    {
+      "date": "1911",
+      "event": "Original Founding"
+    }
+  ],
+  "La Condamine_Monaco": [
+    {
+      "date": "1911",
+      "event": "Original Founding"
+    }
+  ],
+  "Fontvieille_Monaco": [
+    {
+      "date": "1981",
+      "event": "Original Founding"
+    }
+  ],
+  "Nikšić_Montenegro": [
+    {
+      "date": "400",
+      "event": "Original Founding"
+    }
+  ],
+  "Iztapalapa_Mexico": [
+    {
+      "date": "1928",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1994",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Puebla_Mexico": [
+    {
+      "date": "1824",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1987",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Juárez_Mexico": [
+    {
+      "date": "1800",
+      "event": "Original Founding"
+    }
+  ],
+  "The Hague_Netherlands": [
+    {
+      "date": "1201",
+      "event": "Original Founding"
+    }
+  ],
+  "Nijmegen_Netherlands": [
+    {
+      "date": "1230",
+      "event": "Original Founding"
+    }
+  ],
+  "Drammen_Norway": [
+    {
+      "date": "1811-06-19",
+      "event": "Original Founding"
+    }
+  ],
+  "Asker_Norway": [
+    {
+      "date": "1837",
+      "event": "Original Founding"
+    },
+    {
+      "date": "2020",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Kraków_Poland": [
+    {
+      "date": "NaN-known/genid/14cbdc32099cfad0eacab9f8372400a4-undefined",
+      "event": "Original Founding"
+    }
+  ],
+  "Funchal_Portugal": [
+    {
+      "date": "1451",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1884",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Capiatá_Paraguay": [
+    {
+      "date": "1640-05-11",
+      "event": "Original Founding"
+    }
+  ],
+  "Lambaré_Paraguay": [
+    {
+      "date": "1766",
+      "event": "Original Founding"
+    }
+  ],
+  "Sollentuna_Sweden": [
+    {
+      "date": "2016",
+      "event": "Original Founding"
+    }
+  ],
+  "Soyapango_El Salvador": [
+    {
+      "date": "1542-11-30",
+      "event": "Original Founding"
+    }
+  ],
+  "Apopa_El Salvador": [
+    {
+      "date": "1543-01-15",
+      "event": "Original Founding"
+    }
+  ],
+  "İzmir_Turkey": [
+    {
+      "date": "3000 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Adana_Turkey": [
+    {
+      "date": "6000 BC",
+      "event": "Original Founding"
+    }
+  ],
+  "Çankaya_Turkey": [
+    {
+      "date": "2000",
+      "event": "Original Founding"
+    }
+  ],
+  "Bağcılar_Turkey": [
+    {
+      "date": "1992-06-03",
+      "event": "Original Founding"
+    },
+    {
+      "date": "2006",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Arima_Trinidad and Tobago": [
+    {
+      "date": "1757",
+      "event": "Original Founding"
+    }
+  ],
+  "Point Fortin_Trinidad and Tobago": [
+    {
+      "date": "1783",
+      "event": "Original Founding"
+    }
+  ],
+  "Mariupol_Ukraine": [
+    {
+      "date": "901",
+      "event": "Original Founding"
+    }
+  ],
+  "Deçan_Kosovo": [
+    {
+      "date": "1975",
+      "event": "Original Founding"
+    }
+  ],
+  "Stuttgart_Germany": [
+    {
+      "date": "950",
+      "event": "Original Founding (Manual Override)"
+    }
+  ],
+  "Albania": [
+    {
+      "date": "1912-11-28",
+      "event": "Original Founding"
+    }
+  ],
+  "Andorra": [
+    {
+      "date": "1278",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1715",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1993",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Armenia": [
+    {
+      "date": "1991-09-23",
+      "event": "Original Founding"
+    }
+  ],
+  "Azerbaijan": [
+    {
+      "date": "1991",
+      "event": "Original Founding"
+    }
+  ],
+  "Belarus": [
+    {
+      "date": "882",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1991-09-19",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1991-08-25",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Bosnia and Herzegovina": [
+    {
+      "date": "1992-03-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Cyprus": [
+    {
+      "date": "1960-08-16",
+      "event": "Original Founding"
+    }
+  ],
+  "Estonia": [
+    {
+      "date": "1918-02-24",
+      "event": "Original Founding"
+    }
+  ],
+  "Georgia": [
+    {
+      "date": "1991-12-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Iceland": [
+    {
+      "date": "1944-06-17",
+      "event": "Original Founding"
+    }
+  ],
+  "Kazakhstan": [
+    {
+      "date": "1991",
+      "event": "Original Founding"
+    }
+  ],
+  "Kosovo": [
+    {
+      "date": "2008-02-17",
+      "event": "Original Founding"
+    }
+  ],
+  "Latvia": [
+    {
+      "date": "1918-11-18",
+      "event": "Original Founding"
+    }
+  ],
+  "Liechtenstein": [
+    {
+      "date": "1806-07-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Lithuania": [
+    {
+      "date": "1990-03-11",
+      "event": "Original Founding"
+    }
+  ],
+  "Luxembourg": [
+    {
+      "date": "1815",
+      "event": "Original Founding"
+    }
+  ],
+  "Malta": [
+    {
+      "date": "1964-09-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Moldova": [
+    {
+      "date": "1991-08-27",
+      "event": "Original Founding"
+    }
+  ],
+  "Monaco": [
+    {
+      "date": "1297-01-15",
+      "event": "Original Founding"
+    }
+  ],
+  "Montenegro": [
+    {
+      "date": "2006-06-03",
+      "event": "Original Founding"
+    }
+  ],
+  "North Macedonia": [
+    {
+      "date": "1991",
+      "event": "Original Founding"
+    }
+  ],
+  "San Marino": [
+    {
+      "date": "301-09-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Slovenia": [
+    {
+      "date": "1991-06-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Antigua and Barbuda": [
+    {
+      "date": "1981-11-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Barbados": [
+    {
+      "date": "1966-11-30",
+      "event": "Original Founding"
+    }
+  ],
+  "Belize": [
+    {
+      "date": "1981-09-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Costa Rica": [
+    {
+      "date": "1821",
+      "event": "Original Founding"
+    }
+  ],
+  "Dominica": [
+    {
+      "date": "1978",
+      "event": "Original Founding"
+    }
+  ],
+  "Dominican Republic": [
+    {
+      "date": "1844",
+      "event": "Original Founding"
+    }
+  ],
+  "El Salvador": [
+    {
+      "date": "1841-02-02",
+      "event": "Original Founding"
+    }
+  ],
+  "Grenada": [
+    {
+      "date": "1974",
+      "event": "Original Founding"
+    }
+  ],
+  "Guatemala": [
+    {
+      "date": "1821",
+      "event": "Original Founding"
+    }
+  ],
+  "Guyana": [
+    {
+      "date": "1966",
+      "event": "Original Founding"
+    }
+  ],
+  "Haiti": [
+    {
+      "date": "1804",
+      "event": "Original Founding"
+    }
+  ],
+  "Honduras": [
+    {
+      "date": "1821",
+      "event": "Original Founding"
+    }
+  ],
+  "Nicaragua": [
+    {
+      "date": "1821",
+      "event": "Original Founding"
+    }
+  ],
+  "Panama": [
+    {
+      "date": "1903",
+      "event": "Original Founding"
+    }
+  ],
+  "Saint Kitts and Nevis": [
+    {
+      "date": "1967-02-27",
+      "event": "Original Founding"
+    }
+  ],
+  "Saint Lucia": [
+    {
+      "date": "1967-03-01",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1979-02-22",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Saint Vincent and the Grenadines": [
+    {
+      "date": "1979",
+      "event": "Original Founding"
+    }
+  ],
+  "Suriname": [
+    {
+      "date": "1975-11-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Trinidad and Tobago": [
+    {
+      "date": "1976-08-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Bosnia and Herz.": [
+    {
+      "date": "1992-03-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Afghanistan": [
+    {
+      "date": "1709",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1747-06-19",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1823",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1926",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1973",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1978",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1992",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1996",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2002",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2004",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "2021",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Algeria": [
+    {
+      "date": "1962-07-03",
+      "event": "Original Founding"
+    }
+  ],
+  "Angola": [
+    {
+      "date": "1992-08-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Aruba": [
+    {
+      "date": "1986",
+      "event": "Original Founding"
+    }
+  ],
+  "Australia": [
+    {
+      "date": "1901",
+      "event": "Original Founding"
+    }
+  ],
+  "Bahrain": [
+    {
+      "date": "1971-08-14",
+      "event": "Original Founding"
+    }
+  ],
+  "Benin": [
+    {
+      "date": "1960-08-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Bhutan": [
+    {
+      "date": "1949-08-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Botswana": [
+    {
+      "date": "1966-09-30",
+      "event": "Original Founding"
+    }
+  ],
+  "Burkina Faso": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Burundi": [
+    {
+      "date": "1962-07-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Cambodia": [
+    {
+      "date": "1953-11-09",
+      "event": "Original Founding"
+    }
+  ],
+  "Cameroon": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Central African Republic": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    },
+    {
+      "date": "2009",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Chad": [
+    {
+      "date": "1960-08-11",
+      "event": "Original Founding"
+    }
+  ],
+  "Comoros": [
+    {
+      "date": "1975-07-06",
+      "event": "Original Founding"
+    }
+  ],
+  "Cook Islands": [
+    {
+      "date": "1965-08-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Curaçao": [
+    {
+      "date": "1954",
+      "event": "Original Founding"
+    }
+  ],
+  "Democratic Republic of the Congo": [
+    {
+      "date": "1960-06-30",
+      "event": "Original Founding"
+    }
+  ],
+  "Djibouti": [
+    {
+      "date": "1977-06-23",
+      "event": "Original Founding"
+    }
+  ],
+  "Egypt": [
+    {
+      "date": "1922-02-28",
+      "event": "Original Founding"
+    }
+  ],
+  "England": [
+    {
+      "date": "886",
+      "event": "Original Founding"
+    },
+    {
+      "date": "927-07-17",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Equatorial Guinea": [
+    {
+      "date": "1968-10-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Eritrea": [
+    {
+      "date": "1993-05-24",
+      "event": "Original Founding"
+    }
+  ],
+  "Eswatini": [
+    {
+      "date": "1968-09-06",
+      "event": "Original Founding"
+    }
+  ],
+  "Ethiopia": [
+    {
+      "date": "1995-08-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Faroe Islands": [
+    {
+      "date": "1948-04-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Federated States of Micronesia": [
+    {
+      "date": "1986-11-03",
+      "event": "Original Founding"
+    }
+  ],
+  "Fiji": [
+    {
+      "date": "1970",
+      "event": "Original Founding"
+    }
+  ],
+  "Gabon": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Ghana": [
+    {
+      "date": "1957",
+      "event": "Original Founding"
+    }
+  ],
+  "Gibraltar": [
+    {
+      "date": "1704",
+      "event": "Original Founding"
+    }
+  ],
+  "Guinea": [
+    {
+      "date": "1958-10-02",
+      "event": "Original Founding"
+    }
+  ],
+  "Guinea-Bissau": [
+    {
+      "date": "1974",
+      "event": "Original Founding"
+    }
+  ],
+  "India": [
+    {
+      "date": "1947-08-15",
+      "event": "Original Founding"
+    }
+  ],
+  "Jordan": [
+    {
+      "date": "1946",
+      "event": "Original Founding"
+    }
+  ],
+  "Kenya": [
+    {
+      "date": "1963",
+      "event": "Original Founding"
+    }
+  ],
+  "Kiribati": [
+    {
+      "date": "1979-07-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Kuwait": [
+    {
+      "date": "1991-02-26",
+      "event": "Original Founding"
+    }
+  ],
+  "Kyrgyzstan": [
+    {
+      "date": "1991",
+      "event": "Original Founding"
+    }
+  ],
+  "Laos": [
+    {
+      "date": "1949",
+      "event": "Original Founding"
+    }
+  ],
+  "Lebanon": [
+    {
+      "date": "1943-11-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Lesotho": [
+    {
+      "date": "1966",
+      "event": "Original Founding"
+    }
+  ],
+  "Liberia": [
+    {
+      "date": "1822-01-07",
+      "event": "Original Founding"
+    }
+  ],
+  "Libya": [
+    {
+      "date": "1551-08-25",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1951-12-24",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1969-09-01",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1977-03-02",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Madagascar": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Malawi": [
+    {
+      "date": "1964-07-06",
+      "event": "Original Founding"
+    }
+  ],
+  "Maldives": [
+    {
+      "date": "1965-07-26",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1968-11-11",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Mali": [
+    {
+      "date": "1960-09-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Marshall Islands": [
+    {
+      "date": "1986-10-21",
+      "event": "Original Founding"
+    }
+  ],
+  "Mauritania": [
+    {
+      "date": "1960-11-28",
+      "event": "Original Founding"
+    }
+  ],
+  "Mauritius": [
+    {
+      "date": "1968-03-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Mongolia": [
+    {
+      "date": "1992-02-12",
+      "event": "Original Founding"
+    }
+  ],
+  "Morocco": [
+    {
+      "date": "789",
+      "event": "Original Founding"
+    }
+  ],
+  "Mozambique": [
+    {
+      "date": "1975-06-25",
+      "event": "Original Founding"
+    }
+  ],
+  "Myanmar": [
+    {
+      "date": "1948-01-04",
+      "event": "Original Founding"
+    }
+  ],
+  "Namibia": [
+    {
+      "date": "1990",
+      "event": "Original Founding"
+    }
+  ],
+  "Nauru": [
+    {
+      "date": "1968-01-31",
+      "event": "Original Founding"
+    }
+  ],
+  "Nepal": [
+    {
+      "date": "2008-05-28",
+      "event": "Original Founding"
+    }
+  ],
+  "New Zealand": [
+    {
+      "date": "1841-05-03",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1907-09-26",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1947-11-25",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1986-12-13",
+      "event": "Historical Imprint / Re-founding"
+    }
+  ],
+  "Niger": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Nigeria": [
+    {
+      "date": "1963-10-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Niue": [
+    {
+      "date": "1974",
+      "event": "Original Founding"
+    }
+  ],
+  "Northern Ireland": [
+    {
+      "date": "1921-05-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Oman": [
+    {
+      "date": "1970-07-23",
+      "event": "Original Founding"
+    }
+  ],
+  "Palau": [
+    {
+      "date": "1994-10-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Papua New Guinea": [
+    {
+      "date": "1975",
+      "event": "Original Founding"
+    }
+  ],
+  "Qatar": [
+    {
+      "date": "1870",
+      "event": "Original Founding"
+    }
+  ],
+  "Republic of the Congo": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Rwanda": [
+    {
+      "date": "1962",
+      "event": "Original Founding"
+    }
+  ],
+  "Samoa": [
+    {
+      "date": "1962",
+      "event": "Original Founding"
+    }
+  ],
+  "Scotland": [
+    {
+      "date": "843",
+      "event": "Original Founding"
+    }
+  ],
+  "Senegal": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Seychelles": [
+    {
+      "date": "1976-06-29",
+      "event": "Original Founding"
+    }
+  ],
+  "Sierra Leone": [
+    {
+      "date": "1971-04-19",
+      "event": "Original Founding"
+    }
+  ],
+  "Sint Maarten": [
+    {
+      "date": "2010",
+      "event": "Original Founding"
+    }
+  ],
+  "Solomon Islands": [
+    {
+      "date": "1978",
+      "event": "Original Founding"
+    }
+  ],
+  "Somalia": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "South Africa": [
+    {
+      "date": "1910-05-31",
+      "event": "Original Founding"
+    }
+  ],
+  "South Sudan": [
+    {
+      "date": "2011-07-09",
+      "event": "Original Founding"
+    }
+  ],
+  "Sri Lanka": [
+    {
+      "date": "1972-05-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Sudan": [
+    {
+      "date": "1956",
+      "event": "Original Founding"
+    }
+  ],
+  "Syria": [
+    {
+      "date": "1920-03-08",
+      "event": "Original Founding"
+    }
+  ],
+  "Taiwan": [
+    {
+      "date": "1912",
+      "event": "Original Founding"
+    }
+  ],
+  "Tajikistan": [
+    {
+      "date": "1991-09-09",
+      "event": "Original Founding"
+    }
+  ],
+  "Tanzania": [
+    {
+      "date": "1964-04-26",
+      "event": "Original Founding"
+    }
+  ],
+  "Timor-Leste": [
+    {
+      "date": "1975-11-28",
+      "event": "Original Founding"
+    }
+  ],
+  "Togo": [
+    {
+      "date": "1960-04-27",
+      "event": "Original Founding"
+    }
+  ],
+  "Tonga": [
+    {
+      "date": "1970",
+      "event": "Original Founding"
+    }
+  ],
+  "Tunisia": [
+    {
+      "date": "1956-03-20",
+      "event": "Original Founding"
+    }
+  ],
+  "Turkmenistan": [
+    {
+      "date": "1991-10-27",
+      "event": "Original Founding"
+    }
+  ],
+  "Tuvalu": [
+    {
+      "date": "1978-10-01",
+      "event": "Original Founding"
+    }
+  ],
+  "Uganda": [
+    {
+      "date": "1962",
+      "event": "Original Founding"
+    }
+  ],
+  "Uzbekistan": [
+    {
+      "date": "1991",
+      "event": "Original Founding"
+    }
+  ],
+  "Vanuatu": [
+    {
+      "date": "1980-07-30",
+      "event": "Original Founding"
+    }
+  ],
+  "Wales": [
+    {
+      "date": "500",
+      "event": "Original Founding"
+    }
+  ],
+  "Yemen": [
+    {
+      "date": "1990-05-22",
+      "event": "Original Founding"
+    }
+  ],
+  "Zambia": [
+    {
+      "date": "1964-10-24",
+      "event": "Original Founding"
+    }
+  ],
+  "Zimbabwe": [
+    {
+      "date": "1980-04-18",
+      "event": "Original Founding"
+    }
+  ],
+  "Somaliland": [
+    {
+      "date": "1991-05-18",
+      "event": "Original Founding"
+    }
+  ],
+  "Gambia": [
+    {
+      "date": "1965",
+      "event": "Original Founding"
+    }
+  ],
+  "Côte d'Ivoire": [
+    {
+      "date": "1960",
+      "event": "Original Founding"
+    }
+  ],
+  "Bahamas": [
+    {
+      "date": "1973-07-10",
+      "event": "Original Founding"
+    }
+  ],
+  "Greenland": [
+    {
+      "date": "1721",
+      "event": "Original Founding"
+    },
+    {
+      "date": "1872",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1979",
+      "event": "Historical Imprint / Re-founding"
+    },
+    {
+      "date": "1980-01-10",
+      "event": "Historical Imprint / Re-founding"
     }
   ]
 }

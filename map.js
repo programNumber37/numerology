@@ -390,11 +390,29 @@ class EuropeMapEngine {
         let primaryNumber = data.number || "Unknown";
         let boxLabel = "Primary Number Energy";
 
-        if (data.type === 'empty' && (!this.foundingDates || !this.foundingDates[data.name])) {
+        const aliases = {
+            "Bosnia and Herz.": "Bosnia and Herzegovina",
+            "Dem. Rep. Congo": "Democratic Republic of the Congo",
+            "Congo": "Republic of the Congo",
+            "S. Sudan": "South Sudan",
+            "Central African Rep.": "Central African Republic",
+            "Eq. Guinea": "Equatorial Guinea",
+            "W. Sahara": "Western Sahara",
+            "Dominican Rep.": "Dominican Republic",
+            "Gambia": "Gambia",
+            "Côte d'Ivoire": "Côte d'Ivoire",
+            "Bahamas": "Bahamas",
+            "Greenland": "Greenland",
+            "Somaliland": "Somaliland"
+        };
+        const mappedName = aliases[data.name] || data.name;
+        const displayName = mappedName;
+
+        if (data.type === 'empty' && (!this.foundingDates || !this.foundingDates[mappedName])) {
             this.infoPanel.innerHTML = `
                 <div class="map-info-header">
                     <div class="map-info-header-content">
-                        <h2 class="map-info-title">${data.name}</h2>
+                        <h2 class="map-info-title">${displayName}</h2>
                         <div class="map-info-subtitle">COUNTRY</div>
                     </div>
                 </div>
@@ -426,7 +444,7 @@ class EuropeMapEngine {
         let currentBoxLabel = boxLabel;
 
         if (this.foundingDates) {
-            const key = isCity ? `${data.name}_${data.country}` : data.name;
+            const key = isCity ? `${data.name}_${data.country}` : mappedName;
             const datesArr = this.foundingDates[key];
             if (datesArr && datesArr.length > 0) {
                 hasDate = true;
@@ -458,16 +476,16 @@ class EuropeMapEngine {
                     `;
                 } else {
                     // Check if there is at least a year
-                    const yearDateObj = datesArr.find(d => /^\d{4}/.test(d.date));
+                    const yearDateObj = datesArr.find(d => /^\d+/.test(d.date));
                     if (yearDateObj && typeof calculateYearReducer === 'function') {
-                        const yyyyMatch = yearDateObj.date.match(/^(\d{4})/);
+                        const yyyyMatch = yearDateObj.date.match(/^(\d+)/);
                         if (yyyyMatch) {
                             const yyyy = parseInt(yyyyMatch[1], 10);
                             const yearNum = calculateYearReducer(yyyy);
                             
                             energyBoxesHTML = `
                                 <div class="map-info-card">
-                                    <p class="map-info-card-label">Year Energy</p>
+                                    <p class="map-info-card-label">Primary Number Energy</p>
                                     <p class="map-info-card-val" style="color: var(--th-accent);">Number ${formatNum(yearNum)}</p>
                                 </div>
                             `;
@@ -520,12 +538,16 @@ class EuropeMapEngine {
         }
 
         if (!energyBoxesHTML) {
-            energyBoxesHTML = `
-                <div class="map-info-card">
-                    <p class="map-info-card-label">${hasDate ? currentBoxLabel : 'Name Energy'}</p>
-                    <p class="map-info-card-val" style="color: var(--th-accent);">Number ${primaryNumber}</p>
-                </div>
-            `;
+            if (isCity && !hasDate) {
+                energyBoxesHTML = '';
+            } else {
+                energyBoxesHTML = `
+                    <div class="map-info-card">
+                        <p class="map-info-card-label">${hasDate ? currentBoxLabel : 'Name Energy'}</p>
+                        <p class="map-info-card-val" style="color: var(--th-accent);">Number ${primaryNumber}</p>
+                    </div>
+                `;
+            }
         }
 
         if (!hasDate) {
@@ -547,7 +569,10 @@ class EuropeMapEngine {
         const cName = isCity ? data.country : data.name;
         if (this.countryToCode && cName) {
             let searchName = cName.toLowerCase().trim();
-            // TopoJSON and extendedCities might use 'United States' or 'USA', but country.json uses 'United States of America'
+            // Aliases already defined at the top of the function
+            const mappedCountryName = aliases[cName] || cName;
+            searchName = mappedCountryName.toLowerCase().trim();
+            
             if (searchName === 'united states' || searchName === 'usa') {
                 searchName = 'united states of america';
             }
@@ -569,7 +594,7 @@ class EuropeMapEngine {
             <div class="map-info-header" style="align-items: center;">
                 <div class="map-info-title-group">
                     <span class="map-info-badge">${badgeText}</span>
-                    <h3 class="map-info-name">${data.name}</h3>
+                    <h3 class="map-info-name">${displayName}</h3>
                     ${subtitleText ? `<p class="map-info-sub">${subtitleText}</p>` : ''}
                     ${coordsHTML}
                 </div>
