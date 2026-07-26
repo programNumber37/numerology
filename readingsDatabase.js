@@ -53,5 +53,70 @@ const readingsDatabase = {
         "29": "Idealistic visionaries with a dynamic and forceful character, number 29 individuals have a powerful personality and extraordinary potential. You are often highly intuitive, sensitive, and emotional. Your compassionate and understanding nature inspires humanitarianism and can encourage others to fulfill their hopes and dreams. Indeed, inspiration is the key to your success story, and without it you may experience lack of purpose. Although you are a true dreamer, often the extreme sides of your nature indicate that you may have to guard against alternating moods. You may go from being very friendly and warm to being cold and uncaring; you may swing between optimism and pessimism. Although with a number 29 birthday you are competitive and ambitious, you need to be popular and care what others think about you. However, you may have to learn how to be less critical, doubtful, shy, or detached and more considerate of those around you. If you trust your innermost feelings and open your heart to others, you can overcome your tendency to worry or use your mind as protective armor. Use your creative thoughts to achieve something special and unique that can inspire or be of service to others. \u2022 Positive: inspiration, balance, inner peace, generosity, success, creativity, intuition, mysticism, powerful dreams, worldliness, faith \u2022 Negative: unfocused, insecurity, nervousness, moodiness, being difficult, extremism, isolation, oversensitivity",
         "30": "Artistic and creative, friendly and sociable are just some of the ways people with a number 30 birthday are characterized. You enjoy the good life, love socializing, and can be exceptionally charismatic, loyal, and friendly. Emotional and ambitious, with creative potential, you take ideas and expand them in your own dramatic style. Even tempered and gregarious, with good taste and an eye for style and form, you can achieve success in all types of work concerning art, design, and music. Pride and ambition combined with good opportunities often allow you to climb to the top of your profession. If you have a number 30 birthday, you possess strong feelings, and being in love or contented is a vital requirement. In your pursuit of happiness, avoid being lazy, overindulgent, impatient, or jealous, as these may cause you to experience emotional instability. Among those with a number 30 birthday, many will find recognition or fame, especially musicians, actors, and entertainers, but may have to make some sacrifices for loved ones. \u2022 Positive: love of fun, loyalty, friendliness, ability to synthesize, talent with words, creativity, luck \u2022 Negative: laziness, obstinacy, erraticism, impatience, overindulgence, indifference, indecision, jealousy",
         "31": "Strong willpower, determination, and an emphasis on self-expression are indicated by the number 31 birthday. You often combine your intuition and practical skill to make the right decisions. Usually you are tireless and determined, with the corresponding need to make material progress; however, you may have to learn to accept the limitations of life, and you therefore may need to build a solid foundation. If you have a number 31 birthday, you have original ideas, a good sense of form, and the ability to succeed in business if you take your time and follow a practical plan of action. Good fortune and lucky opportunities are also suggested by the number 31 birthday, and you can be successful in turning your leisure-time pursuits into profitable ventures. You may, however, have to learn not to be too easily discouraged and to be more considerate of others. Time for love and having fun is crucial to you, as you are likely to be hardworking. Nevertheless, you may have to guard against tendencies to be overindulgent or selfish, as well as being overly optimistic. The weaker individuals associated with the number 31 birthday are insecure and give up too easily on their dreams or indulge in wishful thinking. \u2022 Positive: luck, creativity, originality, ability to build and be constructive, persistence, practicality, good conversation, responsibility \u2022 Negative: insecurity, impatience, suspicion, tendency to be easily discouraged, lack of ambition, selfishness, stubbornness, materialism"
+    },
+    "personalYearDetails": {
+        "1": {
+            "title": "The 1 Personal Year",
+            "keyword": "NEW BEGINNINGS",
+            "text": "The first year of the 9-Year Cycle is a time of new beginnings, filled with enthusiasm and renewed energy. It is the ideal time to make adjustments to outdated areas of life, especially if events in the past have led to loss of direction. The number 1 Year is very often experienced as an important crossroads, and most significant life changes are made in a 1 Personal Year. Review your life to date, and make a new long term plan. If you’ve been putting it off, it’s now time to get up and start to live your life! This is a time to take care of yourself, to be assertive, courageous and self-reliant. New horizons lie ahead.",
+            "do": "Get those fresh new ideas out there! Get rid of the old. Start new projects, adjust your lifestyle to your new goals. Leave the past behind! Be confident!",
+            "dont": "Expect to get it all done this year! This is only the beginning. Avoid carrying outdated baggage from the past. Be careful of being overly selfish."
+        },
+        "2": {
+            "title": "The 2 Personal Year",
+            "keyword": "RELATIONSHIPS",
+            "text": "Personal and business partnerships typically come to the fore in a 2 Personal Year. While last year, a number 1 Personal Year was all about you, this is a time for cooperation, teamwork and receptivity. A certain amount of flexibility and patience will be required as new projects begun last year slowly begin to take shape. This is often a year in which significant alliances are made, such as partnership or marriage. Unhealthy or outdated partnerships may end now, causing intense emotions. Pay attention to input from the world around you. You are not alone!",
+            "do": "Practice trust, patience and diplomacy. Listen. Seek help and accept support. Cultivate those relationships that will be helpful in the long run.",
+            "dont": "Be in a hurry, and don’t lose hope in the face of obstacles. Avoid being overly sensitive and emotional, or too aggressive or adversarial."
+        },
+        "3": {
+            "title": "The 3 Personal Year",
+            "keyword": "CREATIVITY & FUN",
+            "text": "This year, energy explodes, possibilities abound, and what seemed previously uncertain and tentative, now begins to emerge. New projects and ideas that began over the past two years are seeking expression. There can be much social activity, romance, optimism and luck now. If you are using your creativity in your work, expect to be flooded with new ideas, even waking up in the middle of the night with inspired flashes and insights! You’ll need to watch your budget, as spending can easily get out of hand. Be creative in your day-to-day activities. Routine doesn’t have to be boring!",
+            "do": "Find outlets for creative self-expression. Have fun, socialize and network. Cultivate a positive attitude in all things.",
+            "dont": "Lose focus. It’s easy to be distracted in a 3 Personal Year. Avoid being wasteful of time and resources. Avoid being negative and critical."
+        },
+        "4": {
+            "title": "The 4 Personal Year",
+            "keyword": "WORK!",
+            "text": "There are three keywords that accurately describe the 4 Personal Year: work, work and more work! Tend to the details and responsibilities of home, family, health and work. Home renovations or purchases are common in a 4 Personal Year. This is a foundation year, time to set down roots, focus on essentials, and be organized. The foundation you establish now will determine the extent of your accomplishments in your number 8 Personal Year. A solid foundation will allow you to rise to higher levels of success! Work on your long term plan, set clear and specific goals. Be reasonable and realistic in your expectations.",
+            "do": "Get organized in all aspects of your life. Work with a plan and a schedule. Focus on details and basics. Be patient with yourself. Trim the fat from your activities.",
+            "dont": "Whine or Complain! If you have something worth accomplishing, you’ll have to do the work, sooner or later! Avoid being overly rigid or stubborn."
+        },
+        "5": {
+            "title": "The 5 Personal Year",
+            "keyword": "FREEDOM",
+            "text": "After a number 4 Personal Year, you may be eager to get things moving! The routine gets a little shaking up now, and you may be ready to take some risk, travel, expand your horizons and innovate. This is one of the best years for marketing and promoting yourself and your business. Much growth is possible now. If you were well organized and worked hard last year, you’ll be ready to try out exciting new opportunities. You may need to rein in your need for freedom if you are feeling overly bogged down with routine. Remind yourself of your long term goals. Try new approaches before making radical changes.",
+            "do": "Stretch yourself, expand your horizons, try new ways of doing things, but remember to be patient. Be adventurous. Keep your agenda loose. Expect the unexpected!",
+            "dont": "Take unnecessary or uncalculated risk. Avoid making change just for the sake of change, or quitting too soon. Don’t hold on to what is outdated."
+        },
+        "6": {
+            "title": "The 6 Personal Year",
+            "keyword": "RESPONSIBILITY",
+            "text": "Following the hectic and perhaps crazy pace of the previous year, you will probably want to slow things down a bit now, but just a bit! The focus is on responsibility, whether in family and home life, in the community or in the workplace. This is a time for balance, peacefulness and service to others. This can be a happy time for love and relationships, and marriage is not uncommon in a number 6 Personal Year. If, however, you have been experiencing relationship issues for some time, things could come to a head. Get some counselling, if necessary. Expect to be bombarded by requests for help and support from those for whom you are responsible.",
+            "do": "Balance work and home life. Be honest with what you can and cannot do for others. Give up excessive idealism. Make time for romance.",
+            "dont": "Take on more responsibility than you can honestly handle just to be liked by others, otherwise, you will be resentful. Avoid making promises you cannot keep."
+        },
+        "7": {
+            "title": "The 7 Personal Year",
+            "keyword": "SOLITUDE",
+            "text": "This is a period of temporary withdrawal from the hustle and bustle of worldly and material existence. You may feel the need to take time out, work by yourself and get away from all those issues that complicate your life. This is the time to focus, gather up inner strength and prepare to go all out in the big 8 Personal Year coming next. Fine tune your skills. Focus on your area of expertise. Revise your goals and be realistic. It all comes together next year! The 7 Personal Year can be a confusing time for some people, especially for those who are not accustomed to taking time out for themselves. Focus on the inner rather than the outer life.",
+            "do": "Meditate, think things through, hone your skills, study, spend time by yourself. Practice yoga, tai chi, something quiet.",
+            "dont": "Completely alienate loved ones. This is not the best time to focus on money, outward manifestation or material goals."
+        },
+        "8": {
+            "title": "The 8 Personal Year",
+            "keyword": "SUCCESS!",
+            "text": "This is the big year, the peak of your cycle, the culmination of all your hard work. It is the time of harvest, when you reap the fruits of your labours of the previous seven years. This is an excellent time for career, professional, business and financial activities and projects. Many people make important career decisions in a number 8 Year. Hard work may be rewarded with bonuses, promotions and financial gains. If you were not focused in the earlier part of your cycle, you could be disappointed with the results. Now is the time to revise your vision for the future, consider your next set of long term goals.",
+            "do": "Go all out and expect the best for yourself. Be bold! Manifest your vision. Now is the time to be the powerful force you long to be.",
+            "dont": "Back down, and don’t quit now! While remaining realistic in your expectations, don’t underestimate your potential for success."
+        },
+        "9": {
+            "title": "The 9 Personal Year",
+            "keyword": "COMPLETION",
+            "text": "This year wraps up the entire cycle, and is often an important year in that it can mark the start of a significant transition period. As this is the last year of the cycle, it is the point at which you can really break from the past. It is a time of completion, endings and winding down, and is often the year for retirement, divorce, moves or other important life changes. Consider future possibilities without making long-term commitments, because you won’t have a clear picture of where you are going next until you begin your 1 Personal Year, next year. If you have worked hard, you are probably feeling a bit tired, and have no doubt earned an extra long vacation!",
+            "do": "Rest, take an extended vacation, de-clutter your life, volunteer, give, share your expertise with the community.",
+            "dont": "Start important new long term projects until the start of your new cycle. Avoid staying focused on yourself."
+        }
     }
 };
