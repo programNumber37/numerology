@@ -17,12 +17,85 @@ function formatTextToParagraphs(text) {
     return formattedText;
 }
 
+function reduceToSingleDigit(val) {
+    let n = parseInt(val, 10);
+    while (n > 9) {
+        n = n.toString().split('').reduce((acc, d) => acc + parseInt(d, 10), 0);
+    }
+    return String(n);
+}
+
+function renderTopicQuotes(topicKey, num) {
+    if (typeof libraryDatabase === "undefined") return "";
+    let quotesHtml = [];
+
+    libraryDatabase.forEach(book => {
+        if (!book[topicKey]) return;
+        let content = book[topicKey][num];
+        if (!content && topicKey === "dayNumbers") {
+            const reducedNum = reduceToSingleDigit(num);
+            content = book[topicKey][reducedNum];
+        }
+        if (!content) return;
+        let contentHtml = "";
+
+        if (typeof content === "string") {
+            if (book.id === "numerology_made_plain") {
+                contentHtml = content.split('\n\n').map(p => `<p style="margin-bottom: 12px;">${p}</p>`).join('')
+                    .replace(/POSITIVE:/g, '<strong style="color: #27ae60;">POSITIVE:</strong>')
+                    .replace(/REVERSE:/g, '<strong>REVERSE:</strong>')
+                    .replace(/NEGATIVE:/g, '<strong style="color: #c0392b;">NEGATIVE:</strong>');
+            } else if (book.id === "power_of_birthdays_1998") {
+                contentHtml = formatTextToParagraphs(content)
+                    .replace(/(?:<p>)?\s*•\s*Positive:/g, '</p><p style="margin-top: 16px; margin-bottom: 8px;"><strong style="color: #27ae60;">• Positive:</strong>')
+                    .replace(/(?:<p>)?\s*•\s*Negative:/g, '</p><p style="margin-bottom: 8px;"><strong style="color: #c0392b;">• Negative:</strong>');
+                if (contentHtml.startsWith('</p>')) contentHtml = contentHtml.substring(4);
+            } else {
+                contentHtml = formatTextToParagraphs(content);
+            }
+        } else if (typeof content === "object") {
+            if (content.positive !== undefined && content.negative !== undefined) {
+                contentHtml = `
+                    <p style="margin-bottom: 12px;"><strong style="color: #27ae60;">Positive:</strong> ${content.positive}</p>
+                    <p style="margin-bottom: 12px;"><strong style="color: #c0392b;">Negative:</strong> ${content.negative}</p>
+                `;
+            } else if (content.do !== undefined && content.dont !== undefined) {
+                contentHtml = `
+                    ${content.keyword ? `<p style="margin-bottom: 8px; font-weight: 700; color: var(--th-primary); text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.05em;">${content.keyword}</p>` : ''}
+                    <p style="margin-bottom: 16px;">${content.text || ''}</p>
+                    <p style="margin-bottom: 12px;"><strong style="color: #27ae60;">Do:</strong> ${content.do}</p>
+                    <p style="margin-bottom: 12px;"><strong style="color: #c0392b;">Don't:</strong> ${content.dont}</p>
+                `;
+            } else if (content.theme !== undefined) {
+                contentHtml = `
+                    <p style="margin-bottom: 12px;"><strong>Theme:</strong> ${content.theme}</p>
+                    <p style="margin-bottom: 12px;"><strong>Description:</strong> ${content.description}</p>
+                    ${content.love ? `<p style="margin-bottom: 12px;"><strong>Love / Relationships:</strong> ${content.love}</p>` : ''}
+                    ${content.health ? `<p style="margin-bottom: 12px;"><strong>Health:</strong> ${content.health}</p>` : ''}
+                    ${content.career ? `<p style="margin-bottom: 12px;"><strong>Career:</strong> ${content.career}</p>` : ''}
+                    ${content.travel ? `<p style="margin-bottom: 12px;"><strong>Travel:</strong> ${content.travel}</p>` : ''}
+                `;
+            } else {
+                contentHtml = Object.entries(content).map(([k, v]) => `
+                    <p style="margin-bottom: 12px;"><strong>${k.charAt(0).toUpperCase() + k.slice(1)}:</strong> ${v}</p>
+                `).join('');
+            }
+        }
+
+        const authorTitle = book.year ? `${book.title} (${book.author}, ${book.year})` : `${book.title}`;
+        const header = `<p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From ${authorTitle}:</p>`;
+        quotesHtml.push(header + contentHtml);
+    });
+
+    return quotesHtml.join('<hr style="margin: 24px 0; border: none; border-top: 1px solid var(--th-border);">');
+}
+
 function populateNumerology() {
     const container = document.getElementById("numerologyEntriesContainer");
     if (!container) return;
 
     container.innerHTML = ""; 
-    
+
     // ═══════════════════════════════════════════════════════════
     // CORE NUMBERS GROUP
     // ═══════════════════════════════════════════════════════════
@@ -39,12 +112,11 @@ function populateNumerology() {
     container.appendChild(coreGroup);
     
     const coreBody = document.getElementById("coreNumbersBody");
-
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     
     numbers.forEach(num => {
-        const text = readingsDatabase.lifepaths[num] || "";
-        const formattedText = formatTextToParagraphs(text);
+        const bodyContent = renderTopicQuotes("coreNumbers", num);
+        if (!bodyContent) return;
 
         const entryHtml = `
             <div class="lib-entry" data-entry>
@@ -58,17 +130,7 @@ function populateNumerology() {
                     <span class="lib-entry-chevron">▼</span>
                 </div>
                 <div class="lib-entry-body">
-                    ${formattedText}
-                    ${readingsDatabase.cheiro && readingsDatabase.cheiro[num] ? `
-                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--th-border);">
-                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From Cheiro's Book of Numbers:</p>
-                    ${formatTextToParagraphs(readingsDatabase.cheiro[num])}
-                    ` : ""}
-                    ${readingsDatabase.numerologyMadePlain && readingsDatabase.numerologyMadePlain[num] ? `
-                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--th-border);">
-                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From Numerology Made Plain:</p>
-                    ${formatTextToParagraphs(readingsDatabase.numerologyMadePlain[num])}
-                    ` : ""}
+                    ${bodyContent}
                 </div>
             </div>
         `;
@@ -79,6 +141,49 @@ function populateNumerology() {
     });
 
     // ═══════════════════════════════════════════════════════════
+    // DAY NUMBERS GROUP
+    // ═══════════════════════════════════════════════════════════
+    const dayNumbersGroup = document.createElement("div");
+    dayNumbersGroup.className = "lib-category-group";
+    dayNumbersGroup.setAttribute("data-group", "");
+    dayNumbersGroup.innerHTML = `
+        <div class="lib-category-header" onclick="toggleGroup(this)">
+            <p class="lib-category-label">Day Numbers (1–31)</p>
+            <span class="lib-category-chevron">▼</span>
+        </div>
+        <div class="lib-category-body" id="dayNumbersBody"></div>
+    `;
+    container.appendChild(dayNumbersGroup);
+
+    const dayNumbersBody = document.getElementById("dayNumbersBody");
+    const dayNumbers = Array.from({ length: 31 }, (_, i) => i + 1);
+
+    dayNumbers.forEach(num => {
+        const bodyContent = renderTopicQuotes("dayNumbers", num);
+        if (!bodyContent) return;
+
+        const entryHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num">${num}</div>
+                        <div>
+                            <p class="lib-entry-title">Day Number ${num}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    ${bodyContent}
+                </div>
+            </div>
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entryHtml.trim();
+        dayNumbersBody.appendChild(tempDiv.firstChild);
+    });
+
+    // ═══════════════════════════════════════════════════════════
     // PERSONAL YEARS GROUP
     // ═══════════════════════════════════════════════════════════
     const personalYearsGroup = document.createElement("div");
@@ -86,7 +191,7 @@ function populateNumerology() {
     personalYearsGroup.setAttribute("data-group", "");
     personalYearsGroup.innerHTML = `
         <div class="lib-category-header" onclick="toggleGroup(this)">
-            <p class="lib-category-label">Personal Years (1–9)</p>
+            <p class="lib-category-label">Personal Years (1–9, 11, 22)</p>
             <span class="lib-category-chevron">▼</span>
         </div>
         <div class="lib-category-body" id="personalYearsBody"></div>
@@ -94,44 +199,128 @@ function populateNumerology() {
     container.appendChild(personalYearsGroup);
 
     const personalYearsBody = document.getElementById("personalYearsBody");
+    const introBook = typeof libraryDatabase !== "undefined" && libraryDatabase.find(b => b.personalYearsIntro);
 
-    const personalYearsNums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    if (introBook && introBook.personalYearsIntro) {
+        const introData = introBook.personalYearsIntro;
+        const introHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num" style="font-size: 0.75rem;">EXP</div>
+                        <div>
+                            <p class="lib-entry-title">${introData.title}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From ${introBook.title} (${introBook.author}, ${introBook.year}):</p>
+                    ${introData.text}
+                </div>
+            </div>
+        `;
+        const introDiv = document.createElement('div');
+        introDiv.innerHTML = introHtml.trim();
+        personalYearsBody.appendChild(introDiv.firstChild);
+    }
+
+    const personalYearsNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22];
     
     personalYearsNums.forEach(num => {
-        const data = readingsDatabase.personalYearDetails && readingsDatabase.personalYearDetails[num];
-        if (!data) return;
+        const bodyContent = renderTopicQuotes("personalYears", num);
+        if (!bodyContent) return;
+
+        const title = `The ${num} Personal Year`;
         const entryHtml = `
             <div class="lib-entry" data-entry>
                 <div class="lib-entry-header" onclick="toggleEntry(this)">
                     <div class="lib-entry-left">
                         <div class="lib-entry-num">${num}</div>
                         <div>
-                            <p class="lib-entry-title">${data.title}</p>
+                            <p class="lib-entry-title">${title}</p>
                         </div>
                     </div>
                     <span class="lib-entry-chevron">▼</span>
                 </div>
                 <div class="lib-entry-body">
-                    <p style="margin-bottom: 16px;">${data.text}</p>
-                    <div style="margin-top: 16px; padding: 12px; background: rgba(46, 204, 113, 0.1); border-left: 3px solid #27ae60; border-radius: 0 4px 4px 0;">
-                        <strong style="color: #27ae60; display: block; margin-bottom: 4px;">Do:</strong>
-                        <p style="margin: 0; font-size: 0.9em;">${data.do}</p>
-                    </div>
-                    <div style="margin-top: 12px; margin-bottom: 8px; padding: 12px; background: rgba(231, 76, 60, 0.1); border-left: 3px solid #c0392b; border-radius: 0 4px 4px 0;">
-                        <strong style="color: #c0392b; display: block; margin-bottom: 4px;">Don't:</strong>
-                        <p style="margin: 0; font-size: 0.9em;">${data.dont}</p>
-                    </div>
-                    ${readingsDatabase.years && readingsDatabase.years[num] ? `
-                    <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--th-border);">
-                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From the numerological cycle:</p>
-                    ${formatTextToParagraphs(readingsDatabase.years[num])}
-                    ` : ""}
+                    ${bodyContent}
                 </div>
             </div>
         `;
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = entryHtml.trim();
         personalYearsBody.appendChild(tempDiv.firstChild);
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // PERSONAL MONTHS GROUP
+    // ═══════════════════════════════════════════════════════════
+    const personalMonthsGroup = document.createElement("div");
+    personalMonthsGroup.className = "lib-category-group";
+    personalMonthsGroup.setAttribute("data-group", "");
+    personalMonthsGroup.innerHTML = `
+        <div class="lib-category-header" onclick="toggleGroup(this)">
+            <p class="lib-category-label">Personal Months (1–9)</p>
+            <span class="lib-category-chevron">▼</span>
+        </div>
+        <div class="lib-category-body" id="personalMonthsBody"></div>
+    `;
+    container.appendChild(personalMonthsGroup);
+
+    const personalMonthsBody = document.getElementById("personalMonthsBody");
+    const monthsIntroBook = typeof libraryDatabase !== "undefined" && libraryDatabase.find(b => b.personalMonthsIntro);
+
+    if (monthsIntroBook && monthsIntroBook.personalMonthsIntro) {
+        const introData = monthsIntroBook.personalMonthsIntro;
+        const introHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num" style="font-size: 0.75rem;">EXP</div>
+                        <div>
+                            <p class="lib-entry-title">${introData.title}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From ${monthsIntroBook.title} (${monthsIntroBook.author}, ${monthsIntroBook.year}):</p>
+                    ${introData.text}
+                </div>
+            </div>
+        `;
+        const introDiv = document.createElement('div');
+        introDiv.innerHTML = introHtml.trim();
+        personalMonthsBody.appendChild(introDiv.firstChild);
+    }
+
+    const personalMonthsNums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    
+    personalMonthsNums.forEach(num => {
+        const bodyContent = renderTopicQuotes("personalMonths", num);
+        if (!bodyContent) return;
+
+        const title = `The ${num} Personal Month`;
+        const entryHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num">${num}</div>
+                        <div>
+                            <p class="lib-entry-title">${title}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    ${bodyContent}
+                </div>
+            </div>
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entryHtml.trim();
+        personalMonthsBody.appendChild(tempDiv.firstChild);
     });
 
     // ═══════════════════════════════════════════════════════════
