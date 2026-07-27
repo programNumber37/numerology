@@ -324,3 +324,74 @@ const chineseSignDatabase = {
         }
     }
 };
+
+const chineseZodiacHistory = {
+    title: "Cat and Rat: The Legend of the Chinese Zodiac",
+    author: "Ed Young",
+    year: "1995",
+    text: `In China, a long, long time ago, there lived a cat and a rat. They were best friends. They ate together. They played together. They slept together.
+
+One day, the Emperor decided to hold a race among all the animals in the land. The first twelve animals to cross the finish line would have a year in the Chinese calendar named after them. This would be quite an honor.
+
+“But winning the race will not be easy," warned the Emperor. “You must run through the thickest part of the forest and then swim across the river at its widest point."
+
+Cat and Rat each wanted to be the first to cross the finish line. But they knew that they would be two of the smallest animals in the race.
+
+“We will never make it,” Rat complained to Cat. "Oh, I think we will," replied the resourceful cat. "We'll ask the water buffalo to help us,” said the cat. "He could give us a head start. He always wakes up before sunrise. Maybe we could even ride on his back."
+
+So Cat and Rat convinced Buffalo to wake them up early on the day of the race. The next morning, Buffalo was up long before dawn. "Wake up, lazybones," he said to the sleeping cat and rat. "We had better get started."
+
+Cat and Rat climbed on the buffalo's back. But they were so sleepy that by the time they had fully awakened, they were halfway across the river.
+
+Rat woke up first. He saw the Emperor standing at the finish line far, far away. Why should I share the glory of first place with Cat and Buffalo? thought the rat selfishly. "Wake up, my friend," he cried to Cat. "Look at all the tasty fish swimming in the water."
+
+Cat licked her lips. She leaned over for a closer look, and Rat gave her a little push. SPLASH! She tumbled into the water.
+
+Buffalo turned his head to see what had made the splash. He didn't see the cat, though. What he saw instead were the other animals in the race—and they were close behind him. Without giving Cat or Rat another thought, he sped toward the Emperor.
+
+Just as Buffalo neared the riverbank, the clever rat leaped from behind his ear and crossed the finish line in first place.
+
+"How did such a small animal win the race?" asked the Emperor in surprise.
+
+"I may be small but I am also smart," replied the rat. He scampered up onto the winner's podium. Buffalo knew he had been tricked into second place, but he could only grunt in dismay.
+
+Back in the river, Cat tried to swim along with the other animals. She hated water. But if she had to swim in it to win the race, she would do so.
+
+Far ahead of her, Tiger came roaring across the finish line. "Am I first?" he growled.
+
+"No," said the rat smugly. "You'd have to be awfully clever to beat me."
+
+"And you'd have to get up extra early to beat me," added the buffalo.
+
+Cat scrambled onto a log. She paused to shake herself off and to catch her breath. By then the sky was dark and a great storm was blowing. A dragon appeared in the clouds above. He was much, much too big to run through woods or swim across a river, so the Emperor had told him he could race through the sky, braving the rains and the wind.
+
+But no sooner had he begun his descent to the earth, than the rabbit darted across the finish line in front of him, taking fourth place. The dragon had to be content with fifth.
+
+In the river, the cat heaved a great sigh, then plunged into the water again. "I can still make it," she told herself. But Snake slithered across the finish line next and hissed a silvery greeting to the five animals who had arrived before him. Snake was number six.
+
+Cat swam as fast as she could. A few moments later, she heard the sound of galloping hooves in the distance. Horse thundered across the finish line in seventh place.
+
+Goat and Monkey weren't far behind. They jumped onto the log on which Cat had rested and paddled across the finish line almost at the same time. But Goat beat Monkey by a hair.
+
+While the nine winners waited patiently with the Emperor, Cat watched Rooster struggle toward the finish line. Dog could easily have swum ahead of Rooster, but she couldn't resist playing in the water for just a few minutes longer.
+
+"Number ten!" called the Emperor as Rooster staggered in. "Number eleven!" he cried when Dog arrived.
+
+"Who will be number twelve?" asked the Emperor. "I need just one more animal."
+
+"Me! I will!" called Cat, and she swam even faster.
+
+Unfortunately for Cat, Pig rushed across the finish line in front of her.
+
+"Number twelve!" cried the Emperor, but Cat was still too far away.
+
+"Congratulations to all the winners!" said the Emperor. "One of the twelve years will be named after each of you."
+
+Suddenly, up rushed Cat. She was tired and wet and more than a little unhappy about swimming across the river on her own. "How did I do?" she asked anxiously. "Am I one of the winners?"
+
+"Sorry, dear Cat," replied the Emperor. "All twelve places have been filled."
+
+Upon hearing this news, Cat let out a yowl and tried to pounce on Rat. Her claws scratched the tip of his tail, but Rat squeezed under the Emperor's chair just in time.
+
+And that is why, to this very day, Cat and Rat are enemies.`
+};

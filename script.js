@@ -124,6 +124,98 @@ function renderCompatibilityCard(typeLabel, originalNum, accentClass) {
     `;
 }
 
+function renderCombinedCompatibilityCard(num1, num1Label, num2, num2Label) {
+    if (!compatibilityData) {
+        compatibilityData = COMPATIBILITY_FALLBACK;
+    }
+    const red1 = getCompatibilityNumber(num1);
+    const red2 = getCompatibilityNumber(num2);
+
+    if (red1 === red2) return '';
+
+    const prof1 = compatibilityData.find(item => item.number === red1) || COMPATIBILITY_FALLBACK.find(item => item.number === red1);
+    const prof2 = compatibilityData.find(item => item.number === red2) || COMPATIBILITY_FALLBACK.find(item => item.number === red2);
+
+    if (!prof1 || !prof2) return '';
+
+    const getRelation = (prof, target) => {
+        if (prof.friendly && prof.friendly.includes(target)) return { type: 'friendly', score: 1, label: 'Friendly' };
+        if (prof.enemy && prof.enemy.includes(target)) return { type: 'enemy', score: -1, label: 'Enemy' };
+        return { type: 'neutral', score: 0, label: 'Neutral' };
+    };
+
+    const friendlyList = [];
+    const neutralList = [];
+    const enemyList = [];
+
+    const candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
+
+    candidates.forEach(n => {
+        const rel1 = getRelation(prof1, n);
+        const rel2 = getRelation(prof2, n);
+        const totalScore = rel1.score + rel2.score;
+
+        const planet = planetMap[n] || "Unknown";
+        let titleText = `Number ${n} (${planet}): ${rel1.label} with ${num1Label} (${num1}) + ${rel2.label} with ${num2Label} (${num2})`;
+
+        const itemObj = { num: n, title: titleText };
+
+        if (totalScore >= 1) {
+            friendlyList.push(itemObj);
+        } else if (totalScore === 0) {
+            neutralList.push(itemObj);
+        } else {
+            enemyList.push(itemObj);
+        }
+    });
+
+    const createBadgesHTML = (list, badgeType) => {
+        if (!list || list.length === 0) return `<span style="font-size: 0.85rem; color: var(--th-text-muted); font-style: italic;">None</span>`;
+        return list.map(item => {
+            return `<span class="rd-number-badge rd-number-badge--${badgeType}" title="${item.title}">
+                ${item.num}
+            </span>`;
+        }).join('');
+    };
+
+    return `
+        <div class="rd-compatibility-card rd-compatibility-card--combined" style="margin-top: 4px;">
+            <div class="rd-comp-header">
+                <div class="rd-comp-title-group">
+                    <span class="rd-comp-type">Combined Energy Synergy</span>
+                    <span class="rd-comp-number">${num1} + ${num2}</span>
+                </div>
+                <span class="rd-comp-planet-badge">Balanced Alignment</span>
+            </div>
+            
+            <p style="font-size: 0.88rem; color: var(--th-text-muted); margin: 0 0 4px 0; line-height: 1.5;">
+                This synthesis calculates compatibility across both your <strong>${num1Label} (${num1})</strong> and <strong>${num2Label} (${num2})</strong> energies. Numbers that conflict (good for one energy but challenging for the other) equalize to <strong>Neutral</strong>.
+            </p>
+
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Harmonious for Both (Synergy)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(friendlyList, "friendly")}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Neutral & Mixed (Balanced)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(neutralList, "neutral")}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Challenging for Both (Avoid/Caution)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(enemyList, "enemy")}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 // ==========================================
 // 2. DOM ELEMENTS, STATE
 // ==========================================
@@ -311,7 +403,8 @@ function updateDetailsPanel(dateStr, day, month, year) {
     } else {
         const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
         const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
-        compatibilityGridHTML = lpCompatibilityHTML + dayCompatibilityHTML;
+        const synergyCompatibilityHTML = renderCombinedCompatibilityCard(lp.final, "Life Path", dayNum, "Day Number");
+        compatibilityGridHTML = lpCompatibilityHTML + dayCompatibilityHTML + synergyCompatibilityHTML;
     }
 
     const compatibilityReadingHTML = `
@@ -415,11 +508,22 @@ function updateDetailsPanel(dateStr, day, month, year) {
 
                 <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
                     <div class="item-header">
-                        <div class="item-content">
-                            <strong>Chinese Zodiac</strong> 
-                            <span class="main-value text-master">${getChineseZodiac(year, month, day)}</span>
-                            <small>Lunar Year Based · click to reveal year energy</small>
-                        </div>
+                        ${(() => {
+                            const zodiacStr = getChineseZodiac(year, month, day);
+                            const animalName = zodiacStr.split(' ').pop().toLowerCase();
+                            return `
+                                <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
+                                    <div style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--th-surface-hover, rgba(0,0,0,0.05)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 2px;">
+                                        <img src="zodiac/${animalName}.png" alt="${animalName}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                                    </div>
+                                    <div class="item-content" style="min-width: 0;">
+                                        <strong>Chinese Zodiac</strong> 
+                                        <span class="main-value text-master">${zodiacStr}</span>
+                                        <small>Lunar Year Based · click to reveal year energy</small>
+                                    </div>
+                                </div>
+                            `;
+                        })()}
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="detail-calculation">
@@ -458,10 +562,14 @@ function updateDetailsPanel(dateStr, day, month, year) {
                 }
             }
 
+            const imageBoxHtml = `<div style="width:100%; max-height:220px; background:var(--th-surface-hover, rgba(0,0,0,0.04)); border-radius:12px; margin: 10px 0 18px 0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+                                      <img src="zodiac/${animalName.toLowerCase()}.png" alt="${animalName}" style="max-height:190px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                                  </div>`;
+
             if (yearEnergy) {
-                return `${dateRangeHtml}<strong>Year Energy — ${zodiacStr}</strong><br><br>${yearEnergy.replace(/\n/g, '<br>')}`;
+                return `${dateRangeHtml}${imageBoxHtml}<strong>Year Energy — ${zodiacStr}</strong><br><br>${yearEnergy.replace(/\n/g, '<br>')}`;
             }
-            return `${dateRangeHtml}The <strong>Chinese Zodiac</strong> changes according to the Lunar New Year and follows a 12-year animal cycle.<br><br><strong>Date:</strong> ${day}.${month}.${year} &rarr; <strong>${zodiacStr}</strong>`;
+            return `${dateRangeHtml}${imageBoxHtml}The <strong>Chinese Zodiac</strong> changes according to the Lunar New Year and follows a 12-year animal cycle.<br><br><strong>Date:</strong> ${day}.${month}.${year} &rarr; <strong>${zodiacStr}</strong>`;
         })()}
                     </div>
                 </div>

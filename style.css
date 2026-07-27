@@ -1400,6 +1400,16 @@ body {
     background: linear-gradient(90deg, var(--th-rd-day-accent), var(--th-accent-secondary));
 }
 
+.rd-compatibility-card--combined {
+    grid-column: 1 / -1;
+    background: var(--th-soft-panel);
+}
+
+.rd-compatibility-card--combined::before {
+    background: linear-gradient(90deg, var(--th-rd-lifepath-accent), var(--th-accent), var(--th-rd-day-accent));
+    height: 3px;
+}
+
 .rd-comp-header {
     display: flex;
     justify-content: space-between;

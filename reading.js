@@ -120,6 +120,98 @@ function renderCompatibilityCard(typeLabel, originalNum, accentClass) {
     `;
 }
 
+function renderCombinedCompatibilityCard(num1, num1Label, num2, num2Label) {
+    if (!compatibilityData) {
+        compatibilityData = COMPATIBILITY_FALLBACK;
+    }
+    const red1 = getCompatibilityNumber(num1);
+    const red2 = getCompatibilityNumber(num2);
+
+    if (red1 === red2) return '';
+
+    const prof1 = compatibilityData.find(item => item.number === red1) || COMPATIBILITY_FALLBACK.find(item => item.number === red1);
+    const prof2 = compatibilityData.find(item => item.number === red2) || COMPATIBILITY_FALLBACK.find(item => item.number === red2);
+
+    if (!prof1 || !prof2) return '';
+
+    const getRelation = (prof, target) => {
+        if (prof.friendly && prof.friendly.includes(target)) return { type: 'friendly', score: 1, label: 'Friendly' };
+        if (prof.enemy && prof.enemy.includes(target)) return { type: 'enemy', score: -1, label: 'Enemy' };
+        return { type: 'neutral', score: 0, label: 'Neutral' };
+    };
+
+    const friendlyList = [];
+    const neutralList = [];
+    const enemyList = [];
+
+    const candidates = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33];
+
+    candidates.forEach(n => {
+        const rel1 = getRelation(prof1, n);
+        const rel2 = getRelation(prof2, n);
+        const totalScore = rel1.score + rel2.score;
+
+        const planet = planetMap[n] || "Unknown";
+        let titleText = `Number ${n} (${planet}): ${rel1.label} with ${num1Label} (${num1}) + ${rel2.label} with ${num2Label} (${num2})`;
+
+        const itemObj = { num: n, title: titleText };
+
+        if (totalScore >= 1) {
+            friendlyList.push(itemObj);
+        } else if (totalScore === 0) {
+            neutralList.push(itemObj);
+        } else {
+            enemyList.push(itemObj);
+        }
+    });
+
+    const createBadgesHTML = (list, badgeType) => {
+        if (!list || list.length === 0) return `<span style="font-size: 0.85rem; color: var(--th-text-muted); font-style: italic;">None</span>`;
+        return list.map(item => {
+            return `<span class="rd-number-badge rd-number-badge--${badgeType}" title="${item.title}">
+                ${item.num}
+            </span>`;
+        }).join('');
+    };
+
+    return `
+        <div class="rd-compatibility-card rd-compatibility-card--combined" style="margin-top: 4px;">
+            <div class="rd-comp-header">
+                <div class="rd-comp-title-group">
+                    <span class="rd-comp-type">Combined Energy Synergy</span>
+                    <span class="rd-comp-number">${num1} + ${num2}</span>
+                </div>
+                <span class="rd-comp-planet-badge">Balanced Alignment</span>
+            </div>
+            
+            <p style="font-size: 0.88rem; color: var(--th-text-muted); margin: 0 0 4px 0; line-height: 1.5;">
+                This synthesis calculates compatibility across both your <strong>${num1Label} (${num1})</strong> and <strong>${num2Label} (${num2})</strong> energies. Numbers that conflict (good for one energy but challenging for the other) equalize to <strong>Neutral</strong>.
+            </p>
+
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Harmonious for Both (Synergy)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(friendlyList, "friendly")}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Neutral & Mixed (Balanced)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(neutralList, "neutral")}
+                </div>
+            </div>
+            
+            <div class="rd-comp-group">
+                <span class="rd-comp-group-title">Challenging for Both (Avoid/Caution)</span>
+                <div class="rd-comp-badges">
+                    ${createBadgesHTML(enemyList, "enemy")}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 // ============================================
 // TABS LOGIC
 // ============================================
@@ -380,13 +472,21 @@ getReadingBtn.addEventListener("click", () => {
         insightsHTML += `
             <div class="rd-card rd-card--chinese" data-collapsible>
                 <div class="rd-card__header">
-                    <div class="rd-card__header-left">
-                        <h4 class="rd-card__title">${czAnimal} Sign Reading</h4>
-                        <span class="rd-card__preview">Discover ranking order, hours ruled, the ${czAnimal} personality, ${czElement} type details, and more…</span>
+                    <div class="rd-card__header-left" style="display: flex; align-items: flex-start; gap: 14px;">
+                        <div style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--th-surface-hover, rgba(0,0,0,0.05)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 2px;">
+                            <img src="zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                        </div>
+                        <div>
+                            <h4 class="rd-card__title" style="margin: 0 0 4px 0;">${czAnimal} Sign Reading</h4>
+                            <span class="rd-card__preview">Discover ranking order, hours ruled, the ${czAnimal} personality, ${czElement} type details, and more…</span>
+                        </div>
                     </div>
                     <span class="rd-card__toggle-icon rd-arrow">▾</span>
                 </div>
                 <div class="rd-card__body">
+                    <div style="width:100%; max-height:240px; background:var(--th-surface-hover, rgba(0,0,0,0.05)); border-radius:12px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+                        <img src="zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="max-height:208px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
                     <h5 class="rd-section-title">Sign Details</h5>
                     <p class="rd-section-text">${czData.stats}</p>
                     <p class="rd-section-text">
@@ -446,15 +546,22 @@ getReadingBtn.addEventListener("click", () => {
         compatibilityData = COMPATIBILITY_FALLBACK;
     }
 
-    const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
-    const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+    const isDoubleEnergy = getCompatibilityNumber(lp.final) === getCompatibilityNumber(dayNum);
+    let compatibilityGridHTML;
+    if (isDoubleEnergy) {
+        compatibilityGridHTML = renderCompatibilityCard("Life Path & Day Number", lp.final, "rd-compatibility-card--lifepath");
+    } else {
+        const lpCompatibilityHTML = renderCompatibilityCard("Life Path", lp.final, "rd-compatibility-card--lifepath");
+        const dayCompatibilityHTML = renderCompatibilityCard("Day Number", dayNum, "rd-compatibility-card--day");
+        const synergyCompatibilityHTML = renderCombinedCompatibilityCard(lp.final, "Life Path", dayNum, "Day Number");
+        compatibilityGridHTML = lpCompatibilityHTML + dayCompatibilityHTML + synergyCompatibilityHTML;
+    }
 
     if (compatibilitySection) {
         compatibilitySection.innerHTML = `
             <h3 class="rd-compatibility-title">✦ Number Compatibility ✦</h3>
             <div class="rd-compatibility-grid">
-                ${lpCompatibilityHTML}
-                ${dayCompatibilityHTML}
+                ${compatibilityGridHTML}
             </div>
         `;
         compatibilitySection.classList.remove("hidden");

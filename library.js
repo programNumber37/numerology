@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     populateNumerology();
     populateChineseAstrology();
+    populateGematria();
 });
 
 function formatTextToParagraphs(text) {
@@ -40,7 +41,9 @@ function renderTopicQuotes(topicKey, num) {
         let contentHtml = "";
 
         if (typeof content === "string") {
-            if (book.id === "numerology_made_plain") {
+            if (topicKey === "gematriaFirstNames") {
+                contentHtml = `<p style="margin-bottom: 12px; line-height: 1.6;">${content}</p>`;
+            } else if (book.id && book.id.startsWith("numerology_made_plain")) {
                 contentHtml = content.split('\n\n').map(p => `<p style="margin-bottom: 12px;">${p}</p>`).join('')
                     .replace(/POSITIVE:/g, '<strong style="color: #27ae60;">POSITIVE:</strong>')
                     .replace(/REVERSE:/g, '<strong>REVERSE:</strong>')
@@ -56,8 +59,13 @@ function renderTopicQuotes(topicKey, num) {
         } else if (typeof content === "object") {
             if (content.positive !== undefined && content.negative !== undefined) {
                 contentHtml = `
+                    ${content.rulingPlanet ? `<p style="margin-bottom: 12px;"><strong>Ruling Planet(s):</strong> ${content.rulingPlanet}</p>` : ''}
                     <p style="margin-bottom: 12px;"><strong style="color: #27ae60;">Positive:</strong> ${content.positive}</p>
                     <p style="margin-bottom: 12px;"><strong style="color: #c0392b;">Negative:</strong> ${content.negative}</p>
+                    ${content.love ? `<p style="margin-bottom: 12px; line-height: 1.6;"><strong>Choosing Compatible Partners (Love):</strong> ${content.love}</p>` : ''}
+                    ${content.failure ? `<p style="margin-bottom: 12px; line-height: 1.6;"><strong>Negative Personal Number Traits (Failure):</strong> ${content.failure}</p>` : ''}
+                    ${content.children ? `<p style="margin-bottom: 12px; line-height: 1.6;"><strong>The Child (Children):</strong> ${content.children}</p>` : ''}
+                    ${content.work ? `<p style="margin-bottom: 12px; line-height: 1.6;"><strong>Choosing a Career (Work):</strong> ${content.work}</p>` : ''}
                 `;
             } else if (content.do !== undefined && content.dont !== undefined) {
                 contentHtml = `
@@ -74,6 +82,17 @@ function renderTopicQuotes(topicKey, num) {
                     ${content.health ? `<p style="margin-bottom: 12px;"><strong>Health:</strong> ${content.health}</p>` : ''}
                     ${content.career ? `<p style="margin-bottom: 12px;"><strong>Career:</strong> ${content.career}</p>` : ''}
                     ${content.travel ? `<p style="margin-bottom: 12px;"><strong>Travel:</strong> ${content.travel}</p>` : ''}
+                `;
+            } else if (content.traits !== undefined && content.occupations !== undefined && content.health !== undefined) {
+                contentHtml = `
+                    <p style="margin-bottom: 12px; line-height: 1.6;"><strong>Traits:</strong> ${content.traits}</p>
+                    <p style="margin-bottom: 12px; line-height: 1.6;"><strong>Occupations:</strong> ${content.occupations}</p>
+                    <p style="margin-bottom: 12px; line-height: 1.6;"><strong>Health:</strong> ${content.health}</p>
+                `;
+            } else if (content.learnToBe !== undefined && content.learnNotToBe !== undefined) {
+                contentHtml = `
+                    <p style="margin-bottom: 12px; line-height: 1.6;"><strong style="color: #27ae60;">You must learn to be:</strong> ${content.learnToBe}</p>
+                    <p style="margin-bottom: 12px; line-height: 1.6;"><strong style="color: #c0392b;">Learn NOT to be:</strong> ${content.learnNotToBe}</p>
                 `;
             } else {
                 contentHtml = Object.entries(content).map(([k, v]) => `
@@ -228,7 +247,7 @@ function populateNumerology() {
     }
 
     const personalYearsNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22];
-    
+
     personalYearsNums.forEach(num => {
         const bodyContent = renderTopicQuotes("personalYears", num);
         if (!bodyContent) return;
@@ -298,7 +317,7 @@ function populateNumerology() {
     }
 
     const personalMonthsNums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    
+
     personalMonthsNums.forEach(num => {
         const bodyContent = renderTopicQuotes("personalMonths", num);
         if (!bodyContent) return;
@@ -349,7 +368,12 @@ function populateNumerology() {
         { id: "personalyear", title: "Personal Year", abbr: "PY" },
         { id: "luckynumber", title: "Lucky Number", abbr: "LN" },
         { id: "hiddennumber", title: "Hidden Number", abbr: "HN" },
-        { id: "reductionofnumbers", title: "Reduction of Numbers", abbr: "RN" }
+        {
+            id: "reductionofnumbers",
+            title: "Reduction of Numbers",
+            abbr: "RN",
+            content: `<p style="margin-bottom: 12px; line-height: 1.6;">Of all the branches of mathematics, Numerology—the occult study of numbers—is perhaps the easiest to learn and apply. Where other branches of mathematics deal with addition, subtraction, multiplication, and the like, Numerology in the majority of cases uses only simple addition to arrive at its answer.</p><p style="margin-bottom: 12px; line-height: 1.6;">Even so, Numerology only follows the standard method of addition up to a point. For example, let’s add the number 78. In standard addition you simply say 7 + 8 = 15 for the correct answer. In Numerology this is not enough, it uses a further method of addition known as the “Fadic” system, or “natural addition.” This simply means you keep adding two or more numbers together until you arrive at one single digit.</p><p style="line-height: 1.6;">Taking our example of 78, 7 + 8 adds up to 15, but the additional step is to add 1 + 5, and the final number is 6. That’s how you add in Numerology.</p>`
+        }
     ];
 
     terms.forEach(term => {
@@ -365,7 +389,7 @@ function populateNumerology() {
                     <span class="lib-entry-chevron">▼</span>
                 </div>
                 <div class="lib-entry-body">
-                    <p>Placeholder explanation for ${term.title}. You can add the full text here later.</p>
+                    ${term.content || `<p>Placeholder explanation for ${term.title}. You can add the full text here later.</p>`}
                 </div>
             </div>
         `;
@@ -504,11 +528,35 @@ function populateNumerology() {
     ];
 
     historyItems.forEach(item => {
+        let previewBoxHtml = `<div class="lib-entry-num" style="font-size:0.75rem;">${item.abbr}</div>`;
+        let bodyContentHtml = `<p>Placeholder explanation for ${item.title}. You can add the full text here later.</p>`;
+
+        if (typeof numerologyHistoryDatabase !== "undefined" && numerologyHistoryDatabase[item.id]) {
+            const hData = numerologyHistoryDatabase[item.id];
+            if (hData.previewImage) {
+                previewBoxHtml = `
+                    <div class="lib-entry-num" style="padding: 2px; overflow: hidden; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.1); background: var(--th-surface-hover);">
+                        <img src="${hData.previewImage}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+                    </div>
+                `;
+            }
+            let imgHtml = '';
+            if (hData.expandedImage) {
+                imgHtml = `
+                    <div style="width:100%; max-height:360px; background:var(--th-surface-hover); border-radius:12px; margin-bottom:22px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+                        <img src="${hData.expandedImage}" alt="${item.title}" style="max-height:320px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                `;
+            }
+            const textHtml = hData.text.split('\n\n').map(p => `<p style="margin-bottom: 16px; line-height: 1.7; font-size: 0.95em;">${p.trim()}</p>`).join('');
+            bodyContentHtml = imgHtml + textHtml;
+        }
+
         const entryHtml = `
             <div class="lib-entry" data-entry>
                 <div class="lib-entry-header" onclick="toggleEntry(this)">
                     <div class="lib-entry-left">
-                        <div class="lib-entry-num" style="font-size:0.75rem;">${item.abbr}</div>
+                        ${previewBoxHtml}
                         <div>
                             <p class="lib-entry-title">${item.title}</p>
                         </div>
@@ -516,7 +564,7 @@ function populateNumerology() {
                     <span class="lib-entry-chevron">▼</span>
                 </div>
                 <div class="lib-entry-body">
-                    <p>Placeholder explanation for ${item.title}. You can add the full text here later.</p>
+                    ${bodyContentHtml}
                 </div>
             </div>
         `;
@@ -542,25 +590,80 @@ function populateNumerology() {
 
     const sourcesBody = document.getElementById("sourcesBody");
 
-    const entryHtml = `
-        <div class="lib-entry" data-entry>
-            <div class="lib-entry-header" onclick="toggleEntry(this)">
-                <div class="lib-entry-left">
-                    <div class="lib-entry-num" style="font-size:0.75rem;">SRC</div>
-                    <div>
-                        <p class="lib-entry-title">Books & References</p>
+    const bookSources = [
+        {
+            title: "Numbers and You",
+            author: "Lloyd Strayhorn",
+            year: "1980",
+            cover: "books/numbers_and_you.jpg",
+            usage: "Core Numbers (Love, Failure, Children, Work for numbers 1–9), Fadic System Terminology, and Gematria (First Name Clues, Family Traits, Destiny Numbers)."
+        },
+        {
+            title: "Cheiro's Book of Numbers",
+            author: "Cheiro (Count Louis Hamon)",
+            year: "1926",
+            cover: "books/cheiro_book_of_numbers.jpg",
+            usage: "Core Numbers (Planetary associations, ruling numbers 1–9, lucky colors, lucky stones, personality symbolisms)."
+        },
+        {
+            title: "Numerology Made Plain",
+            author: "Ariel Yvon Taylor",
+            year: "1926",
+            cover: "books/numerology_made_plain.jpg",
+            usage: "Core Numbers (Positive, Reverse, and Negative vibrations for numbers 1–9)."
+        },
+        {
+            title: "The Power of Birthdays, Stars & Numbers",
+            author: "Saffi Crawford & Geraldine Sullivan",
+            year: "1998",
+            cover: "books/power_of_birthdays.jpg",
+            usage: "Core Numbers, Day Numbers (Birthdays), and Personal Years readings."
+        },
+        {
+            title: "The 9 Seasons of Success",
+            author: "Pauline Edward",
+            year: "2008",
+            cover: "books/seasons_of_success.png",
+            usage: "Personal Years and 9-year cycle breakdowns."
+        },
+        {
+            title: "Cat and Rat: The Legend of the Chinese Zodiac",
+            author: "Ed Young",
+            year: "1995",
+            cover: "books/cat_and_rat.jpg",
+            usage: "Chinese Astrology (Origins of the Zodiac & The Legend of the Great Race story)."
+        }
+    ];
+
+    bookSources.forEach(book => {
+        const entryHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num" style="padding: 2px; overflow: hidden; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.1); background: var(--th-surface-hover);">
+                            <img src="${book.cover}" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+                        </div>
+                        <div>
+                            <p class="lib-entry-title">${book.title}</p>
+                            <p style="font-size:0.75rem; opacity:0.7; margin:2px 0 0 0;">By ${book.author}${book.year ? ` (${book.year})` : ''}</p>
+                        </div>
                     </div>
+                    <span class="lib-entry-chevron">▼</span>
                 </div>
-                <span class="lib-entry-chevron">▼</span>
+                <div class="lib-entry-body">
+                    <div style="width:100%; max-height:360px; background:var(--th-surface-hover); border-radius:12px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+                        <img src="${book.cover}" alt="${book.title}" style="max-height:320px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    </div>
+                    <h4 style="margin-bottom:6px; font-size:1.05rem; color:var(--th-text-primary);">${book.title}</h4>
+                    <p style="font-size:0.9em; opacity:0.85; margin-bottom:8px;"><strong>Author:</strong> ${book.author}${book.year ? ` &bull; <strong>Published:</strong> ${book.year}` : ''}</p>
+                    <p style="font-size:0.9em; opacity:0.85; line-height:1.6; margin:0;"><strong>Used in Library:</strong> ${book.usage}</p>
+                </div>
             </div>
-            <div class="lib-entry-body">
-                <p>Placeholder for your sources. You can add the list of books used for information here later.</p>
-            </div>
-        </div>
-    `;
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = entryHtml.trim();
-    sourcesBody.appendChild(tempDiv.firstChild);
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entryHtml.trim();
+        sourcesBody.appendChild(tempDiv.firstChild);
+    });
 }
 
 function populateChineseAstrology() {
@@ -586,19 +689,30 @@ function populateChineseAstrology() {
 
     const historyBody = document.getElementById("chineseHistoryBody");
 
+    let historyContentHtml = "<p>Placeholder for the history of the Zodiacs and the Great Race.</p>";
+    let historyTitle = "Origins of the Zodiac";
+
+    if (typeof chineseZodiacHistory !== "undefined") {
+        historyTitle = chineseZodiacHistory.title || "Origins of the Zodiac";
+        const authorInfo = chineseZodiacHistory.author ? `${chineseZodiacHistory.author}${chineseZodiacHistory.year ? `, ${chineseZodiacHistory.year}` : ''}` : '';
+        const header = authorInfo ? `<p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 16px; font-style: italic;">From ${chineseZodiacHistory.title} (${authorInfo}):</p>` : '';
+        const paragraphs = chineseZodiacHistory.text.split('\n\n').map(p => `<p style="margin-bottom: 14px; line-height: 1.7; font-size: 0.95em;">${p.trim()}</p>`).join('');
+        historyContentHtml = header + paragraphs;
+    }
+
     const historyEntryHtml = `
         <div class="lib-entry" data-entry>
             <div class="lib-entry-header" onclick="toggleEntry(this)">
                 <div class="lib-entry-left">
                     <div class="lib-entry-num" style="font-size:0.75rem;">HIS</div>
                     <div>
-                        <p class="lib-entry-title">Origins of the Zodiac</p>
+                        <p class="lib-entry-title">${historyTitle}</p>
                     </div>
                 </div>
                 <span class="lib-entry-chevron">▼</span>
             </div>
             <div class="lib-entry-body">
-                <p>Placeholder for the history of the Zodiacs and the Great Race. You can add the full text here later.</p>
+                ${historyContentHtml}
             </div>
         </div>
     `;
@@ -663,7 +777,9 @@ function populateChineseAstrology() {
                 <div class="lib-entry" data-entry>
                     <div class="lib-entry-header" onclick="toggleEntry(this)">
                         <div class="lib-entry-left">
-                            <div class="lib-entry-num" style="font-size:0.70rem;">${abbr}</div>
+                            <div class="lib-entry-num" style="padding: 2px; overflow: hidden; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.1); background: var(--th-surface-hover);">
+                                <img src="zodiac/${sign.toLowerCase()}.png" alt="${sign}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                            </div>
                             <div>
                                 <p class="lib-entry-title">${sign}</p>
                             </div>
@@ -671,8 +787,8 @@ function populateChineseAstrology() {
                         <span class="lib-entry-chevron">▼</span>
                     </div>
                     <div class="lib-entry-body">
-                        <div style="width:100%; height:160px; background:var(--th-surface-hover); border-radius:12px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color:var(--th-text-muted); font-size:0.85rem; border:1px dashed rgba(255,255,255,0.1);">
-                            [ Image Placeholder: ${sign} ]
+                        <div style="width:100%; max-height:260px; background:var(--th-surface-hover); border-radius:12px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+                            <img src="zodiac/${sign.toLowerCase()}.png" alt="${sign}" style="max-height:224px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                         </div>
                         <div style="margin-bottom:20px; font-size:0.9em; opacity:0.9; line-height:1.6;">
                             ${data.stats}
@@ -695,4 +811,161 @@ function populateChineseAstrology() {
             zodiacBody.appendChild(tempDiv.firstChild);
         });
     }
+}
+
+function populateGematria() {
+    const container = document.getElementById("gematriaEntriesContainer");
+    if (!container) return;
+
+    container.innerHTML = "";
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+    // ═══════════════════════════════════════════════════════════
+    // FIRST NAME CLUES GROUP
+    // ═══════════════════════════════════════════════════════════
+    const firstNameGroup = document.createElement("div");
+    firstNameGroup.className = "lib-category-group open";
+    firstNameGroup.setAttribute("data-group", "");
+    firstNameGroup.innerHTML = `
+        <div class="lib-category-header" onclick="toggleGroup(this)">
+            <p class="lib-category-label">First Name Clues (1–9)</p>
+            <span class="lib-category-chevron">▼</span>
+        </div>
+        <div class="lib-category-body" id="gematriaFirstNamesBody"></div>
+    `;
+    container.appendChild(firstNameGroup);
+
+    const firstNameBody = document.getElementById("gematriaFirstNamesBody");
+    numbers.forEach(num => {
+        const bodyContent = renderTopicQuotes("gematriaFirstNames", num);
+        if (!bodyContent) return;
+
+        const entryHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num">${num}</div>
+                        <div>
+                            <p class="lib-entry-title">Number ${num} First Name</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    ${bodyContent}
+                </div>
+            </div>
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entryHtml.trim();
+        firstNameBody.appendChild(tempDiv.firstChild);
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // THE LAST NAME & FAMILY TRAITS GROUP
+    // ═══════════════════════════════════════════════════════════
+    const familyNameGroup = document.createElement("div");
+    familyNameGroup.className = "lib-category-group open";
+    familyNameGroup.setAttribute("data-group", "");
+    familyNameGroup.innerHTML = `
+        <div class="lib-category-header" onclick="toggleGroup(this)">
+            <p class="lib-category-label">The Last Name & Family Traits (1–9)</p>
+            <span class="lib-category-chevron">▼</span>
+        </div>
+        <div class="lib-category-body" id="gematriaFamilyNamesBody"></div>
+    `;
+    container.appendChild(familyNameGroup);
+
+    const familyNameBody = document.getElementById("gematriaFamilyNamesBody");
+    const introBook = typeof libraryDatabase !== "undefined" && libraryDatabase.find(b => b.gematriaFamilyNamesIntro);
+
+    if (introBook && introBook.gematriaFamilyNamesIntro) {
+        const introData = introBook.gematriaFamilyNamesIntro;
+        const introHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num" style="font-size: 0.75rem;">EXP</div>
+                        <div>
+                            <p class="lib-entry-title">${introData.title}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    <p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 12px; font-style: italic;">From ${introBook.title} (${introBook.author}, ${introBook.year}):</p>
+                    ${introData.text}
+                </div>
+            </div>
+        `;
+        const introDiv = document.createElement('div');
+        introDiv.innerHTML = introHtml.trim();
+        familyNameBody.appendChild(introDiv.firstChild);
+    }
+
+    numbers.forEach(num => {
+        const bodyContent = renderTopicQuotes("gematriaFamilyNames", num);
+        if (!bodyContent) return;
+
+        const entryHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num">${num}</div>
+                        <div>
+                            <p class="lib-entry-title">Family Traits of Number ${num}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    ${bodyContent}
+                </div>
+            </div>
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entryHtml.trim();
+        familyNameBody.appendChild(tempDiv.firstChild);
+    });
+
+    // ═══════════════════════════════════════════════════════════
+    // LESSONS OF THE DESTINY NUMBERS GROUP
+    // ═══════════════════════════════════════════════════════════
+    const destinyGroup = document.createElement("div");
+    destinyGroup.className = "lib-category-group open";
+    destinyGroup.setAttribute("data-group", "");
+    destinyGroup.innerHTML = `
+        <div class="lib-category-header" onclick="toggleGroup(this)">
+            <p class="lib-category-label">Lessons of the Destiny Numbers (1–9)</p>
+            <span class="lib-category-chevron">▼</span>
+        </div>
+        <div class="lib-category-body" id="gematriaDestinyBody"></div>
+    `;
+    container.appendChild(destinyGroup);
+
+    const destinyBody = document.getElementById("gematriaDestinyBody");
+    numbers.forEach(num => {
+        const bodyContent = renderTopicQuotes("gematriaDestinyNumbers", num);
+        if (!bodyContent) return;
+
+        const entryHtml = `
+            <div class="lib-entry" data-entry>
+                <div class="lib-entry-header" onclick="toggleEntry(this)">
+                    <div class="lib-entry-left">
+                        <div class="lib-entry-num">${num}</div>
+                        <div>
+                            <p class="lib-entry-title">Destiny Number ${num}</p>
+                        </div>
+                    </div>
+                    <span class="lib-entry-chevron">▼</span>
+                </div>
+                <div class="lib-entry-body">
+                    ${bodyContent}
+                </div>
+            </div>
+        `;
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entryHtml.trim();
+        destinyBody.appendChild(tempDiv.firstChild);
+    });
 }
