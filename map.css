@@ -165,7 +165,8 @@
     position: relative;
     width: 100%;
     height: 520px;
-    background: var(--th-water, var(--th-bg));
+    background-color: #5c7b94;
+    background: var(--th-water, #5c7b94);
     overflow: hidden;
     cursor: grab;
     user-select: none;
