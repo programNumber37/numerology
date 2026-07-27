@@ -11,6 +11,24 @@
 })();
 
 document.addEventListener('click', (e) => {
+    const cycleBtn = e.target.closest('.theme-cycle-btn');
+    if (cycleBtn) {
+        const current = document.documentElement.getAttribute('data-theme') || 'warm';
+        const availableThemes = Array.from(document.querySelectorAll('.theme-toggle-btn')).map(b => b.dataset.theme);
+        let nextTheme = 'warm';
+        if (current === 'warm') {
+            nextTheme = availableThemes.find(t => t && t !== 'warm') || 'classic';
+        } else {
+            nextTheme = 'warm';
+        }
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('numerologyTheme', nextTheme);
+        document.querySelectorAll('.theme-toggle-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.theme === nextTheme);
+        });
+        return;
+    }
+
     const btn = e.target.closest('.theme-toggle-btn');
     if (!btn) return;
     const theme = btn.dataset.theme;

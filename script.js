@@ -185,7 +185,6 @@ function renderCombinedCompatibilityCard(num1, num1Label, num2, num2Label) {
                     <span class="rd-comp-type">Combined Energy Synergy</span>
                     <span class="rd-comp-number">${num1} + ${num2}</span>
                 </div>
-                <span class="rd-comp-planet-badge">Balanced Alignment</span>
             </div>
             
             <p style="font-size: 0.88rem; color: var(--th-text-muted); margin: 0 0 4px 0; line-height: 1.5;">
@@ -513,13 +512,12 @@ function updateDetailsPanel(dateStr, day, month, year) {
                             const animalName = zodiacStr.split(' ').pop().toLowerCase();
                             return `
                                 <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
-                                    <div style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--th-surface-hover, rgba(0,0,0,0.05)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 2px;">
-                                        <img src="zodiac/${animalName}.png" alt="${animalName}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                                    <div style="width: 64px; height: 64px; flex-shrink: 0; border-radius: 12px; background: var(--th-surface-hover, rgba(0,0,0,0.05)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 3px;">
+                                        <img src="zodiac/${animalName}.png" alt="${animalName}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
                                     </div>
                                     <div class="item-content" style="min-width: 0;">
                                         <strong>Chinese Zodiac</strong> 
                                         <span class="main-value text-master">${zodiacStr}</span>
-                                        <small>Lunar Year Based · click to reveal year energy</small>
                                     </div>
                                 </div>
                             `;
@@ -562,8 +560,8 @@ function updateDetailsPanel(dateStr, day, month, year) {
                 }
             }
 
-            const imageBoxHtml = `<div style="width:100%; max-height:220px; background:var(--th-surface-hover, rgba(0,0,0,0.04)); border-radius:12px; margin: 10px 0 18px 0; display:flex; align-items:center; justify-content:center; padding:12px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
-                                      <img src="zodiac/${animalName.toLowerCase()}.png" alt="${animalName}" style="max-height:190px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+            const imageBoxHtml = `<div style="width:100%; max-height:280px; background:var(--th-surface-hover, rgba(0,0,0,0.04)); border-radius:12px; margin: 10px 0 18px 0; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+                                      <img src="zodiac/${animalName.toLowerCase()}.png" alt="${animalName}" style="max-height:250px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                                   </div>`;
 
             if (yearEnergy) {
@@ -577,9 +575,9 @@ function updateDetailsPanel(dateStr, day, month, year) {
             
             <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
             
-            <div style="line-height: 1.6; color: #555;">
-                <p><strong>Daily Insights:</strong></p>
-                <p>${dayNum === 20 ? '<b>Special Note:</b> The day 20 is considered a hidden 11.<br>' : ''}</p>
+            <div style="line-height: 1.6; color: #555; margin-bottom: 4px;">
+                <p style="margin-bottom: 0;"><strong>Daily Insights:</strong></p>
+                ${dayNum === 20 ? '<p style="margin-top: 4px; margin-bottom: 0;"><b>Special Note:</b> The day 20 is considered a hidden 11.</p>' : ''}
             </div>
             ${energyReadingHTML}
             ${compatibilityReadingHTML}

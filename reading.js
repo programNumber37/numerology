@@ -181,7 +181,6 @@ function renderCombinedCompatibilityCard(num1, num1Label, num2, num2Label) {
                     <span class="rd-comp-type">Combined Energy Synergy</span>
                     <span class="rd-comp-number">${num1} + ${num2}</span>
                 </div>
-                <span class="rd-comp-planet-badge">Balanced Alignment</span>
             </div>
             
             <p style="font-size: 0.88rem; color: var(--th-text-muted); margin: 0 0 4px 0; line-height: 1.5;">
@@ -339,7 +338,7 @@ getReadingBtn.addEventListener("click", () => {
         </div>
     `;
 
-    let insightsHTML = `<h3 class="rd-insights-title">Your Numerology Insights</h3>`;
+    let insightsHTML = '';
 
     // Add Lifepath Reading
     const lpLookupKey = readingsDatabase.lifepaths[lp.final] ? lp.final : getCompatibilityNumber(lp.final);

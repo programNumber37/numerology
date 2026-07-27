@@ -225,6 +225,46 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
+/* Shared Round Theme Switcher for Mobile */
+.shared-round-theme-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--th-surface, #eae2d6);
+    color: var(--th-text-secondary, #4a3d36);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+    border: 1px solid var(--th-border-light, rgba(0,0,0,0.05));
+    transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.shared-round-theme-btn:hover {
+    background: var(--th-surface-alt, #dfd4c5);
+    color: var(--th-accent, var(--th-text, #2c221e));
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+    transform: translateY(-1px);
+}
+
+.shared-round-theme-btn:active {
+    transform: scale(0.96);
+}
+
+@media (max-width: 600px) {
+    .theme-toggle-bar {
+        display: none !important;
+    }
+    .shared-round-theme-btn {
+        display: inline-flex !important;
+        width: 34px !important;
+        height: 34px !important;
+    }
+}
+
 
 /* ============================================
    CALENDAR PAGE — THEMED OVERRIDES

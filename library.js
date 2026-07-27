@@ -675,50 +675,39 @@ function populateChineseAstrology() {
     // ═══════════════════════════════════════════════════════════
     // THE ZODIAC RACE & HISTORY
     // ═══════════════════════════════════════════════════════════
-    const historyGroup = document.createElement("div");
-    historyGroup.className = "lib-category-group open";
-    historyGroup.setAttribute("data-group", "");
-    historyGroup.innerHTML = `
-        <div class="lib-category-header" onclick="toggleGroup(this)">
-            <p class="lib-category-label">The Great Zodiac Race & History</p>
-            <span class="lib-category-chevron">▼</span>
-        </div>
-        <div class="lib-category-body" id="chineseHistoryBody"></div>
-    `;
-    container.appendChild(historyGroup);
-
-    const historyBody = document.getElementById("chineseHistoryBody");
-
     let historyContentHtml = "<p>Placeholder for the history of the Zodiacs and the Great Race.</p>";
-    let historyTitle = "Origins of the Zodiac";
 
     if (typeof chineseZodiacHistory !== "undefined") {
-        historyTitle = chineseZodiacHistory.title || "Origins of the Zodiac";
         const authorInfo = chineseZodiacHistory.author ? `${chineseZodiacHistory.author}${chineseZodiacHistory.year ? `, ${chineseZodiacHistory.year}` : ''}` : '';
-        const header = authorInfo ? `<p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 16px; font-style: italic;">From ${chineseZodiacHistory.title} (${authorInfo}):</p>` : '';
+        const header = authorInfo ? `<p style="font-size: 0.9em; color: var(--th-text-muted); margin-bottom: 16px; font-style: italic;">From ${chineseZodiacHistory.title || "Cat and Rat"} (${authorInfo}):</p>` : '';
         const paragraphs = chineseZodiacHistory.text.split('\n\n').map(p => `<p style="margin-bottom: 14px; line-height: 1.7; font-size: 0.95em;">${p.trim()}</p>`).join('');
         historyContentHtml = header + paragraphs;
     }
 
     const historyEntryHtml = `
-        <div class="lib-entry" data-entry>
+        <div class="lib-entry" data-entry style="margin-bottom: 8px;">
             <div class="lib-entry-header" onclick="toggleEntry(this)">
                 <div class="lib-entry-left">
-                    <div class="lib-entry-num" style="font-size:0.75rem;">HIS</div>
+                    <div class="lib-entry-num" style="padding: 2px; overflow: hidden; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.1); background: var(--th-surface-hover);">
+                        <img src="zodiac/Chinese_Zodiacwheel.png" alt="THE ZODIAC RACE" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                    </div>
                     <div>
-                        <p class="lib-entry-title">${historyTitle}</p>
+                        <p class="lib-entry-title">THE ZODIAC RACE</p>
                     </div>
                 </div>
                 <span class="lib-entry-chevron">▼</span>
             </div>
             <div class="lib-entry-body">
+                <div style="width:100%; max-height:360px; background:var(--th-surface-hover); border-radius:12px; margin-bottom:22px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+                    <img src="zodiac/Chinese_Zodiacwheel.png" alt="THE ZODIAC RACE" style="max-height:320px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
                 ${historyContentHtml}
             </div>
         </div>
     `;
     const tempHistDiv = document.createElement('div');
     tempHistDiv.innerHTML = historyEntryHtml.trim();
-    historyBody.appendChild(tempHistDiv.firstChild);
+    container.appendChild(tempHistDiv.firstChild);
 
     // ═══════════════════════════════════════════════════════════
     // ZODIAC ANIMALS GROUP
