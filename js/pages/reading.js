@@ -15,6 +15,25 @@ const addToBookBtn = document.getElementById("addToBookBtn");
 const readingTitle = document.getElementById("readingTitle");
 let revealedDob = null; // birthdate of the reading currently on screen (what "Add to Book" saves)
 
+// Turns "… • Positive: a, b • Negative: c, d" (optionally with <br> between) into
+// colour-coded green/red trait pills. Text without both lists is returned unchanged.
+function formatTraits(html) {
+    const re = /\s*(?:<br\s*\/?>\s*)*•\s*Positive:\s*([^•<]*?)\s*(?:<br\s*\/?>\s*)*•\s*Negative:\s*([^•<]*?)\s*(?=<|$)/g;
+    const pills = list => list.split(/[,;]/).map(t => t.trim()).filter(Boolean)
+        .map(t => `<span class="rd-trait">${t}</span>`).join('');
+    return html.replace(re, (_, pos, neg) => `
+        <span class="rd-traits">
+            <span class="rd-traits__group rd-traits__group--pos">
+                <span class="rd-traits__label">Positive</span>
+                <span class="rd-traits__list">${pills(pos)}</span>
+            </span>
+            <span class="rd-traits__group rd-traits__group--neg">
+                <span class="rd-traits__label">Negative</span>
+                <span class="rd-traits__list">${pills(neg)}</span>
+            </span>
+        </span>`);
+}
+
 // Word Analysis Elements
 const tabBirth = document.getElementById("tabBirth");
 const tabWord = document.getElementById("tabWord");
@@ -380,7 +399,7 @@ getReadingBtn.addEventListener("click", () => {
                     <span class="rd-card__toggle-icon">▾</span>
                 </div>
                 <div class="rd-card__body">
-                    <p class="rd-card__text">${dayMonthDatabase[birthMonthDayKey]}</p>
+                    <p class="rd-card__text">${formatTraits(dayMonthDatabase[birthMonthDayKey])}</p>
                 </div>
             </div>
         `;
@@ -399,7 +418,7 @@ getReadingBtn.addEventListener("click", () => {
                     <span class="rd-card__toggle-icon">▾</span>
                 </div>
                 <div class="rd-card__body">
-                    <p class="rd-card__text">${readingsDatabase.days[day]}</p>
+                    <p class="rd-card__text">${formatTraits(readingsDatabase.days[day])}</p>
                 </div>
             </div>
         `;

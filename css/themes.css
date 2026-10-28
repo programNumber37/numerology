@@ -1073,6 +1073,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    align-items: center;
+    text-align: center;
     transition: all 0.25s ease;
 }
 
@@ -1266,6 +1268,56 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-wrap: pretty;
+}
+
+/* Positive / Negative trait lists inside reading text */
+.rd-traits {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 16px 0 4px;
+}
+
+.rd-traits__group {
+    display: block;
+}
+
+.rd-traits__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.rd-traits__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.rd-trait {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.rd-traits__group--pos .rd-traits__label { color: #2e7d32; }
+.rd-traits__group--pos .rd-trait {
+    color: #1b5e20;
+    background: rgba(46, 125, 50, 0.1);
+    border-color: rgba(46, 125, 50, 0.28);
+}
+
+.rd-traits__group--neg .rd-traits__label { color: #c62828; }
+.rd-traits__group--neg .rd-trait {
+    color: #b71c1c;
+    background: rgba(198, 40, 40, 0.09);
+    border-color: rgba(198, 40, 40, 0.28);
 }
 
 /* ── Summary wrapper (desktop: centered surface box) ── */
