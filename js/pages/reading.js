@@ -493,32 +493,36 @@ getReadingBtn.addEventListener("click", () => {
         insightsHTML += `
             <div class="rd-card rd-card--chinese" data-collapsible>
                 <div class="rd-card__header">
-                    <div class="rd-card__header-left" style="display: flex; align-items: flex-start; gap: 14px;">
-                        <div style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--th-surface-hover, rgba(0,0,0,0.05)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 2px;">
-                            <img src="assets/images/zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
-                        </div>
-                        <div>
-                            <h4 class="rd-card__title" style="margin: 0 0 4px 0;">${czAnimal} Sign Reading</h4>
+                    <div class="rd-card__header-left rd-zodiac-head">
+                        <span class="rd-zodiac-thumb">
+                            <img src="assets/images/zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}">
+                        </span>
+                        <span class="rd-zodiac-head__text">
+                            <h4 class="rd-card__title">${czAnimal} Sign Reading</h4>
                             <span class="rd-card__preview">Discover ranking order, hours ruled, the ${czAnimal} personality, ${czElement} type details, and more…</span>
-                        </div>
+                        </span>
                     </div>
                     <span class="rd-card__toggle-icon rd-arrow">▾</span>
                 </div>
                 <div class="rd-card__body">
-                    <div style="width:100%; max-height:240px; background:var(--th-surface-hover, rgba(0,0,0,0.05)); border-radius:12px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
-                        <img src="assets/images/zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="max-height:208px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                    <div class="rd-zodiac-intro">
+                        <div class="rd-zodiac-portrait">
+                            <img src="assets/images/zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}">
+                        </div>
+                        <div class="rd-zodiac-intro__text">
+                            <h5 class="rd-section-title">Sign Details</h5>
+                            <p class="rd-section-text">${czData.stats}</p>
+                            <p class="rd-section-text">
+                                <strong>Friendly Signs:</strong><br>
+                                ${rels.friendly[0]} (${getYearsForSign(rels.friendly[0])})<br>
+                                ${rels.friendly[1]} (${getYearsForSign(rels.friendly[1])})
+                            </p>
+                            <p class="rd-section-text">
+                                <strong>Enemy Sign:</strong><br>
+                                ${rels.enemy} (${getYearsForSign(rels.enemy)})
+                            </p>
+                        </div>
                     </div>
-                    <h5 class="rd-section-title">Sign Details</h5>
-                    <p class="rd-section-text">${czData.stats}</p>
-                    <p class="rd-section-text">
-                        <strong>Friendly Signs:</strong><br>
-                        ${rels.friendly[0]} (${getYearsForSign(rels.friendly[0])})<br>
-                        ${rels.friendly[1]} (${getYearsForSign(rels.friendly[1])})
-                    </p>
-                    <p class="rd-section-text">
-                        <strong>Enemy Sign:</strong><br>
-                        ${rels.enemy} (${getYearsForSign(rels.enemy)})
-                    </p>
                     
                     <h5 class="rd-section-title">The ${czAnimal} Personality</h5>
                     <p class="rd-section-text">${purePersonality}</p>
