@@ -370,7 +370,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
 
         energyReadingHTML = `
             <div class="energy-reading-section">
-                <h4 class="energy-section-title">Daily Energy Guide</h4>
+                <h4 class="energy-section-title">Daily Energy</h4>
                 ${lpCardHTML}
                 ${dayCardHTML}
             </div>
@@ -570,7 +570,6 @@ function updateDetailsPanel(dateStr, day, month, year) {
             <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
             
             <div style="line-height: 1.6; color: #555; margin-bottom: 4px;">
-                <p style="margin-bottom: 0;"><strong>Daily Insights:</strong></p>
                 ${dayNum === 20 ? '<p style="margin-top: 4px; margin-bottom: 0;"><b>Special Note:</b> The day 20 is considered a hidden 11.</p>' : ''}
             </div>
             ${energyReadingHTML}
