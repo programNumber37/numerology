@@ -1,7 +1,6 @@
 const energyGuideDataDefault = [
   {
     "day": 1,
-    "title": "The Initiator",
     "description": "The 1 energy is physical and individual. It favors forward momentum and taking up space.",
     "do": [
       {
@@ -42,7 +41,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 2,
-    "title": "The Diplomat",
     "description": "The 2 energy is about sensitivity and cooperation. It heightens emotions, relationships, and intuition. People are more emotional than usual today, so tact and awareness matter.",
     "do": [
       {
@@ -83,7 +81,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 3,
-    "title": "The Creator",
     "description": "This energy amplifies communication, creativity, emotional release, visibility, and endings. People are more expressive, reactive, and emotionally open than usual today.",
     "do": [
       {
@@ -116,7 +113,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 4,
-    "title": "The Builder",
     "description": "Time to put the party away and get to work. The 4 energy is grounded and structural, and it asks for a lot of discipline.",
     "do": [
       {
@@ -157,7 +153,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 5,
-    "title": "The Warrior and Adventurer",
     "description": "The 5 brings change, freedom, and unpredictable momentum. It's volatile: it can push you forward or pull you into chaos. The 5 is also a number of war and primal creation, so use it deliberately.",
     "do": [
       {
@@ -194,7 +189,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 6,
-    "title": "The Provider and Healer",
     "description": "The 6 brings the focus back to the heart, the home, and your community. It is a nurturing, responsible energy that asks for balance, service, and attention to your immediate surroundings.",
     "do": [
       {
@@ -239,7 +233,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 7,
-    "title": "The Analyst and Seeker",
     "description": "The 7 energy calls for silence and inward focus. The physical and spiritual worlds overlap today, but your body is more vulnerable. It's a day for intellectual and spiritual growth, not outside noise.",
     "do": [
       {
@@ -280,7 +273,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 8,
-    "title": "The Executive",
     "description": "Power, business, and potential. The 8 works like a ledger: what you put into the world, financially and energetically, comes back to you.",
     "do": [
       {
@@ -317,7 +309,6 @@ const energyGuideDataDefault = [
   },
   {
     "day": 9,
-    "title": "The Closer",
     "description": "The cycle concludes. The 9 is the energy of completion and release. Today is for clearing out the old to make room for what's next, and for acting with compassion toward others.",
     "do": [
       {

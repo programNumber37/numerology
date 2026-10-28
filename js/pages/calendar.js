@@ -338,7 +338,6 @@ function updateDetailsPanel(dateStr, day, month, year) {
                     <div class="energy-header">
                         <span class="energy-badge">${titlePrefix} ${originalNum} Energy</span>
                         ${doubleTag}
-                        <h5 class="energy-title">${energyObj.title}</h5>
                     </div>
                     <p class="energy-desc">${energyObj.description}</p>
                     <div class="energy-lists">
