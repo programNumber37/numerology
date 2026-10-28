@@ -1781,24 +1781,6 @@ body {
     font-size: 0.85rem;
     line-height: 1.5;
     color: var(--th-text-secondary);
-    position: relative;
-    padding-left: 16px;
-}
-
-.energy-list--do .energy-li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: #2e7d32;
-    font-weight: bold;
-}
-
-.energy-list--avoid .energy-li::before {
-    content: '✗';
-    position: absolute;
-    left: 0;
-    color: #c62828;
-    font-weight: bold;
 }
 
 .hidden {

@@ -2,349 +2,349 @@ const energyGuideDataDefault = [
   {
     "day": 1,
     "title": "The Initiator",
-    "description": "The 1 energy is raw, physical, and highly individualistic. It is all about forward momentum and taking up space.",
+    "description": "The 1 energy is physical and individual. It favors forward momentum and taking up space.",
     "do": [
       {
         "action": "Work out",
-        "details": "This vibration needs a physical outlet. Push your limits, lift heavy, and sweat it out."
+        "details": "This energy needs a physical outlet. Push your limits, lift heavy, and sweat."
       },
       {
         "action": "Be competitive",
-        "details": "Channel this energy into your goals. Play to win, whether you are dealing with business negotiations or personal challenges."
+        "details": "Point your drive at your goals. Play to win, in a business negotiation or a personal challenge."
       },
       {
         "action": "Start new things",
-        "details": "This is the ultimate green light for launching projects, building new habits, or making the first move."
+        "details": "A good day to launch a project, start a habit, or make the first move."
       },
       {
         "action": "Be assertive",
-        "details": "Claim your space. Speak your mind clearly, stand your ground, and take charge of your current situation."
+        "details": "Claim your space. Say what you think clearly, hold your ground, and take charge."
       }
     ],
     "avoid": [
       {
         "action": "Ending bad habits or relationships",
-        "details": "The 1 vibration is strictly for beginnings, not endings. If you try to terminate a cycle today, the energy will fight you. Save the closures for a 9 day."
+        "details": "The 1 is for beginnings, not endings. Closing a cycle today tends to meet resistance. Save endings for a 9 day."
       },
       {
         "action": "Unchecked anger or aggression",
-        "details": "The 1 frequency runs hot. Be cautious not to let your competitive edge turn into blind rage or hostility."
+        "details": "The 1 runs hot. Don't let your competitive edge turn into anger or hostility."
       },
       {
-        "action": "Being an asshole",
-        "details": "There is a fine line between being assertive and being unnecessarily ruthless. Stay confident, but keep your ego in check."
+        "action": "Being a jerk",
+        "details": "There's a fine line between assertive and ruthless. Stay confident and keep your ego in check."
       },
       {
         "action": "Alcohol",
-        "details": "Your system is already highly stimulated on a 1 day. Adding alcohol into the mix will only amplify volatility, lower your inhibitions, and fuel the aggressive traits you want to avoid."
+        "details": "You're already stimulated on a 1 day. Alcohol adds volatility, lowers inhibitions, and feeds the aggressive traits you want to avoid."
       }
     ]
   },
   {
     "day": 2,
     "title": "The Diplomat",
-    "description": "The 2 energy is all about sensitivity and cooperation. It heightens emotions, relationships, and intuition. People will be far more emotional than usual today, making tact and awareness essential.",
+    "description": "The 2 energy is about sensitivity and cooperation. It heightens emotions, relationships, and intuition. People are more emotional than usual today, so tact and awareness matter.",
     "do": [
       {
         "action": "Go on dates",
-        "details": "The cooperative and sensitive vibration makes this an excellent time for romantic dates and deepening partnerships."
+        "details": "The cooperative, sensitive tone of the 2 suits romantic dates and deepening partnerships."
       },
       {
         "action": "Be patient and comfortable",
-        "details": "Take your time. Do not rush the process. Create a comfortable environment for yourself to operate in."
+        "details": "Take your time and don't rush. Set up a comfortable environment to work in."
       },
       {
         "action": "Process your emotions",
-        "details": "Allow yourself to feel and process your emotions, but actively work to keep them in check so they do not overwhelm your logic."
+        "details": "Let yourself feel your emotions, but keep them in check so they don't override your logic."
       },
       {
         "action": "Get near water",
-        "details": "The 2 vibration aligns perfectly with fluid, calming environments. Spend time around bodies of water like the ocean, a lake, or a river to ground your energy."
+        "details": "The 2 fits fluid, calming places. Spend time by the ocean, a lake, or a river to ground yourself."
       },
       {
         "action": "Meditate",
-        "details": "Tap into the receptive energy of the day. Meditate, center your mind, and listen closely to your gut feelings."
+        "details": "Use the receptive energy of the day. Meditate, settle your mind, and listen to your gut."
       }
     ],
     "avoid": [
       {
         "action": "Being quick to act",
-        "details": "This is not a day for impulsive, aggressive solo moves. Rushing into action will backfire."
+        "details": "This isn't a day for impulsive solo moves. Rushing will backfire."
       },
       {
         "action": "Being quick to judge",
-        "details": "With emotions amplified, misunderstandings are common. Do not jump to conclusions or judge people prematurely."
+        "details": "With emotions heightened, misunderstandings are common. Don't jump to conclusions or judge people early."
       },
       {
         "action": "Getting into fights",
-        "details": "Emotions are running high across the board. Avoid starting conflicts, arguing, or forcing issues. Keep the peace."
+        "details": "Emotions are running high all around. Don't start conflicts, argue, or force issues. Keep the peace."
       }
     ]
   },
   {
     "day": 3,
     "title": "The Creator",
-    "description": "This vibration amplifies communication, creativity, emotional release, visibility, and endings. People will feel more expressive, reactive, and emotionally transparent than usual today.",
+    "description": "This energy amplifies communication, creativity, emotional release, visibility, and endings. People are more expressive, reactive, and emotionally open than usual today.",
     "do": [
       {
         "action": "Communicate and create",
-        "details": "Brainstorm, write, speak, and make art. This is the prime time to let your ideas flow."
+        "details": "Brainstorm, write, speak, and make art. A good day to let ideas flow."
       },
       {
         "action": "Network and socialize",
-        "details": "Go out and connect. Let your sense of humor shine, as people are naturally drawn to your magnetic energy today."
+        "details": "Go out and connect. Let your humor show; people are naturally drawn to you today."
       },
       {
         "action": "Be open to new experiences",
-        "details": "Step outside your comfort zone. Say yes to unexpected invitations and let the current take you somewhere new."
+        "details": "Step outside your comfort zone. Say yes to unexpected invitations and see where they lead."
       }
     ],
     "avoid": [
       {
         "action": "Doing boring tasks",
-        "details": "The 3 energy is wildly creative. You will have a massive amount of trouble forcing yourself through tedious, mundane work today. Save the spreadsheets and heavy admin work for tomorrow."
+        "details": "The 3 is highly creative, and tedious, routine work will be hard to push through. Save spreadsheets and heavy admin for tomorrow."
       },
       {
         "action": "Being shy",
-        "details": "Do not hide in the shadows or isolate yourself. This is a day for visibility, so shrinking into the background works completely against the energy."
+        "details": "Don't hide or isolate. This is a day for visibility, and pulling back works against the energy."
       },
       {
         "action": "Overthinking",
-        "details": "Avoid taking things too seriously. You want to keep the mood light and avoid letting a scattered mind keep you from enjoying the process."
+        "details": "Don't take things too seriously. Keep the mood light and don't let a scattered mind get in the way of enjoying the process."
       }
     ]
   },
   {
     "day": 4,
     "title": "The Builder",
-    "description": "Time to put the party away and get to work. The 4 energy is grounded, structural, and demands immense discipline.",
+    "description": "Time to put the party away and get to work. The 4 energy is grounded and structural, and it asks for a lot of discipline.",
     "do": [
       {
         "action": "Work hard",
-        "details": "Put your head down and grind. This vibration rewards pure effort and sweat equity."
+        "details": "Put your head down and work. This energy rewards plain effort."
       },
       {
         "action": "Organize and plan",
-        "details": "Map out your roadmap, organize your workspace, and build solid systems for your future goals."
+        "details": "Map out a plan, organize your workspace, and build solid systems for your future goals."
       },
       {
         "action": "Be disciplined",
-        "details": "Stick to your routine. Tackle the tedious tasks you have been putting off and focus on your physical health."
+        "details": "Stick to your routine. Tackle the tedious tasks you've been putting off and focus on your physical health."
       },
       {
         "action": "Overcome fear",
-        "details": "Push through mental barriers and anxieties by taking solid, practical action step by step."
+        "details": "Work through mental barriers and anxiety by taking practical action one step at a time."
       }
     ],
     "avoid": [
       {
         "action": "Breaking the law",
-        "details": "The 4 is literally the number of law, order, and structure. Breaking rules, acting unethically, or doing anything illegal will backfire severely today."
+        "details": "The 4 is the number of law, order, and structure. Breaking rules, acting unethically, or doing anything illegal will backfire badly today."
       },
       {
         "action": "Being lazy",
-        "details": "Slacking off or refusing to work is the ultimate waste of this grounded energy. You must put in the reps."
+        "details": "Slacking off wastes this grounded energy. Put in the work."
       },
       {
         "action": "Taking shortcuts",
-        "details": "Avoid gambling or taking wild, uncalculated risks. Build your foundation brick by brick."
+        "details": "Avoid gambling and uncalculated risks. Build your foundation brick by brick."
       },
       {
         "action": "Skipping the fine print",
-        "details": "Pay absolute attention to the structural details and rules."
+        "details": "Pay close attention to details and rules."
       }
     ]
   },
   {
     "day": 5,
     "title": "The Warrior and Adventurer",
-    "description": "The 5 frequency brings a whirlwind of change, freedom, and unpredictable momentum. It is a volatile energy that can either catapult you forward or pull you into chaos. It is crucial to understand that 5 is fundamentally a number of war and primal creation. Use that information strategically.",
+    "description": "The 5 brings change, freedom, and unpredictable momentum. It's volatile: it can push you forward or pull you into chaos. The 5 is also a number of war and primal creation, so use it deliberately.",
     "do": [
       {
         "action": "Harness the war energy",
-        "details": "Use this day to fight aggressively for your goals, tackle hard battles, and face down any opposition. If you have a conflict to win, this is the day to engage."
+        "details": "Fight for your goals, take on hard battles, and face opposition. If there's a conflict you need to win, engage today."
       },
       {
         "action": "Connect with your wife",
-        "details": "This is a highly potent day for sex with your wife. The raw, high-vitality current of the 5 makes it an exceptional day to focus on conception if you have been experiencing trouble trying to impregnate your wife."
+        "details": "A strong day for sex with your wife. The vitality of the 5 makes it especially good for trying to conceive, if that has been difficult."
       },
       {
         "action": "Travel and pivot",
-        "details": "Move around, change your environment, and adapt to the unexpected. Say yes to spontaneous invitations and switch up your routine."
+        "details": "Move around, change your surroundings, and adapt to the unexpected. Say yes to spontaneous invitations and vary your routine."
       },
       {
         "action": "Market yourself",
-        "details": "The high visibility of this frequency makes it excellent for public relations, sales, and pushing your name out into the world."
+        "details": "The 5's visibility makes it a good day for public relations, sales, and getting your name out."
       }
     ],
     "avoid": [
       {
-        "action": "Casual or degenerate sex",
-        "details": "Avoid sex with a non-lover. The volatile, chaotic nature of the 5 energy turns reckless sexual behavior into a highly destructive force that will drain your personal power."
+        "action": "Casual sex",
+        "details": "Avoid sex with anyone who isn't a partner. The 5's volatility makes reckless sex draining to your personal power."
       },
       {
         "action": "Rigid commitments",
-        "details": "Do not lock yourself into long-term contracts or fixed, unyielding schedules today. The energy demands total flexibility."
+        "details": "Don't lock into long-term contracts or fixed schedules today. This energy needs flexibility."
       },
       {
         "action": "Overindulgence",
-        "details": "Keep your spending, drinking, and eating in check. The fast-moving nature of the 5 makes it incredibly easy to slip into excess and lose control."
+        "details": "Watch your spending, drinking, and eating. The 5 moves fast and makes excess easy."
       }
     ]
   },
   {
     "day": 6,
     "title": "The Provider and Healer",
-    "description": "The 6 brings the focus entirely back to the heart, the home, and your personal community. It is a deeply nurturing, responsible vibration that demands balance, service, and attention to your immediate surroundings.",
+    "description": "The 6 brings the focus back to the heart, the home, and your community. It is a nurturing, responsible energy that asks for balance, service, and attention to your immediate surroundings.",
     "do": [
       {
         "action": "Invest in your home",
-        "details": "Clean, organize, or beautify your living space. Repair things that are broken. The energy of your home directly dictates your mental clarity today."
+        "details": "Clean, organize, or beautify your living space, and repair what's broken. The state of your home directly affects your mental clarity today."
       },
       {
         "action": "Support your circle",
-        "details": "Spend quality time with family, your spouse, or close friends. Be a dependable shoulder to cry on, offer sound advice, and show up for the people who rely on you."
+        "details": "Spend quality time with family, your spouse, or close friends. Be dependable, offer sound advice, and show up for the people who rely on you."
       },
       {
         "action": "Focus on health and grooming",
-        "details": "Take care of your physical vessel. Eat clean, cooked meals, get a haircut, or upgrade your wardrobe. The 6 is highly tied to aesthetics and self-preservation."
+        "details": "Take care of your body. Eat clean, cooked meals, get a haircut, or update your wardrobe. The 6 is closely tied to aesthetics and self-preservation."
       },
       {
         "action": "Resolve domestic disputes",
-        "details": "If there has been tension in your household or relationship, this is the most supportive day to have an open, honest conversation to restore harmony."
+        "details": "If there's tension in your household or relationship, this is the most supportive day for an open, honest conversation to restore harmony."
       },
       {
         "action": "Practice community service",
-        "details": "Give back in some small way. Help a neighbor, donate your time, or handle tasks that benefit the collective group rather than just yourself."
+        "details": "Give back in some small way. Help a neighbor, donate your time, or handle tasks that benefit the group rather than only yourself."
       }
     ],
     "avoid": [
       {
         "action": "Neglecting your own boundaries",
-        "details": "The trap of the 6 is the savior complex. Do not set yourself on fire to keep others warm. Avoid over-extending your energy to the point of exhaustion."
+        "details": "The trap of the 6 is the savior complex. Don't burn yourself out to keep others warm. Avoid overextending to the point of exhaustion."
       },
       {
         "action": "Being overly critical or perfectionist",
-        "details": "The shadow side of the 6 energy is holding people to impossible standards. Avoid nagging your partner, micromanaging your kids, or judging others for their flaws."
+        "details": "The shadow side of the 6 is holding people to impossible standards. Avoid nagging your partner, micromanaging your kids, or judging others for their flaws."
       },
       {
         "action": "Meddling in other people's business",
-        "details": "Offer help if asked, but avoid inserting yourself into drama or situations where your advice was not requested."
+        "details": "Offer help if asked, but don't insert yourself into drama or situations where your advice wasn't requested."
       },
       {
         "action": "Ignoring domestic responsibilities",
-        "details": "Do not escape your duties by staying late at the office or running away from home life. Leaving chores, bills, or family issues unresolved today will create lingering stress."
+        "details": "Don't escape your duties by staying late at the office or avoiding home. Leaving chores, bills, or family issues unresolved today creates lingering stress."
       }
     ]
   },
   {
     "day": 7,
     "title": "The Analyst and Seeker",
-    "description": "The 7 energy demands silence and internal focus. The physical and spiritual worlds intersect deeply today, but your physical vessel is more vulnerable. This is the ultimate day for intellectual and spiritual growth, not external noise.",
+    "description": "The 7 energy calls for silence and inward focus. The physical and spiritual worlds overlap today, but your body is more vulnerable. It's a day for intellectual and spiritual growth, not outside noise.",
     "do": [
       {
         "action": "Study and read",
-        "details": "Dedicate your hours to acquiring information. This is the best day of the cycle for deep research and absorbing complex concepts."
+        "details": "Spend your hours taking in information. This is the best day of the cycle for deep research and absorbing complex ideas."
       },
       {
         "action": "Take alone time",
-        "details": "Isolate yourself intentionally. Spend time in nature, analyze your current life path, and look for the deeper meaning behind recent events."
+        "details": "Choose solitude on purpose. Spend time in nature, reflect on your life path, and look for the deeper meaning in recent events."
       },
       {
         "action": "Meditate",
-        "details": "Quiet your mind and trust your inner voice. The spiritual channel is open today, making it easy to tap into genuine intuition."
+        "details": "Quiet your mind and trust your inner voice. The spiritual channel is open today, which makes it easier to reach genuine intuition."
       }
     ],
     "avoid": [
       {
         "action": "Hardcore workouts and dangerous sports",
-        "details": "Proceed with caution because the 7 energy is physically fragile. Your risk of getting hurt or injured is much higher today. Skip the extreme physical strain and completely avoid high-risk activities like skating, skiing, or racing cars."
+        "details": "Be careful: the 7 is physically fragile and your risk of injury is higher today. Skip extreme physical strain and avoid high-risk activities like skating, skiing, or racing cars."
       },
       {
         "action": "Socializing with people you do not like",
-        "details": "Protect your energy field. Avoid shallow socializing and do not force yourself to spend time with people who drain your battery."
+        "details": "Protect your energy. Avoid shallow socializing and don't force time with people who drain you."
       },
       {
         "action": "Drugs",
-        "details": "Stay completely sober. Your system is highly sensitive today, and drugs will warp the intellectual and spiritual clarity this day is meant to bring."
+        "details": "Stay sober. Your system is very sensitive today, and drugs will cloud the intellectual and spiritual clarity this day offers."
       },
       {
         "action": "Gambling",
-        "details": "Do not chase purely materialistic gains or throw money at games of chance. The 7 operates on logic and spirit, not luck."
+        "details": "Don't chase material gain or put money into games of chance. The 7 runs on logic and spirit, not luck."
       },
       {
         "action": "Forcing big external decisions",
-        "details": "Your mind needs to process data internally. Hold off on making major outward moves until the energy shifts tomorrow."
+        "details": "Your mind needs to process things internally. Hold off on major outward moves until the energy shifts tomorrow."
       }
     ]
   },
   {
     "day": 8,
     "title": "The Executive",
-    "description": "Power, business, and infinite potential. The 8 energy is the cosmic ledger. What you put out into the world financially and energetically is exactly what you get back.",
+    "description": "Power, business, and potential. The 8 works like a ledger: what you put into the world, financially and energetically, comes back to you.",
     "do": [
       {
         "action": "Make major career moves",
-        "details": "Take the lead on projects, ask for that raise, or close high-value business deals. Step fully into your authority."
+        "details": "Lead projects, ask for the raise, or close high-value deals. Step into your authority."
       },
       {
         "action": "Pay debt or invoices",
-        "details": "Balance your books. Settling your financial obligations clears your energetic pipeline, allowing wealth to flow back to you much faster."
+        "details": "Balance your books. Settling what you owe clears the way for money to come back to you faster."
       },
       {
         "action": "Focus on wealth accumulation",
-        "details": "Look at your long-term investments, scale your operations, and build your empire."
+        "details": "Review your long-term investments, scale your operations, and build toward your larger goals."
       },
       {
         "action": "Dress for success",
-        "details": "Put on your best clothes. Command respect the moment you walk into a room."
+        "details": "Wear your best clothes and walk into the room with presence."
       }
     ],
     "avoid": [
       {
         "action": "Doing anything morally wrong",
-        "details": "Karma comes back incredibly fast on an 8 day. If you lie, cheat, or manipulate, the universe will hit you twice as hard for it, even if the blowback does not land this exact day."
+        "details": "Karma returns quickly on an 8 day. If you lie, cheat, or manipulate, it comes back harder, even if the consequences don't land today."
       },
       {
         "action": "Shady deals or cutting corners",
-        "details": "Absolutely no under-the-table tactics. Keep your nose clean and act with absolute integrity."
+        "details": "No under-the-table tactics. Act with integrity."
       },
       {
         "action": "Letting fear keep you playing small",
-        "details": "Do not back down from a challenge. This is a high-power frequency, and playing chicken with your goals is a total waste of momentum."
+        "details": "Don't back down from a challenge. The 8 is a high-power energy, and hesitating on your goals wastes its momentum."
       }
     ]
   },
   {
     "day": 9,
     "title": "The Closer",
-    "description": "The cycle concludes. The 9 is the absolute energy of completion, release, and cosmic house cleaning. This day is entirely about clearing out the old to make room for the future, while acting from a place of universal compassion.",
+    "description": "The cycle concludes. The 9 is the energy of completion and release. Today is for clearing out the old to make room for what's next, and for acting with compassion toward others.",
     "do": [
       {
         "action": "End things you do not want in your life",
-        "details": "This is the premium day in the entire cycle to break bad habits, walk away from stagnant situations, or quit a dead-end job."
+        "details": "The best day in the cycle to break bad habits, leave stagnant situations, or quit a dead-end job."
       },
       {
         "action": "Cut ties with toxic relationships",
-        "details": "If a connection is draining your vitality, finalize the breakup or set permanent boundaries today."
+        "details": "If a connection is draining you, finalize the breakup or set permanent boundaries today."
       },
       {
         "action": "Donate and give back",
-        "details": "Donate money, clothes, or resources to someone or something in need. Actively do something selfless for the greater good of the world."
+        "details": "Donate money, clothes, or resources to someone or something in need. Do something selfless for the wider good."
       },
       {
         "action": "Tie up loose ends",
-        "details": "Clean out your physical space, finish overdue tasks, forgive an old enemy, and let go of lingering emotional baggage."
+        "details": "Clean out your space, finish overdue tasks, forgive an old enemy, and let go of lingering emotional baggage."
       }
     ],
     "avoid": [
       {
         "action": "Starting something new",
-        "details": "Do not launch a company, start a new job, or initiate a brand-new project. Anything started under the 9 energy will not last long because the cosmic current is pulling toward completion, not creation. Save the launches for a 1 day."
+        "details": "Don't launch a company, start a new job, or begin a new project. Anything started under the 9 won't last long, because the energy pulls toward completion, not creation. Save launches for a 1 day."
       },
       {
         "action": "Holding onto the past",
-        "details": "Avoid clinging to old grudges or fighting the natural ending of a cycle. If something or someone is leaving your life today, let them go without a struggle."
+        "details": "Avoid clinging to old grudges or fighting the natural end of a cycle. If something or someone is leaving your life today, let them go without a struggle."
       }
     ]
   }
