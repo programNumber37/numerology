@@ -13,7 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
-    <link rel="stylesheet" href="css/style.css?v=6">
+    <link rel="stylesheet" href="css/style.css?v=7">
     <link rel="stylesheet" href="css/themes.css?v=6">
 
     <!-- Scripts (Deferred) -->
@@ -35,18 +35,10 @@
 
         /* ── Top bar ── */
         .lib-topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 28px;
-            flex-shrink: 0;
-            position: relative;
+            margin-bottom: 30px;
         }
 
-        .lib-topbar-left,
         .lib-topbar-right {
-            display: flex;
-            align-items: center;
             gap: 10px;
         }
 
@@ -431,23 +423,24 @@
         /* ── Responsive ── */
         @media (max-width: 600px) {
             .lib-topbar {
-                padding: 12px 12px;
+                grid-template-columns: auto minmax(0, 1fr) auto;
+                margin-bottom: 24px;
             }
 
+            /* Title takes the space between the two button groups so the
+               shared (full-size) buttons never collide with it on narrow phones */
             .lib-page-title {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
+                position: static;
+                transform: none;
+                grid-column: 2;
+                justify-self: center;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 pointer-events: none;
                 font-size: 0.95rem;
                 margin: 0;
                 white-space: nowrap;
-            }
-
-            .lib-topbar a[href="index.html"] {
-                padding: 4px 10px !important;
-                font-size: 0.75rem !important;
-                height: 34px !important;
             }
 
             .lib-topbar-right {
@@ -531,10 +524,10 @@
 <body>
     <div class="lib-page">
 
-        <header class="lib-topbar">
-            <div class="lib-topbar-left">
+        <header class="site-topbar lib-topbar">
+            <div class="site-topbar-left">
                 <a href="index.html" class="header-title-group pill-container report-btn"
-                    style="text-decoration: none; color: var(--th-text-secondary); padding: 4px 16px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; height: 32px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 7px; background: var(--th-surface); box-shadow: 0 1px 4px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6); border-radius: 20px;">
+                    style="text-decoration: none; color: var(--th-text-secondary); padding: 4px 16px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; height: 32px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 7px;">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -594,7 +587,7 @@
                 </a>
             </div>
             <h1 class="lib-page-title">Library of Ohara</h1>
-            <div class="lib-topbar-right">
+            <div class="site-topbar-right lib-topbar-right">
                 <a href="map.html" class="lib-earth-btn earth-btn-mobile" title="Explore Interactive Europe Map" aria-label="Explore Interactive Europe Map">
                     <svg width="24" height="24" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 viewBox="0 0 511.999 511.999" xml:space="preserve">
