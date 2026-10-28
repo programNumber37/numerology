@@ -1712,8 +1712,8 @@ body {
 .energy-badge {
     font-size: 0.75rem;
     text-transform: uppercase;
-    font-weight: 700;
-    color: var(--th-text-muted);
+    font-weight: 800;
+    color: #000;
     letter-spacing: 0.5px;
 }
 
