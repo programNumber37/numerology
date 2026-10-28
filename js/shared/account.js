@@ -309,6 +309,23 @@
         return client;
     }
 
+    // Runs a Supabase query. If the stored access token has expired (e.g. the tab sat in the
+    // background and auto-refresh didn't run), refresh the session and retry once; if the
+    // refresh token is dead too, drop the stale session so the user can log in again.
+    async function query(run) {
+        let res = await run(requireClient());
+        if (res.error && /jwt expired/i.test(res.error.message || '')) {
+            const { error: refreshError } = await client.auth.refreshSession();
+            if (refreshError) {
+                await client.auth.signOut({ scope: 'local' });
+                throw new Error('Your login expired. Please log in again.');
+            }
+            res = await run(client);
+        }
+        if (res.error) throw res.error;
+        return res.data;
+    }
+
     const Account = {
         get username() { return username; },
         get configured() { return configured; },
@@ -329,25 +346,20 @@
             if (error) throw error;
         },
 
-        async listProfiles() {
-            const { data, error } = await requireClient().from(TABLE).select('id, name, birthdate').order('name', { ascending: true });
-            if (error) throw error;
-            return data;
+        listProfiles() {
+            return query(c => c.from(TABLE).select('id, name, birthdate').order('name', { ascending: true }));
         },
 
         async addProfile(name, birthdate) {
-            const { error } = await requireClient().from(TABLE).insert({ name, birthdate });
-            if (error) throw error;
+            await query(c => c.from(TABLE).insert({ name, birthdate }));
         },
 
         async renameProfile(id, name) {
-            const { error } = await requireClient().from(TABLE).update({ name }).eq('id', id);
-            if (error) throw error;
+            await query(c => c.from(TABLE).update({ name }).eq('id', id));
         },
 
         async deleteProfile(id) {
-            const { error } = await requireClient().from(TABLE).delete().eq('id', id);
-            if (error) throw error;
+            await query(c => c.from(TABLE).delete().eq('id', id));
         }
     };
     window.Account = Account;
