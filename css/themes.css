@@ -1259,15 +1259,15 @@ body {
 
 .rd-zodiac-intro {
     display: flex;
-    align-items: flex-start;
-    gap: 24px;
+    align-items: center;
+    gap: 32px;
     margin-bottom: 22px;
 }
 
 .rd-zodiac-portrait {
     flex-shrink: 0;
-    width: 190px;
-    height: 190px;
+    width: 250px;
+    height: 250px;
     border-radius: 18px;
     overflow: hidden;
     border: 1px solid var(--th-border-light);
@@ -1291,8 +1291,8 @@ body {
     }
 
     .rd-zodiac-portrait {
-        width: 170px;
-        height: 170px;
+        width: 200px;
+        height: 200px;
     }
 
     .rd-zodiac-intro__text {
