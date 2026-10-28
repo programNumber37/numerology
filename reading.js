@@ -11,6 +11,9 @@ const readingGrid = document.getElementById("readingGrid");
 const compatibilitySection = document.getElementById("compatibilitySection");
 const readingQuotes = document.getElementById("readingQuotes");
 const shareReadingBtn = document.getElementById("shareReadingBtn");
+const addToBookBtn = document.getElementById("addToBookBtn");
+const readingTitle = document.getElementById("readingTitle");
+let revealedDob = null; // birthdate of the reading currently on screen (what "Add to Book" saves)
 
 // Word Analysis Elements
 const tabBirth = document.getElementById("tabBirth");
@@ -568,6 +571,7 @@ getReadingBtn.addEventListener("click", () => {
 
     if (readingEmpty) readingEmpty.classList.add("hidden");
     readingResult.classList.remove("hidden");
+    revealedDob = dateVal;
 
     if (window.innerWidth <= 768) {
         setTimeout(() => {
@@ -922,7 +926,47 @@ document.addEventListener("DOMContentLoaded", () => {
         birthDateInput.value = dob;
         getReadingBtn.click();
     }
+    const bookName = urlParams.get('name');
+    if (bookName && dob) {
+        // Opened from the Book: title the reading with the saved name; it is already saved.
+        readingTitle.textContent = `${bookName} \u2014 Numerology Reading`;
+        if (addToBookBtn) addToBookBtn.classList.add('hidden');
+    }
 });
+
+// ============================================
+// ADD TO BOOK
+// ============================================
+if (addToBookBtn) {
+    addToBookBtn.addEventListener("click", async () => {
+        if (!revealedDob || !window.Account) return;
+        const dob = revealedDob;
+        if (!(await Account.requireLogin())) return;
+        const name = await Account.askName({
+            title: 'Add to Book',
+            desc: `Save this reading (born ${dob}) under a name.`,
+            label: 'Name'
+        });
+        if (!name) return;
+
+        const original = addToBookBtn.innerHTML;
+        addToBookBtn.disabled = true;
+        try {
+            await Account.addProfile(name, dob);
+            addToBookBtn.textContent = "Saved to Book \u2713";
+        } catch (err) {
+            console.error('Add to Book failed:', err);
+            alert("Could not save to your Book: " + (err.message || err));
+            addToBookBtn.innerHTML = original;
+            addToBookBtn.disabled = false;
+            return;
+        }
+        setTimeout(() => {
+            addToBookBtn.innerHTML = original;
+            addToBookBtn.disabled = false;
+        }, 2500);
+    });
+}
 
 if (shareReadingBtn) {
     shareReadingBtn.addEventListener("click", () => {

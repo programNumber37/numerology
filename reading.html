@@ -18,6 +18,9 @@
 
     <!-- Scripts (Deferred) -->
     <script src="theme-toggle.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="account.js" defer></script>
     <script src="cnyDates.js" defer></script>
     <script src="numerology.js" defer></script>
     <script src="readingsDatabase.js" defer></script>
@@ -313,9 +316,11 @@
             margin-bottom: 20px;
         }
 
-        .rd-results-header .rd-share-btn {
+        .rd-results-actions {
             position: absolute;
             right: 0;
+            display: flex;
+            gap: 8px;
         }
 
         .rd-results-title {
@@ -422,6 +427,18 @@
             color: var(--th-text-muted);
             margin: 0;
             text-wrap: pretty;
+        }
+
+        @media (max-width: 768px) {
+            .rd-results-actions {
+                position: static;
+                width: 100%;
+            }
+
+            .rd-results-actions .rd-share-btn {
+                flex: 1;
+                width: auto;
+            }
         }
 
         /* ── Responsive ── */
@@ -552,16 +569,26 @@
             <!-- Birth Reading Results -->
             <div id="readingResult" class="reading-result hidden">
                 <div class="rd-results-header">
-                    <h2 class="rd-results-title">Numerology Reading</h2>
-                    <button id="shareReadingBtn" class="rd-share-btn">
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                            <path d="M4 8V13C4 13.55 4.45 14 5 14H11C11.55 14 12 13.55 12 13V8" stroke="currentColor"
-                                stroke-width="1.5" stroke-linecap="round" />
-                            <path d="M8 2V10M8 2L5.5 4.5M8 2L10.5 4.5" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        Share
-                    </button>
+                    <h2 class="rd-results-title" id="readingTitle">Numerology Reading</h2>
+                    <div class="rd-results-actions">
+                        <button id="addToBookBtn" class="rd-share-btn">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M3 2.5C3 2.22 3.22 2 3.5 2H12C12.55 2 13 2.45 13 3V14L8 11.2L3 14V2.5Z" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linejoin="round" />
+                                <path d="M8 5V9M6 7H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            Add to Book
+                        </button>
+                        <button id="shareReadingBtn" class="rd-share-btn">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M4 8V13C4 13.55 4.45 14 5 14H11C11.55 14 12 13.55 12 13V8" stroke="currentColor"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                                <path d="M8 2V10M8 2L5.5 4.5M8 2L10.5 4.5" stroke="currentColor" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Share
+                        </button>
+                    </div>
                 </div>
                 <div class="rd-summary-wrapper">
                     <div class="detail-grid" id="readingGrid"></div>
