@@ -11,8 +11,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
-    <link rel="stylesheet" href="style.css?v=6">
-    <link rel="stylesheet" href="themes.css?v=6">
+    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="themes.css?v=13">
 
     <!-- Scripts (Deferred) -->
     <script src="theme-toggle.js" defer></script>
@@ -24,7 +24,7 @@
     <script src="energyDatabase.js" defer></script>
     <script src="readingsDatabase.js" defer></script>
     <script src="chineseSignDatabase.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="script.js?v=13" defer></script>
 </head>
 
 <body>
@@ -191,36 +191,34 @@
                 <h3>Legend</h3>
                 <ul class="legend-list">
                     <li>
-                        <span class="dot match-dot"></span>
-                        <strong>Search Match</strong>
-                        <small>Matches your filters</small>
-                    </li>
-                    <li>
-                        <span class="dot"
-                            style="background: #f3e5f5; border: 2px solid #ff9800; border-radius: 50%;"></span>
-                        <strong>33 Master Energy</strong>
-                        <small>LP, Day, Hidden Numbers is 33</small>
-                    </li>
-                    <li>
-                        <span class="dot"
-                            style="background: #f3e5f5; border: 2px solid #2196f3; border-radius: 50%;"></span>
-                        <strong>22 Master Energy</strong>
-                        <small>LP, Day, or Lucky is 22</small>
-                    </li>
-                    <li>
-                        <span class="dot"
-                            style="background: #f3e5f5; border: 2px solid #b0bec5; border-radius: 50%;"></span>
-                        <strong>11 Master Energy</strong>
-                        <small>LP, Day, or Lucky is 11</small>
-                    </li>
-                    <li>
-                        <span class="dot dim-dot"></span>
-                        <strong>Hidden Master</strong>
-                        <small>Hidden Numbers is Master or Day is 20</small>
-                    </li>
-                    <li>
                         <span class="dot today-dot"></span>
                         <strong>Today</strong>
+                        <small>Red border</small>
+                    </li>
+                    <li>
+                        <span class="legend-num" style="color: var(--th-num-11);">11</span>
+                        <strong>Master 11</strong>
+                        <small>Cobalt: main number or D: is 11</small>
+                    </li>
+                    <li>
+                        <span class="legend-num" style="color: var(--th-num-22);">22</span>
+                        <strong>Master 22</strong>
+                        <small>Purple: main number or D: is 22</small>
+                    </li>
+                    <li>
+                        <span class="legend-num" style="color: var(--th-num-33);">33</span>
+                        <strong>Master 33</strong>
+                        <small>Golden orange: main number is 33</small>
+                    </li>
+                    <li>
+                        <span class="dot match-dot"></span>
+                        <strong>Search Match</strong>
+                        <small>Green border: matches your filters</small>
+                    </li>
+                    <li>
+                        <span class="dot hidden-ring-dot"></span>
+                        <strong>Hidden Master</strong>
+                        <small>Tinted panel behind the main number (whole box on phones): a hidden number is 11, 22 or 33, in that number's color</small>
                     </li>
                 </ul>
                 <div class="legend-keys">

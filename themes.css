@@ -3,6 +3,15 @@
    Classic (blue/clean) | Warm (earth)
    ============================================ */
 
+/* --- Shared calendar colors (same in both themes; tweak here) --- */
+:root {
+    --th-num-11: #0A5BE0;       /* cobalt blue (brighter, leans toward true blue) */
+    --th-num-22: #A223C8;       /* purple (leans toward magenta) */
+    --th-num-33: #C47A00;       /* golden orange */
+    --th-today: #D93025;        /* today's border */
+    --th-search-match: #34A853; /* Finder search match border */
+}
+
 /* --- Theme: Classic (Apple Light) --- */
 :root,
 [data-theme="classic"] {
@@ -377,6 +386,13 @@ body {
     border-color: var(--th-cal-cell-hover-border) !important;
 }
 
+/* Hidden master energy on phones: the whole box gets a very light tint of that master's color */
+@media (max-width: 768px) {
+    .day-cell.hid-11 { background-color: color-mix(in srgb, var(--th-num-11) 14%, var(--th-soft-panel)) !important; }
+    .day-cell.hid-22 { background-color: color-mix(in srgb, var(--th-num-22) 14%, var(--th-soft-panel)) !important; }
+    .day-cell.hid-33 { background-color: color-mix(in srgb, var(--th-num-33) 14%, var(--th-soft-panel)) !important; }
+}
+
 .day-cell.selected {
     border-color: var(--th-cal-selected-border) !important;
     background-color: var(--th-cal-selected-bg) !important;
@@ -394,6 +410,12 @@ body {
     color: var(--th-text-secondary) !important;
 }
 
+/* Colored numbers: main number (.cell-lp / phone .cell-primary-day) and the D: number */
+.cell-lp.num-11, .cell-primary-day.num-11, .cell-day-num .num-11 { color: var(--th-num-11) !important; }
+.cell-lp.num-22, .cell-primary-day.num-22, .cell-day-num .num-22 { color: var(--th-num-22) !important; }
+.cell-lp.num-33, .cell-primary-day.num-33, .cell-day-num .num-33 { color: var(--th-num-33) !important; }
+.cell-day-num .num-11, .cell-day-num .num-22, .cell-day-num .num-33 { font-weight: 800; }
+
 .text-master {
     color: var(--th-master-color) !important;
 }
@@ -401,6 +423,16 @@ body {
 .text-master-33 {
     color: var(--th-master-33-color) !important;
 }
+
+/* Hidden master energy on desktop: a fully rounded back panel behind the main number, in that master's color */
+.cell-lp.hid-11, .cell-lp.hid-22, .cell-lp.hid-33 {
+    padding: 0 14px;
+    border-radius: 999px;
+    line-height: 1.15;
+}
+.cell-lp.hid-11 { background: color-mix(in srgb, var(--th-num-11) 20%, transparent); }
+.cell-lp.hid-22 { background: color-mix(in srgb, var(--th-num-22) 20%, transparent); }
+.cell-lp.hid-33 { background: color-mix(in srgb, var(--th-num-33) 20%, transparent); }
 
 .details-panel {
     background: var(--th-detail-panel-bg) !important;
@@ -453,6 +485,11 @@ body {
 .detail-item span.text-master-33 {
     color: var(--th-master-33-color) !important;
 }
+
+/* Calendar-page number colors in the details panel and the Lucky Number (11 cobalt, 22 purple, 33 golden orange) */
+.detail-item span.num-11, .hidden-energy-box span.num-11, #luckyNumDisplay.num-11 { color: var(--th-num-11) !important; }
+.detail-item span.num-22, .hidden-energy-box span.num-22, #luckyNumDisplay.num-22 { color: var(--th-num-22) !important; }
+.detail-item span.num-33, .hidden-energy-box span.num-33, #luckyNumDisplay.num-33 { color: var(--th-num-33) !important; }
 
 .detail-item small {
     color: var(--th-text-muted) !important;
@@ -1739,30 +1776,13 @@ body {
 }
 
 .day-cell.today {
-    border-color: #ff3b30 !important;
-    box-shadow: 0 0 0 4px rgba(255, 59, 48, 0.12), 0 14px 30px rgba(255, 59, 48, 0.12) !important;
-}
-
-.day-cell.master-33-cell {
-    background: rgba(255, 149, 0, 0.1) !important;
-    border-color: rgba(255, 149, 0, 0.55) !important;
-}
-
-.day-cell.master-22-cell {
-    background: rgba(0, 122, 255, 0.09) !important;
-    border-color: rgba(0, 122, 255, 0.42) !important;
-}
-
-.day-cell.master-11-cell,
-.day-cell.hidden-master-cell {
-    background: rgba(175, 82, 222, 0.08) !important;
-    border-color: rgba(175, 82, 222, 0.34) !important;
+    border-color: var(--th-today) !important;
+    box-shadow: inset 0 0 0 1px var(--th-today) !important;
 }
 
 .day-cell.search-match {
-    background: rgba(52, 199, 89, 0.1) !important;
-    border-color: rgba(52, 199, 89, 0.65) !important;
-    box-shadow: 0 0 0 4px rgba(52, 199, 89, 0.14), 0 18px 34px rgba(52, 199, 89, 0.14) !important;
+    border-color: var(--th-search-match) !important;
+    box-shadow: inset 0 0 0 1px var(--th-search-match) !important;
 }
 
 .details-header {

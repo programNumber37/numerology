@@ -340,31 +340,28 @@ body {
 }
 
 .match-dot {
-    background: #e8f5e9;
-    border: 2px solid #4caf50;
-}
-
-.orange-dot {
-    background: #fff3e0;
-    border: 2px solid #ff9800;
-    box-shadow: 0 0 6px #ff9800;
-}
-
-.glow-dot {
-    background: #f3e5f5;
-    border: 2px solid #9c27b0;
-    box-shadow: 0 0 6px #9c27b0;
-}
-
-.dim-dot {
-    background: rgba(243, 229, 245, 0.3);
-    border: 2px dashed #ce93d8;
+    background: #fff;
+    border: 2px solid var(--th-search-match, #34a853);
 }
 
 .today-dot {
     background: #fff;
-    border: 2px solid #b71c1c;
-    box-shadow: 0 0 6px rgba(183, 28, 28, 0.2);
+    border: 2px solid var(--th-today, #d93025);
+}
+
+.legend-num {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.4;
+}
+
+.hidden-ring-dot {
+    background: color-mix(in srgb, var(--th-num-22) 25%, transparent);
 }
 
 .legend-keys {
@@ -536,59 +533,27 @@ body {
 }
 
 .day-cell.today {
-    background-color: #fff !important;
-    border: 2px solid #b71c1c !important;
-    box-shadow: 0 0 10px rgba(183, 28, 28, 0.2) !important;
+    border: 1px solid var(--th-today, #d93025) !important;
+    box-shadow: inset 0 0 0 1px var(--th-today, #d93025) !important;
 }
 
 .day-cell.today .cell-date {
     color: #333 !important;
-    font-size: 1.05rem;
 }
 
 .day-cell.today .cell-lp {
-    color: #b71c1c !important;
     font-size: 2.1rem;
     /* Bigger than standard 1.8rem */
 }
 
 .day-cell.today .cell-primary-day {
-    color: #b71c1c !important;
     font-size: 2.5rem;
     /* Bigger than standard 2.2rem */
 }
 
-.day-cell.hidden-master-cell {
-    background-color: rgba(243, 229, 245, 0.3) !important;
-    box-shadow: none !important;
-}
-
-/* Themes */
-.day-cell.master-33-cell,
-.day-cell.master-22-cell,
-.day-cell.master-11-cell {
-    background-color: #f3e5f5;
-}
-
-.day-cell.master-33-cell {
-    border: 2px solid #ff9800;
-    box-shadow: 0 0 12px rgba(255, 152, 0, 0.7);
-}
-
-.day-cell.master-22-cell {
-    border: 2px solid #2196f3;
-    box-shadow: 0 0 12px rgba(33, 150, 243, 0.7);
-}
-
-.day-cell.master-11-cell {
-    border: 2px solid #b0bec5;
-    box-shadow: 0 0 12px rgba(176, 190, 197, 0.7);
-}
-
 .day-cell.search-match {
-    border: 3px solid #4caf50 !important;
-    background-color: #e8f5e9 !important;
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.6) !important;
+    border-color: var(--th-search-match, #34a853) !important;
+    box-shadow: inset 0 0 0 1px var(--th-search-match, #34a853) !important;
 }
 
 /* Inner Layout */
@@ -660,6 +625,109 @@ body {
     right: 4px;
     bottom: 7px;
     gap: 1px;
+}
+
+/* Book birthdays: chips sit bottom-right (top on phones, where the corner info is hidden) */
+.day-cell {
+    container-type: inline-size;
+}
+
+.cell-birthdays {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    left: 42px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+    min-width: 0;
+}
+
+.bday-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 1px 5px;
+    border-radius: 999px;
+    border: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.08));
+    background: var(--th-accent-bg, rgba(0, 113, 227, 0.08));
+    color: var(--th-accent, #0071e3);
+    font: 700 0.62rem/1.4 'Inter', sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.bday-chip svg {
+    flex-shrink: 0;
+}
+
+.bday-chip:hover,
+.bday-chip:focus-visible {
+    background: var(--th-accent, #0071e3);
+    color: #fff;
+    outline: none;
+}
+
+.bday-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.bday-more {
+    flex-shrink: 0;
+}
+
+/* Narrow boxes: icon only, the name is in the hover popup */
+@container (max-width: 80px) {
+    .bday-name {
+        display: none;
+    }
+}
+
+.bday-tip {
+    position: fixed;
+    z-index: 80;
+    max-width: 240px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: var(--th-surface, #fff);
+    color: var(--th-text, #333);
+    border: 1px solid var(--th-border-light, rgba(0, 0, 0, 0.08));
+    box-shadow: var(--th-card-hover-shadow, 0 8px 24px rgba(0, 0, 0, 0.15));
+    font-size: 0.82rem;
+}
+
+.bday-tip[hidden] {
+    display: none;
+}
+
+.bday-tip-name {
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.bday-tip-note {
+    margin-top: 2px;
+    font-size: 0.72rem;
+    color: var(--th-text-muted, #888);
+}
+
+.bday-tip-link {
+    display: block;
+    padding: 3px 0;
+    font-weight: 600;
+    color: var(--th-accent, #0071e3);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.bday-tip-link:hover {
+    text-decoration: underline;
 }
 
 /* --- Detailed View Panel --- */
@@ -1270,6 +1338,14 @@ body {
     .day-cell.today .cell-primary-day {
         font-size: 1.65rem !important;
         /* Slightly bigger for mobile */
+    }
+
+    .cell-birthdays {
+        top: 3px;
+        bottom: auto;
+        left: 3px;
+        right: 3px;
+        justify-content: center;
     }
 
     .legend-keys {

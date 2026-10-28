@@ -305,15 +305,10 @@ function updateDetailsPanel(dateStr, day, month, year) {
         detailsPanel.classList.add("master-theme");
     }
 
-    const getMasterClass = (num) => {
-        if (num === 33) return 'text-master-33';
-        return isMasterNumber(num) ? 'text-master' : '';
-    };
+    // Same colors as the calendar boxes: 11 cobalt, 22 purple, 33 golden orange
+    const getMasterClass = (num) => numClass(num);
 
-    const getHiddenClass = (num) => {
-        if (num === 33) return 'text-master-33';
-        return (isMasterNumber(num) || num === 20) ? 'text-master' : '';
-    };
+    const getHiddenClass = (num) => numClass(num) || (num === 20 ? 'text-master' : '');
 
     let energyReadingHTML = '';
     if (energyGuideData) {
@@ -584,6 +579,165 @@ function updateDetailsPanel(dateStr, day, month, year) {
         `;
 }
 
+// Calendar number colors (see --th-num-* in themes.css): 11 cobalt, 22 purple, 33 golden orange
+function numClass(num) {
+    return (num === 11 || num === 22 || num === 33) ? `num-${num}` : '';
+}
+
+// ==========================================
+// BOOK BIRTHDAYS ON THE CALENDAR
+// ==========================================
+let bookBirthdays = new Map(); // "month-day" -> [{ id, name, birthdate }]
+
+const BDAY_ICON = '<svg width="10" height="10" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 2.5C3 2.22 3.22 2 3.5 2H12C12.55 2 13 2.45 13 3V14L8 11.2L3 14V2.5Z" fill="currentColor"/></svg>';
+
+function isLeapYear(y) {
+    return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+}
+
+// People whose birthday falls on this calendar day. 29 Feb birthdays show on 28 Feb in non-leap years.
+function birthdaysForDay(year, month, day) {
+    const people = (bookBirthdays.get(`${month}-${day}`) || []).map(p => ({ ...p, feb29Shifted: false }));
+    if (month === 2 && day === 28 && !isLeapYear(year)) {
+        (bookBirthdays.get('2-29') || []).forEach(p => people.push({ ...p, feb29Shifted: true }));
+    }
+    return people.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function readingUrl(person) {
+    return `reading.html?dob=${encodeURIComponent(person.birthdate)}&name=${encodeURIComponent(person.name)}`;
+}
+
+// One popup shared by all chips; lives on <body> because day boxes clip their content.
+const bdayTip = document.createElement("div");
+bdayTip.className = "bday-tip";
+bdayTip.hidden = true;
+document.body.appendChild(bdayTip);
+let bdayTipTimer = null;
+
+function showBdayTip(anchor, nodes) {
+    clearTimeout(bdayTipTimer);
+    bdayTip.replaceChildren(...nodes);
+    bdayTip.hidden = false;
+    const a = anchor.getBoundingClientRect();
+    const t = bdayTip.getBoundingClientRect();
+    const above = a.top - t.height - 6 >= 8;
+    bdayTip.style.top = `${above ? a.top - t.height - 6 : a.bottom + 6}px`;
+    bdayTip.style.left = `${Math.max(8, Math.min(a.left + a.width / 2 - t.width / 2, window.innerWidth - t.width - 8))}px`;
+}
+
+function hideBdayTip(delay = 120) {
+    clearTimeout(bdayTipTimer);
+    if (delay === 0) { bdayTip.hidden = true; return; }
+    bdayTipTimer = setTimeout(() => { bdayTip.hidden = true; }, delay);
+}
+
+bdayTip.addEventListener("mouseenter", () => clearTimeout(bdayTipTimer));
+bdayTip.addEventListener("mouseleave", () => hideBdayTip());
+document.addEventListener("click", (e) => {
+    if (!bdayTip.contains(e.target) && !e.target.closest(".bday-chip")) hideBdayTip(0);
+});
+window.addEventListener("scroll", () => hideBdayTip(0), { passive: true });
+
+function tipLine(text, className) {
+    const d = document.createElement("div");
+    d.className = className || "bday-tip-name";
+    d.textContent = text;
+    return d;
+}
+
+function createPersonChip(person) {
+    const chip = document.createElement("a");
+    chip.className = "bday-chip";
+    chip.href = readingUrl(person);
+    chip.setAttribute("aria-label", `${person.name}'s birthday reading`);
+    chip.innerHTML = BDAY_ICON;
+    const name = document.createElement("span");
+    name.className = "bday-name";
+    name.textContent = person.name;
+    chip.appendChild(name);
+
+    const show = () => {
+        const nodes = [tipLine(person.name)];
+        if (person.feb29Shifted) nodes.push(tipLine("29 Feb birthday (shown on 28 Feb)", "bday-tip-note"));
+        showBdayTip(chip, nodes);
+    };
+    chip.addEventListener("mouseenter", show);
+    chip.addEventListener("focus", show);
+    chip.addEventListener("mouseleave", () => hideBdayTip());
+    chip.addEventListener("blur", () => hideBdayTip());
+    // Opening the reading must not also select the day box.
+    chip.addEventListener("click", (e) => e.stopPropagation());
+    chip.addEventListener("keydown", (e) => e.stopPropagation());
+    return chip;
+}
+
+function createMoreChip(people) {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "bday-chip bday-more";
+    chip.textContent = `+${people.length}`;
+    chip.setAttribute("aria-label", `${people.length} more birthdays`);
+
+    const show = () => {
+        const nodes = people.map(p => {
+            const link = document.createElement("a");
+            link.className = "bday-tip-link";
+            link.href = readingUrl(p);
+            link.textContent = p.feb29Shifted ? `${p.name} (29 Feb)` : p.name;
+            return link;
+        });
+        showBdayTip(chip, nodes);
+    };
+    chip.addEventListener("mouseenter", show);
+    chip.addEventListener("focus", show);
+    chip.addEventListener("mouseleave", () => hideBdayTip());
+    chip.addEventListener("blur", () => hideBdayTip(250));
+    chip.addEventListener("click", (e) => { e.stopPropagation(); show(); });
+    chip.addEventListener("keydown", (e) => e.stopPropagation());
+    return chip;
+}
+
+function renderBirthdayChips() {
+    document.querySelectorAll(".cell-birthdays").forEach(n => n.remove());
+    if (bookBirthdays.size === 0) return;
+    document.querySelectorAll(".day-cell").forEach(cell => {
+        const [y, m, d] = cell.dataset.date.split("-").map(Number);
+        const people = birthdaysForDay(y, m, d);
+        if (people.length === 0) return;
+        const wrap = document.createElement("div");
+        wrap.className = "cell-birthdays";
+        wrap.appendChild(createPersonChip(people[0]));
+        if (people.length > 1) wrap.appendChild(createMoreChip(people.slice(1)));
+        cell.appendChild(wrap);
+    });
+}
+
+async function loadBookBirthdays() {
+    const map = new Map();
+    if (window.Account && Account.configured && Account.username) {
+        try {
+            (await Account.listProfiles()).forEach(p => {
+                const [, m, d] = p.birthdate.split("-").map(Number);
+                const key = `${m}-${d}`;
+                if (!map.has(key)) map.set(key, []);
+                map.get(key).push(p);
+            });
+        } catch (err) {
+            console.warn("Could not load Book birthdays:", err);
+        }
+    }
+    bookBirthdays = map;
+    renderBirthdayChips();
+}
+
+// setTimeout: Supabase must not be called from inside its own auth-change callback.
+if (window.Account) {
+    Account.onChange(() => setTimeout(loadBookBirthdays, 0));
+    // The session may already be restored before this script registered its listener.
+    Account.ready.then(() => setTimeout(loadBookBirthdays, 0));
+}
+
 function renderCalendar(date) {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -595,9 +749,10 @@ function renderCalendar(date) {
 
     const lucky = calculateLuckyNumber(numerologyMonth, year);
     luckyNumDisplay.innerText = lucky;
-    luckyNumDisplay.className = isMasterNumber(lucky) ? (lucky === 33 ? 'text-master-33' : 'text-master') : '';
+    luckyNumDisplay.className = numClass(lucky);
 
     daysContainer.innerHTML = "";
+    hideBdayTip(0);
 
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -671,38 +826,17 @@ function renderCalendar(date) {
         // If more than 2 emojis, add the small-emojis class
         const emojiClass = emojiArray.length > 2 ? "cell-emoji small-emojis" : "cell-emoji";
 
-        let highestMaster = 0;
-        [lp.final, dayNum, luckyVal, hidden.raw, hidden.visual, hidden.dm.final, hidden.my.final, hidden.dmy.final].forEach(num => {
-            if (num === 33 && highestMaster < 33) highestMaster = 33;
-            else if (num === 22 && highestMaster < 22) highestMaster = 22;
-            else if ((num === 11 || num === 20) && highestMaster < 11) highestMaster = 11;
-        });
-        if (day === 20 && highestMaster < 11) highestMaster = 11;
-
-        if (highestMaster === 33) {
-            dayCell.classList.add("master-33-cell");
-        } else if (highestMaster === 22) {
-            dayCell.classList.add("master-22-cell");
-        } else if (highestMaster === 11) {
-            dayCell.classList.add("master-11-cell");
-        }
-
-        const isMainMaster = isMasterNumber(lp.final) || isMasterNumber(dayNum) || isMasterNumber(luckyVal);
-        if (highestMaster > 0 && !isMainMaster) {
-            dayCell.classList.add("hidden-master-cell");
-        }
-
-        const getMasterClass = (num) => {
-            if (num === 33) return 'text-master-33';
-            return isMasterNumber(num) ? 'text-master' : '';
-        };
-
+        // Hidden-number master energy (11/22/33 among the hidden numbers): tinted panel/box in that master's color
+        const hiddenValues = [hidden.raw, hidden.visual, hidden.dm.final, hidden.my.final, hidden.dmy.final];
+        const hiddenMaster = [33, 22, 11].find(n => hiddenValues.includes(n));
+        const hiddenMasterClass = hiddenMaster ? `hid-${hiddenMaster}` : '';
+        if (hiddenMaster) dayCell.classList.add(hiddenMasterClass);
         dayCell.innerHTML = `
             ${emojiArray.length > 0 ? `<div class="${emojiClass}">${dayEmojis}</div>` : ''}
             <div class="cell-date">${displayDate}</div>
-            <div class="cell-lp ${getMasterClass(lp.final)}">${lp.final}</div>
-            <div class="cell-primary-day">${day}</div>
-            <div class="cell-day-num">D: <span class="${getMasterClass(dayNum)}">${dayNum}</span></div>
+            <div class="cell-lp ${numClass(lp.final)} ${hiddenMasterClass}">${lp.final}</div>
+            <div class="cell-primary-day ${numClass(lp.final)}">${day}</div>
+            <div class="cell-day-num">D: <span class="${numClass(dayNum)}">${dayNum}</span></div>
         `;
 
         dayCell.addEventListener("click", () => selectDay(dayCell, dateString, day, numerologyMonth, year));
@@ -712,14 +846,16 @@ function renderCalendar(date) {
 
         daysContainer.appendChild(dayCell);
     }
+    renderBirthdayChips();
 }
 
-function selectDay(cell, dateStr, day, month, year) {
+function selectDay(cell, dateStr, day, month, year, initialLoad = false) {
     document.querySelectorAll(".day-cell.selected").forEach(el => el.classList.remove("selected"));
     cell.classList.add("selected");
-    cell.focus();
+    cell.focus({ preventScroll: initialLoad });
     updateDetailsPanel(dateStr, day, month, year);
-    if (window.innerWidth <= 768) {
+    // On first load don't yank a phone user down to the details panel.
+    if (!initialLoad && window.innerWidth <= 768) {
         setTimeout(() => {
             detailsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 50);
@@ -1224,3 +1360,12 @@ document.getElementById("closeDetails").addEventListener("click", () => {
 });
 
 renderCalendar(currentDate);
+
+// Page load only: open today's details as if the user had clicked it.
+{
+    const todayCell = document.querySelector(".day-cell.today");
+    if (todayCell) {
+        const [y, m, d] = todayCell.dataset.date.split("-").map(Number);
+        selectDay(todayCell, todayCell.dataset.date, d, m, y, true);
+    }
+}
