@@ -3,7 +3,7 @@
 // ==========================================
 let energyGuideData = typeof energyGuideDataDefault !== 'undefined' ? energyGuideDataDefault : null;
 
-fetch("Number energy.json")
+fetch("data/number-energy.json")
     .then(response => response.json())
     .then(data => {
         energyGuideData = data.numerology_energy_guide;
@@ -52,7 +52,7 @@ const planetMap = {
     9: "Mars"
 };
 
-fetch("number compability.json")
+fetch("data/number-compatibility.json")
     .then(response => response.json())
     .then(data => {
         compatibilityData = data;
@@ -508,7 +508,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
                             return `
                                 <div style="display: flex; align-items: center; gap: 14px; min-width: 0;">
                                     <div style="width: 64px; height: 64px; flex-shrink: 0; border-radius: 12px; background: var(--th-surface-hover, rgba(0,0,0,0.05)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 3px;">
-                                        <img src="zodiac/${animalName}.png" alt="${animalName}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+                                        <img src="assets/images/zodiac/${animalName}.png" alt="${animalName}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
                                     </div>
                                     <div class="item-content" style="min-width: 0;">
                                         <strong>Chinese Zodiac</strong> 
@@ -556,7 +556,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
             }
 
             const imageBoxHtml = `<div style="width:100%; max-height:280px; background:var(--th-surface-hover, rgba(0,0,0,0.04)); border-radius:12px; margin: 10px 0 18px 0; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
-                                      <img src="zodiac/${animalName.toLowerCase()}.png" alt="${animalName}" style="max-height:250px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                                      <img src="assets/images/zodiac/${animalName.toLowerCase()}.png" alt="${animalName}" style="max-height:250px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                                   </div>`;
 
             if (yearEnergy) {

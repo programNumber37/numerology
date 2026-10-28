@@ -99,7 +99,7 @@ class EuropeMapEngine {
 
     async loadMapData() {
         try {
-            const res = await fetch('foundingDates.json');
+            const res = await fetch('data/founding-dates.json');
             this.foundingDates = await res.json();
         } catch (e) {
             console.warn("Could not load founding dates", e);
@@ -107,7 +107,7 @@ class EuropeMapEngine {
         }
 
         try {
-            const res = await fetch('flags/flag-icons-main/country.json');
+            const res = await fetch('vendor/flag-icons/country.json');
             const arr = await res.json();
             this.countryToCode = {};
             for (let c of arr) {
@@ -580,12 +580,12 @@ class EuropeMapEngine {
             // Handle some common topojson vs country.json mismatches
             const code = this.countryToCode[searchName];
             if (code) {
-                flagHTML = `<img src="flags/flag-icons-main/flags/4x3/${code}.svg" style="width: 56px; height: auto; border-radius: 4px;">`;
+                flagHTML = `<img src="vendor/flag-icons/flags/4x3/${code}.svg" style="width: 56px; height: auto; border-radius: 4px;">`;
             } else {
                 // Try fuzzy search if exact match fails
                 const fuzzyCode = Object.keys(this.countryToCode).find(k => k.includes(searchName) || searchName.includes(k));
                 if (fuzzyCode) {
-                    flagHTML = `<img src="flags/flag-icons-main/flags/4x3/${this.countryToCode[fuzzyCode]}.svg" style="width: 56px; height: auto; border-radius: 4px;">`;
+                    flagHTML = `<img src="vendor/flag-icons/flags/4x3/${this.countryToCode[fuzzyCode]}.svg" style="width: 56px; height: auto; border-radius: 4px;">`;
                 }
             }
         }

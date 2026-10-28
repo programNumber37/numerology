@@ -415,7 +415,7 @@ Pythagoras was considered a master mathematician. Born in Greece in the 6th cent
 It was said that Pythagoras taught in secret. That each student, selected with care, had to go through a five-year period of perfect silence for the purpose of contemplation to develop a deep sense of faith. Furthermore, his students had to commit his teachings to memory, for it was forbidden to put any of it in writing. It was only after his death, around the year 500 B.C., that his faithful followers broke with this tradition.
 
 Pythagorean, or "Modern Numerology," as it’s often called, is used in the majority of cases. This system is very popular because it’s easier to learn how to translate letters into numbers, and to master their meanings. The name, when analyzed under this system, gives a psychological bent to what motivates you, what you best express naturally, as well as the impression you’re likely to make on others. Thus, this method defines the natural talents, abilities, and tools that you were given at birth. This is why using the full name at birth is very important under this system.`,
-        previewImage: "pythagoras/pythagoras_face.jpg",
-        expandedImage: "pythagoras/pythagoras_triangle.jpg"
+        previewImage: "assets/images/pythagoras/pythagoras_face.jpg",
+        expandedImage: "assets/images/pythagoras/pythagoras_triangle.jpg"
     }
 };

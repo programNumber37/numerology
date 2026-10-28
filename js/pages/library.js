@@ -595,42 +595,42 @@ function populateNumerology() {
             title: "Numbers and You",
             author: "Lloyd Strayhorn",
             year: "1980",
-            cover: "books/numbers_and_you.jpg",
+            cover: "assets/images/books/numbers_and_you.jpg",
             usage: "Core Numbers (Love, Failure, Children, Work for numbers 1–9), Fadic System Terminology, and Gematria (First Name Clues, Family Traits, Destiny Numbers)."
         },
         {
             title: "Cheiro's Book of Numbers",
             author: "Cheiro (Count Louis Hamon)",
             year: "1926",
-            cover: "books/cheiro_book_of_numbers.jpg",
+            cover: "assets/images/books/cheiro_book_of_numbers.jpg",
             usage: "Core Numbers (Planetary associations, ruling numbers 1–9, lucky colors, lucky stones, personality symbolisms)."
         },
         {
             title: "Numerology Made Plain",
             author: "Ariel Yvon Taylor",
             year: "1926",
-            cover: "books/numerology_made_plain.jpg",
+            cover: "assets/images/books/numerology_made_plain.jpg",
             usage: "Core Numbers (Positive, Reverse, and Negative vibrations for numbers 1–9)."
         },
         {
             title: "The Power of Birthdays, Stars & Numbers",
             author: "Saffi Crawford & Geraldine Sullivan",
             year: "1998",
-            cover: "books/power_of_birthdays.jpg",
+            cover: "assets/images/books/power_of_birthdays.jpg",
             usage: "Core Numbers, Day Numbers (Birthdays), and Personal Years readings."
         },
         {
             title: "The 9 Seasons of Success",
             author: "Pauline Edward",
             year: "2008",
-            cover: "books/seasons_of_success.png",
+            cover: "assets/images/books/seasons_of_success.png",
             usage: "Personal Years and 9-year cycle breakdowns."
         },
         {
             title: "Cat and Rat: The Legend of the Chinese Zodiac",
             author: "Ed Young",
             year: "1995",
-            cover: "books/cat_and_rat.jpg",
+            cover: "assets/images/books/cat_and_rat.jpg",
             usage: "Chinese Astrology (Origins of the Zodiac & The Legend of the Great Race story)."
         }
     ];
@@ -689,7 +689,7 @@ function populateChineseAstrology() {
             <div class="lib-entry-header" onclick="toggleEntry(this)">
                 <div class="lib-entry-left">
                     <div class="lib-entry-num" style="padding: 2px; overflow: hidden; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.1); background: var(--th-surface-hover);">
-                        <img src="zodiac/Chinese_Zodiacwheel.png" alt="THE ZODIAC RACE" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                        <img src="assets/images/zodiac/Chinese_Zodiacwheel.png" alt="THE ZODIAC RACE" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
                     </div>
                     <div>
                         <p class="lib-entry-title">THE ZODIAC RACE</p>
@@ -699,7 +699,7 @@ function populateChineseAstrology() {
             </div>
             <div class="lib-entry-body">
                 <div style="width:100%; max-height:360px; background:var(--th-surface-hover); border-radius:12px; margin-bottom:22px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
-                    <img src="zodiac/Chinese_Zodiacwheel.png" alt="THE ZODIAC RACE" style="max-height:320px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="assets/images/zodiac/Chinese_Zodiacwheel.png" alt="THE ZODIAC RACE" style="max-height:320px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                 </div>
                 ${historyContentHtml}
             </div>
@@ -767,7 +767,7 @@ function populateChineseAstrology() {
                     <div class="lib-entry-header" onclick="toggleEntry(this)">
                         <div class="lib-entry-left">
                             <div class="lib-entry-num" style="padding: 2px; overflow: hidden; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.1); background: var(--th-surface-hover);">
-                                <img src="zodiac/${sign.toLowerCase()}.png" alt="${sign}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                                <img src="assets/images/zodiac/${sign.toLowerCase()}.png" alt="${sign}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
                             </div>
                             <div>
                                 <p class="lib-entry-title">${sign}</p>
@@ -777,7 +777,7 @@ function populateChineseAstrology() {
                     </div>
                     <div class="lib-entry-body">
                         <div style="width:100%; max-height:260px; background:var(--th-surface-hover); border-radius:12px; margin-bottom:18px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
-                            <img src="zodiac/${sign.toLowerCase()}.png" alt="${sign}" style="max-height:224px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                            <img src="assets/images/zodiac/${sign.toLowerCase()}.png" alt="${sign}" style="max-height:224px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                         </div>
                         <div style="margin-bottom:20px; font-size:0.9em; opacity:0.9; line-height:1.6;">
                             ${data.stats}

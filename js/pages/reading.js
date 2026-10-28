@@ -476,7 +476,7 @@ getReadingBtn.addEventListener("click", () => {
                 <div class="rd-card__header">
                     <div class="rd-card__header-left" style="display: flex; align-items: flex-start; gap: 14px;">
                         <div style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; background: var(--th-surface-hover, rgba(0,0,0,0.05)); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 2px;">
-                            <img src="zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
+                            <img src="assets/images/zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">
                         </div>
                         <div>
                             <h4 class="rd-card__title" style="margin: 0 0 4px 0;">${czAnimal} Sign Reading</h4>
@@ -487,7 +487,7 @@ getReadingBtn.addEventListener("click", () => {
                 </div>
                 <div class="rd-card__body">
                     <div style="width:100%; max-height:240px; background:var(--th-surface-hover, rgba(0,0,0,0.05)); border-radius:12px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; padding:16px; border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
-                        <img src="zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="max-height:208px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                        <img src="assets/images/zodiac/${czAnimal.toLowerCase()}.png" alt="${czAnimal}" style="max-height:208px; width:auto; max-width:100%; object-fit:contain; border-radius:8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
                     </div>
                     <h5 class="rd-section-title">Sign Details</h5>
                     <p class="rd-section-text">${czData.stats}</p>
@@ -910,7 +910,7 @@ nameInput.addEventListener('keydown', (e) => {
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
     // Fetch compatibility JSON dynamically
-    fetch("number compability.json")
+    fetch("data/number-compatibility.json")
         .then(response => response.json())
         .then(data => {
             compatibilityData = data;

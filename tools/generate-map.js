@@ -7,7 +7,7 @@ const topojson = require('topojson-client');
 const window = {};
 
 // Load EUROPE_DATA
-const dbCode = fs.readFileSync('mapDatabase.js', 'utf8').replace('const EUROPE_DATA', 'global.EUROPE_DATA');
+const dbCode = fs.readFileSync('js/data/map-database.js', 'utf8').replace('const EUROPE_DATA', 'global.EUROPE_DATA');
 eval(dbCode);
 
 https.get('https://unpkg.com/world-atlas@2.0.2/countries-50m.json', (res) => {
@@ -51,7 +51,7 @@ https.get('https://unpkg.com/world-atlas@2.0.2/countries-50m.json', (res) => {
             svgContent += `<path id="country-${idCode}" class="country-path has-data" d="${dStr}" data-code="${dataCode}" data-name="${name}" data-bounds="${dx},${dy},${x},${y}"></path>\n`;
         });
 
-        fs.writeFileSync('map_paths.html', svgContent);
-        console.log(`Generated SVG size: ${fs.statSync('map_paths.html').size / 1024} KB`);
+        fs.writeFileSync('tools/map-paths-source.html', svgContent);
+        console.log(`Generated SVG size: ${fs.statSync('tools/map-paths-source.html').size / 1024} KB`);
     });
 });
