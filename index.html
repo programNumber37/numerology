@@ -11,20 +11,20 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="genetic-data-svgrepo-com.svg">
-    <link rel="stylesheet" href="css/style.css?v=14">
+    <link rel="stylesheet" href="css/style.css?v=19">
     <link rel="stylesheet" href="css/themes.css?v=13">
 
     <!-- Scripts (Deferred) -->
     <script src="js/shared/theme-toggle.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script src="js/shared/supabase-config.js" defer></script>
-    <script src="js/shared/account.js" defer></script>
+    <script src="js/shared/account.js?v=2" defer></script>
     <script src="js/data/cny-dates.js" defer></script>
-    <script src="js/shared/numerology.js" defer></script>
+    <script src="js/shared/numerology.js?v=3" defer></script>
     <script src="js/data/energy-database.js" defer></script>
     <script src="js/data/readings-database.js" defer></script>
     <script src="js/data/chinese-sign-database.js" defer></script>
-    <script src="js/pages/calendar.js?v=14" defer></script>
+    <script src="js/pages/calendar.js?v=17" defer></script>
 </head>
 
 <body>
@@ -65,7 +65,7 @@
                     style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f0f2f5; margin-bottom: 15px; padding-bottom: 5px;">
                     <div id="finderToggle"
                         style="display: flex; align-items: center; cursor: pointer; user-select: none;">
-                        <h3 style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">Finder</h3>
+                        <h3 style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">FIND NUMBERS</h3>
                         <span id="finderChevron"
                             style="margin-left: 8px; font-size: 0.8rem; transition: transform 0.3s;">▼</span>
                     </div>
@@ -98,9 +98,6 @@
                     </div>
                 </div>
 
-                <p class="panel-desc">Search for single digits (1-9), Master numbers (11, 22), full sums (e.g., 31), or
-                    any general energy.</p>
-
                 <div class="search-group">
                     <label for="searchLP">Life Path Number</label>
                     <input type="number" id="searchLP" placeholder="e.g. 11 or 37">
@@ -117,8 +114,8 @@
                 </div>
 
                 <div class="btn-group">
-                    <button id="showListBtn" class="btn-primary-small">Show Matches</button>
-                    <button id="clearSearch" class="btn-secondary">Clear</button>
+                    <button id="showListBtn" class="header-title-group pill-container report-btn finder-btn">Show Matches</button>
+                    <button id="clearSearch" class="header-title-group pill-container report-btn finder-btn">Clear</button>
                 </div>
             </div>
 
@@ -163,7 +160,7 @@
                         </button>
                     </div>
                     <div id="headerLucky" class="header-lucky">
-                        <span>Ω Lucky Number:</span> <strong id="luckyNumDisplay">-</strong>
+                        <span>Ω</span> <strong id="luckyNumDisplay">-</strong>
                     </div>
                 </div>
 
@@ -192,32 +189,26 @@
                     <li>
                         <span class="dot today-dot"></span>
                         <strong>Today</strong>
-                        <small>Red border</small>
                     </li>
                     <li>
+                        <span class="dot legend-oval legend-oval-11"></span>
                         <span class="legend-num" style="color: var(--th-num-11);">11</span>
-                        <strong>Master 11</strong>
-                        <small>Cobalt: main number or D: is 11</small>
                     </li>
                     <li>
+                        <span class="dot legend-oval legend-oval-22"></span>
                         <span class="legend-num" style="color: var(--th-num-22);">22</span>
-                        <strong>Master 22</strong>
-                        <small>Purple: main number or D: is 22</small>
                     </li>
                     <li>
+                        <span class="dot legend-oval legend-oval-33"></span>
                         <span class="legend-num" style="color: var(--th-num-33);">33</span>
-                        <strong>Master 33</strong>
-                        <small>Golden orange: main number is 33</small>
                     </li>
                     <li>
                         <span class="dot match-dot"></span>
                         <strong>Search Match</strong>
-                        <small>Green border: matches your filters</small>
                     </li>
                     <li>
-                        <span class="dot hidden-ring-dot"></span>
-                        <strong>Hidden Master</strong>
-                        <small>Tinted panel behind the main number (whole box on phones): a hidden number is 11, 22 or 33, in that number's color</small>
+                        <span class="dot legend-oval hidden-ring-dot"></span>
+                        <strong>Hidden Master Number</strong>
                     </li>
                 </ul>
                 <div class="legend-keys">

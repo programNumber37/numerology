@@ -102,3 +102,53 @@ function getChineseZodiac(year, month, day) {
 
     return `${element} ${animal}`;
 }
+
+// ==========================================
+// PERSONAL DAY ENERGY (day numbers vs. the user's own numbers)
+// ==========================================
+
+// Tuning knobs. Four pairings, each scored friendly +1 / neutral 0 / enemy -1, times its weight.
+// Max total = 3 + 1 + 1 + 1 = 6, so the total ranges from -6 to +6 (keep the weights summing to 6
+// or retune PERSONAL_LEVELS below).
+const PERSONAL_RELATION_POINTS = { friendly: 1, neutral: 0, enemy: -1 };
+const PERSONAL_WEIGHT_LP = 3;     // day life path <-> user life path (the most important pairing)
+const PERSONAL_WEIGHT_DAY = 1;    // day number <-> user day number
+const PERSONAL_WEIGHT_CROSS = 1;  // life path <-> day number, both ways
+// Highest first: the first level whose `min` is <= total wins.
+const PERSONAL_LEVELS = [
+    { min: 4, key: 'very-good', label: 'Very good' },
+    { min: 2, key: 'good', label: 'Good' },
+    { min: -1, key: 'neutral', label: 'Neutral' },
+    { min: -3, key: 'challenging', label: 'Challenging' },
+    { min: -Infinity, key: 'very-challenging', label: 'Very challenging' }
+];
+
+// How `from` regards `to`, per the compatibility table (rows: { number, friendly, neutral, enemy }).
+// The table has a row for every number 1-9, 11, 22 and 33 (2 mirrors 11, since 11 reduces to 2).
+// A pair that no row lists has no data and counts as neutral.
+function getNumberRelation(compatibility, from, to) {
+    const row = compatibility.find(r => r.number === from);
+    if (!row) return 'neutral';
+    if (row.friendly && row.friendly.includes(to)) return 'friendly';
+    if (row.enemy && row.enemy.includes(to)) return 'enemy';
+    return 'neutral';
+}
+
+// dayLP / dayNum: the calendar day's life path and day number; userLP / userDay: the user's own.
+// Returns { total, level: { key, label }, pairs: [{ dayKind, dayNumber, userKind, userNumber, relation, weight, points }] }.
+// The day's number is the `from` side of each lookup; the table is not perfectly symmetric.
+function scorePersonalDay(dayLP, dayNum, userLP, userDay, compatibility) {
+    const defs = [
+        ['lp', dayLP, 'lp', userLP, PERSONAL_WEIGHT_LP],
+        ['day', dayNum, 'day', userDay, PERSONAL_WEIGHT_DAY],
+        ['lp', dayLP, 'day', userDay, PERSONAL_WEIGHT_CROSS],
+        ['day', dayNum, 'lp', userLP, PERSONAL_WEIGHT_CROSS]
+    ];
+    const pairs = defs.map(([dayKind, dayNumber, userKind, userNumber, weight]) => {
+        const relation = getNumberRelation(compatibility, dayNumber, userNumber);
+        return { dayKind, dayNumber, userKind, userNumber, relation, weight, points: PERSONAL_RELATION_POINTS[relation] * weight };
+    });
+    const total = pairs.reduce((sum, p) => sum + p.points, 0);
+    const { key, label } = PERSONAL_LEVELS.find(l => total >= l.min);
+    return { total, level: { key, label }, pairs };
+}

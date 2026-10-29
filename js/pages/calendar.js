@@ -7,11 +7,13 @@ fetch("data/number-energy.json")
     .then(response => response.json())
     .then(data => {
         energyGuideData = data.numerology_energy_guide;
+        rerenderDetailsPanel();
     })
     .catch(err => {
         console.warn("Failed to fetch Number energy.json, using fallback database:", err);
         if (typeof energyGuideDataDefault !== 'undefined') {
             energyGuideData = energyGuideDataDefault;
+            rerenderDetailsPanel();
         }
     });
 
@@ -56,13 +58,17 @@ fetch("data/number-compatibility.json")
     .then(response => response.json())
     .then(data => {
         compatibilityData = data;
+        rerenderDetailsPanel();
     })
     .catch(err => {
         console.warn("Failed to fetch number compatibility.json, using fallback database:", err);
         compatibilityData = COMPATIBILITY_FALLBACK;
+        rerenderDetailsPanel();
     });
 
+// The compatibility table has its own rows for the master numbers, so they are not reduced.
 function getCompatibilityNumber(num) {
+    if (isMasterNumber(num)) return num;
     let current = num;
     while (current > 9) {
         current = String(current).split('').reduce((acc, curr) => acc + parseInt(curr), 0);
@@ -71,9 +77,7 @@ function getCompatibilityNumber(num) {
 }
 
 function renderCompatibilityCard(typeLabel, originalNum, accentClass) {
-    if (!compatibilityData) {
-        compatibilityData = COMPATIBILITY_FALLBACK;
-    }
+    if (!compatibilityData) return ''; // still loading: the panel is re-rendered when the data arrives
     const reducedNum = getCompatibilityNumber(originalNum);
     const profile = compatibilityData.find(item => item.number === reducedNum) ||
         COMPATIBILITY_FALLBACK.find(item => item.number === reducedNum);
@@ -125,9 +129,7 @@ function renderCompatibilityCard(typeLabel, originalNum, accentClass) {
 }
 
 function renderCombinedCompatibilityCard(num1, num1Label, num2, num2Label) {
-    if (!compatibilityData) {
-        compatibilityData = COMPATIBILITY_FALLBACK;
-    }
+    if (!compatibilityData) return ''; // still loading: the panel is re-rendered when the data arrives
     const red1 = getCompatibilityNumber(num1);
     const red2 = getCompatibilityNumber(num2);
 
@@ -260,8 +262,82 @@ let lastSearchedFutureDate = null;
 // 3. UI FUNCTIONS
 // ==========================================
 
+// "Your energy today" card at the top of the day detail: how the open day's numbers sit with the
+// logged-in user's own life path / day number (see scorePersonalDay in numerology.js).
+let lastDetailNumbers = null; // { lp, dayNum } of the day open in the details panel
+let lastDetailArgs = null;    // arguments of the last updateDetailsPanel call
+const PERSONAL_RELATION_WORDS = { friendly: 'good', neutral: 'neutral', enemy: 'bad' };
+
+// The day detail can be drawn before the JSON data files arrive (e.g. right after a page refresh).
+// Redraw the open day once they have, so nothing is computed from missing or fallback data.
+function rerenderDetailsPanel() {
+    if (lastDetailArgs && !detailsPanel.classList.contains("hidden")) updateDetailsPanel(...lastDetailArgs);
+}
+
+function personalEnergyHTML(dayLP, dayNum, open = false) {
+    const card = (inner) => `<div id="personalEnergySlot"><div class="energy-card personal-energy-card">
+        <div class="energy-header"><span class="energy-badge">Your energy today</span></div>${inner}</div></div>`;
+
+    const loggedIn = !!(window.Account && Account.username);
+    if (!loggedIn) {
+        const button = window.Account && Account.configured
+            ? '<button type="button" class="pe-btn" data-pe-action="login">Log in</button>' : '';
+        return card(`<p class="pe-prompt">Log in to see how this day\u2019s energy fits you personally.</p>${button}`);
+    }
+    const parsed = Account.birthday && Account.parseBirthday(Account.birthday);
+    if (!parsed) {
+        return card(`<p class="pe-prompt">Add your birthday to see how this day\u2019s energy fits you personally.</p>
+            <button type="button" class="pe-btn" data-pe-action="birthday">Add my birthday</button>`);
+    }
+
+    const userLP = calculateLifePath(parsed.day, parsed.month, parsed.year).final;
+    const userDay = calculateDayNumber(parsed.day);
+    if (!compatibilityData) return card('<p class="pe-prompt">Calculating\u2026</p>');
+    const result = scorePersonalDay(dayLP, dayNum, userLP, userDay, compatibilityData);
+    const kindName = { lp: 'Life Path', day: 'Day Number' };
+    const ball = (n, rel, tip) => `<span class="rd-number-badge rd-number-badge--${rel}" title="${tip}">${n}</span>`;
+    const rows = result.pairs.map(p => {
+        const tip = `Day ${kindName[p.dayKind]} ${p.dayNumber} \u00d7 your ${kindName[p.userKind]} ${p.userNumber}: ${PERSONAL_RELATION_WORDS[p.relation]}`;
+        return `
+        <tr>
+            <td><div class="pe-cell">${ball(p.dayNumber, p.relation, tip)}<span class="pe-kind">${kindName[p.dayKind]}</span></div></td>
+            <td><div class="pe-cell">${ball(p.userNumber, p.relation, tip)}<span class="pe-kind">${kindName[p.userKind]}</span></div></td>
+            <td><span class="pe-rel pe-rel--${p.relation}">${PERSONAL_RELATION_WORDS[p.relation]}</span></td>
+        </tr>`;
+    }).join('');
+    return `<div id="personalEnergySlot"><div class="energy-card personal-energy-card">
+        <details class="pe-details"${open ? ' open' : ''}>
+            <summary class="pe-summary">
+                <span class="pe-summary-text">
+                    <span class="energy-badge">Your energy today</span>
+                    <span class="pe-level pe-level--${result.level.key}">${result.level.label}</span>
+                </span>
+                <span class="pe-chevron" aria-hidden="true">\u25bc</span>
+            </summary>
+            <table class="pe-table">
+                <thead><tr><th>The day</th><th>You</th><th>Match</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </details></div></div>`;
+}
+
+function refreshPersonalEnergy() {
+    const slot = document.getElementById('personalEnergySlot');
+    if (!slot || !lastDetailNumbers) return;
+    const details = slot.querySelector('.pe-details');
+    slot.outerHTML = personalEnergyHTML(lastDetailNumbers.lp, lastDetailNumbers.dayNum, !!(details && details.open));
+}
+
+detailsContent.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-pe-action]');
+    if (!btn) return;
+    if (btn.dataset.peAction === 'login') Account.openAuth('login');
+    else Account.askBirthday();
+});
+
 function updateDetailsPanel(dateStr, day, month, year) {
     detailsPanel.classList.remove("hidden");
+    lastDetailArgs = [dateStr, day, month, year];
 
     const dateObj = new Date(dateStr);
 
@@ -276,6 +352,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
     const yearReducer = calculateYearReducer(year);
     const hidden = calculateHiddenSum(day, month, year);
     const luckyVal = calculateLuckyNumber(month, year);
+    lastDetailNumbers = { lp: lp.final, dayNum };
 
     const allEnergiesForEmojis = [
         day, dayNum, lp.base, lp.final,
@@ -410,6 +487,7 @@ function updateDetailsPanel(dateStr, day, month, year) {
         `;
 
     detailsContent.innerHTML = `
+            ${personalEnergyHTML(lp.final, dayNum)}
             <div class="detail-grid">
                 <div class="detail-item full-width" onclick="this.classList.toggle('expanded')">
                     <div class="item-header">
@@ -731,9 +809,9 @@ async function loadBookBirthdays() {
 
 // setTimeout: Supabase must not be called from inside its own auth-change callback.
 if (window.Account) {
-    Account.onChange(() => setTimeout(loadBookBirthdays, 0));
+    Account.onChange(() => { setTimeout(loadBookBirthdays, 0); refreshPersonalEnergy(); });
     // The session may already be restored before this script registered its listener.
-    Account.ready.then(() => setTimeout(loadBookBirthdays, 0));
+    Account.ready.then(() => { setTimeout(loadBookBirthdays, 0); refreshPersonalEnergy(); });
 }
 
 function renderCalendar(date) {

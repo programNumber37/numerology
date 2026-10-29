@@ -16,6 +16,7 @@
     const client = configured ? window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY) : null;
 
     let username = null;
+    let birthday = null; // the user's own birthday, 'YYYY-MM-DD' (auth user_metadata, not the book table)
     const changeListeners = [];
 
     // ---------- tiny DOM helper ----------
@@ -248,6 +249,60 @@
         });
     }
 
+    // ---------- own birthday ----------
+    // 'YYYY-MM-DD' -> { year, month, day } if it is a real calendar date that is not in the future, else null.
+    function parseBirthday(value) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || ''));
+        if (!m) return null;
+        const year = +m[1], month = +m[2], day = +m[3];
+        if (year < 1) return null;
+        const d = new Date(Date.UTC(year, month - 1, day));
+        d.setUTCFullYear(year); // Date.UTC maps years 0-99 to 1900-1999
+        if (d.getUTCFullYear() !== year || d.getUTCMonth() !== month - 1 || d.getUTCDate() !== day) return null;
+        if (d.getTime() > Date.now()) return null;
+        return { year, month, day };
+    }
+
+    // Resolves with the saved 'YYYY-MM-DD', or null if cancelled.
+    function askBirthday() {
+        return new Promise((resolve) => {
+            let result = null;
+            const now = new Date();
+            const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            const input = el('input', { class: 'acct-input', id: 'acctBirthday', type: 'date', max: today, autocomplete: 'bday' });
+            input.value = birthday || '';
+            const error = el('p', { class: 'acct-error', role: 'alert' });
+            const cancel = el('button', { class: 'acct-secondary', type: 'button', text: 'Cancel' });
+            const save = el('button', { class: 'acct-primary', type: 'submit', text: 'Save' });
+            const form = el('form', { novalidate: '' },
+                el('div', { class: 'acct-field' }, el('label', { for: 'acctBirthday', text: 'Date of birth' }), input),
+                error,
+                el('div', { class: 'acct-actions' }, cancel, save));
+            const card = el('div', { class: 'acct-card', 'aria-labelledby': 'acctBirthdayTitle' },
+                el('h2', { class: 'acct-title', id: 'acctBirthdayTitle', text: 'Your birthday' }),
+                el('p', { class: 'acct-desc', text: 'Used to show how each day\u2019s energy fits you in the calendar. Separate from the birthdays in your Book.' }),
+                form);
+            const modal = openModal(card);
+            modal.onclose = () => resolve(result);
+            cancel.addEventListener('click', () => modal.close());
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!parseBirthday(input.value)) { error.textContent = 'Please enter a real date that is not in the future.'; return; }
+                save.disabled = true;
+                error.textContent = '';
+                try {
+                    await Account.setBirthday(input.value);
+                    result = input.value;
+                    modal.close();
+                } catch (err) {
+                    error.textContent = String(err && err.message || err);
+                } finally {
+                    save.disabled = false;
+                }
+            });
+        });
+    }
+
     // ---------- header account button + menu ----------
     const btn = el('button', { class: 'acct-btn', type: 'button', 'aria-haspopup': 'menu', 'aria-expanded': 'false', 'aria-label': 'Account' });
     const menu = el('div', { class: 'acct-menu', role: 'menu', hidden: '' });
@@ -276,6 +331,7 @@
             menu.append(
                 el('div', { class: 'acct-menu-who', text: username }),
                 el('a', { class: 'acct-menu-item', role: 'menuitem', href: 'book.html', text: 'My Book' }),
+                item('My birthday', () => askBirthday()),
                 item('Log out', () => Account.logout()));
         } else {
             menu.append(item('Log in', () => openAuth('login')), item('Sign up', () => openAuth('signup')));
@@ -293,6 +349,8 @@
     // ---------- session ----------
     function setUser(user) {
         username = user ? (user.user_metadata && user.user_metadata.username) || String(user.email).split('@')[0] : null;
+        const stored = user && user.user_metadata && user.user_metadata.birthday;
+        birthday = parseBirthday(stored) ? stored : null;
         renderHeader();
         changeListeners.forEach(fn => fn(username));
     }
@@ -333,6 +391,15 @@
         onChange(fn) { changeListeners.push(fn); },
         openAuth,
         askName,
+        askBirthday,
+        parseBirthday,
+        get birthday() { return birthday; },
+
+        async setBirthday(value) {
+            if (!parseBirthday(value)) throw new Error('Please enter a real date that is not in the future.');
+            const data = await query(c => c.auth.updateUser({ data: { birthday: value } }));
+            setUser(data.user);
+        },
 
         // Resolves true when logged in (immediately, or after the user completes the dialog).
         async requireLogin() {

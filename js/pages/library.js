@@ -416,15 +416,18 @@ function populateNumerology() {
     const compatibilityBody = document.getElementById("compatibilityBody");
 
     const compatibilityData = [
-        { "number": 1, "planet": "Sun", "friendly": [1, 2, 7, 8, 11, 28], "neutral": [3, 4, 5, 6, 22, 33], "enemy": [9] },
-        { "number": 2, "planet": "Moon", "friendly": [1, 3, 8], "neutral": [2, 4, 5, 6, 7, 11, 22, 33], "enemy": [9] },
-        { "number": 3, "planet": "Jupiter", "friendly": [2, 3, 5, 6, 7, 8, 11, 33], "neutral": [1, 7, 9, 22], "enemy": [4] },
-        { "number": 4, "planet": "Rahu", "friendly": [2, 4, 6, 7, 8, 9], "neutral": [1, 11, 22, 33], "enemy": [3, 5] },
-        { "number": 5, "planet": "Mercury", "friendly": [3, 5, 7, 8, 9, 33], "neutral": [1, 2, 11], "enemy": [4, 6, 22] },
-        { "number": 6, "planet": "Venus", "friendly": [3, 4, 8, 9, 22], "neutral": [1, 2, 6, 11, 33], "enemy": [5, 7] },
-        { "number": 7, "planet": "Ketu", "friendly": [1, 4, 5, 11, 22], "neutral": [2, 3, 7, 33], "enemy": [6, 8, 9] },
-        { "number": 8, "planet": "Saturn", "friendly": [1, 2, 3, 4, 5, 6, 22, 33], "neutral": [9, 11], "enemy": [7, 8] },
-        { "number": 9, "planet": "Mars", "friendly": [4, 5, 6], "neutral": [3, 8], "enemy": [1, 2, 7, 9, 11, 22, 33] }
+        { "number": 1, "planet": "Sun", "friendly": [1, 2, 3, 4, 5, 6, 7, 8, 11, 22, 33], "neutral": [], "enemy": [9] },
+        { "number": 2, "planet": "Moon", "friendly": [1, 2, 3, 4, 6, 7, 8, 11, 22, 33], "neutral": [5], "enemy": [9] },
+        { "number": 3, "planet": "Jupiter", "friendly": [1, 2, 3, 5, 6, 7, 8, 9, 11, 22, 33], "neutral": [], "enemy": [4] },
+        { "number": 4, "planet": "Rahu", "friendly": [1, 2, 4, 6, 7, 8, 9, 11, 22, 33], "neutral": [], "enemy": [3, 5] },
+        { "number": 5, "planet": "Mercury", "friendly": [1, 3, 5, 7, 8, 9, 33], "neutral": [2, 11], "enemy": [4, 6, 22] },
+        { "number": 6, "planet": "Venus", "friendly": [1, 2, 3, 4, 6, 8, 9, 11, 22, 33], "neutral": [], "enemy": [5, 7] },
+        { "number": 7, "planet": "Ketu", "friendly": [1, 2, 3, 4, 5, 7, 11, 22, 33], "neutral": [9], "enemy": [6, 8] },
+        { "number": 8, "planet": "Saturn", "friendly": [1, 2, 3, 4, 5, 6, 9, 11, 22, 33], "neutral": [], "enemy": [7, 8] },
+        { "number": 9, "planet": "Mars", "friendly": [3, 4, 5, 6, 8], "neutral": [7, 9, 33], "enemy": [1, 2, 11, 22] },
+        { "number": 11, "planet": "Master Number", "friendly": [1, 2, 3, 4, 6, 7, 8, 11, 22, 33], "neutral": [5], "enemy": [9] },
+        { "number": 22, "planet": "Master Number", "friendly": [1, 2, 3, 4, 6, 7, 8, 11, 22, 33], "neutral": [], "enemy": [5, 9] },
+        { "number": 33, "planet": "Master Number", "friendly": [1, 2, 3, 4, 5, 6, 7, 8, 11, 22, 33], "neutral": [9], "enemy": [] }
     ];
 
     const planetMap = {
@@ -452,6 +455,41 @@ function populateNumerology() {
             </span>`;
         }).join('');
     };
+
+    // Chart: every number against every number. Rows read "row number regards column number".
+    const chartNumbers = compatibilityData.map(d => d.number);
+    const relationWord = { friendly: "Good", neutral: "Neutral", enemy: "Bad" };
+    const masterColor = (n) => (n === 11 || n === 22 || n === 33) ? ` style="color: var(--th-num-${n});"` : "";
+    const relationOf = (from, to) => {
+        const row = compatibilityData.find(d => d.number === from);
+        if (row.friendly.includes(to)) return "friendly";
+        if (row.enemy.includes(to)) return "enemy";
+        return "neutral";
+    };
+    const chartCells = chartNumbers.map(from => `
+        <div class="compat-axis compat-axis--row"${masterColor(from)}>${from}</div>
+        ${chartNumbers.map(to => {
+            const rel = relationOf(from, to);
+            return `<div class="compat-cell compat-cell--${rel}" title="${from} &times; ${to}: ${relationWord[rel]}"></div>`;
+        }).join("")}
+    `).join("");
+    const chartEl = document.createElement("div");
+    chartEl.className = "compat-chart";
+    chartEl.innerHTML = `
+        <div class="compat-chart-scroll">
+            <div class="compat-grid" style="--compat-cols: ${chartNumbers.length};">
+                <div class="compat-axis"></div>
+                ${chartNumbers.map(n => `<div class="compat-axis compat-axis--col"${masterColor(n)}>${n}</div>`).join("")}
+                ${chartCells}
+            </div>
+        </div>
+        <div class="compat-key">
+            <span><i class="compat-cell compat-cell--friendly"></i>Good</span>
+            <span><i class="compat-cell compat-cell--neutral"></i>Neutral</span>
+            <span><i class="compat-cell compat-cell--enemy"></i>Bad</span>
+        </div>
+    `;
+    compatibilityBody.appendChild(chartEl);
 
     compatibilityData.forEach(data => {
         const entryHtml = `

@@ -5,19 +5,17 @@
     "friendly": [
       1,
       2,
-      7,
-      8,
-      11,
-      28
-    ],
-    "neutral": [
       3,
       4,
       5,
       6,
+      7,
+      8,
+      11,
       22,
       33
     ],
+    "neutral": [],
     "enemy": [
       9
     ]
@@ -27,18 +25,18 @@
     "planet": "Moon",
     "friendly": [
       1,
-      3,
-      8
-    ],
-    "neutral": [
       2,
+      3,
       4,
-      5,
       6,
       7,
+      8,
       11,
       22,
       33
+    ],
+    "neutral": [
+      5
     ],
     "enemy": [
       9
@@ -48,21 +46,19 @@
     "number": 3,
     "planet": "Jupiter",
     "friendly": [
+      1,
       2,
       3,
       5,
       6,
       7,
       8,
+      9,
       11,
+      22,
       33
     ],
-    "neutral": [
-      1,
-      7,
-      9,
-      22
-    ],
+    "neutral": [],
     "enemy": [
       4
     ]
@@ -71,19 +67,18 @@
     "number": 4,
     "planet": "Rahu",
     "friendly": [
+      1,
       2,
       4,
       6,
       7,
       8,
-      9
-    ],
-    "neutral": [
-      1,
+      9,
       11,
       22,
       33
     ],
+    "neutral": [],
     "enemy": [
       3,
       5
@@ -93,6 +88,7 @@
     "number": 5,
     "planet": "Mercury",
     "friendly": [
+      1,
       3,
       5,
       7,
@@ -101,7 +97,6 @@
       33
     ],
     "neutral": [
-      1,
       2,
       11
     ],
@@ -115,19 +110,18 @@
     "number": 6,
     "planet": "Venus",
     "friendly": [
-      3,
-      4,
-      8,
-      9,
-      22
-    ],
-    "neutral": [
       1,
       2,
+      3,
+      4,
       6,
+      8,
+      9,
       11,
+      22,
       33
     ],
+    "neutral": [],
     "enemy": [
       5,
       7
@@ -138,21 +132,21 @@
     "planet": "Ketu",
     "friendly": [
       1,
-      4,
-      5,
-      11,
-      22
-    ],
-    "neutral": [
       2,
       3,
+      4,
+      5,
       7,
+      11,
+      22,
       33
+    ],
+    "neutral": [
+      9
     ],
     "enemy": [
       6,
-      8,
-      9
+      8
     ]
   },
   {
@@ -165,13 +159,12 @@
       4,
       5,
       6,
+      9,
+      11,
       22,
       33
     ],
-    "neutral": [
-      9,
-      11
-    ],
+    "neutral": [],
     "enemy": [
       7,
       8
@@ -181,22 +174,86 @@
     "number": 9,
     "planet": "Mars",
     "friendly": [
+      3,
       4,
       5,
-      6
+      6,
+      8
     ],
     "neutral": [
-      3,
-      8
+      7,
+      9,
+      33
     ],
     "enemy": [
       1,
       2,
+      11,
+      22
+    ]
+  },
+  {
+    "number": 11,
+    "planet": "Master Number",
+    "friendly": [
+      1,
+      2,
+      3,
+      4,
+      6,
       7,
-      9,
+      8,
       11,
       22,
       33
+    ],
+    "neutral": [
+      5
+    ],
+    "enemy": [
+      9
     ]
+  },
+  {
+    "number": 22,
+    "planet": "Master Number",
+    "friendly": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      11,
+      22,
+      33
+    ],
+    "neutral": [],
+    "enemy": [
+      5,
+      9
+    ]
+  },
+  {
+    "number": 33,
+    "planet": "Master Number",
+    "friendly": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      11,
+      22,
+      33
+    ],
+    "neutral": [
+      9
+    ],
+    "enemy": []
   }
 ]

@@ -83,7 +83,9 @@ const planetMap = {
     9: "Mars"
 };
 
+// The compatibility table has its own rows for the master numbers, so they are not reduced.
 function getCompatibilityNumber(num) {
+    if (isMasterNumber(num)) return num;
     let current = num;
     while (current > 9) {
         current = String(current).split('').reduce((acc, curr) => acc + parseInt(curr), 0);
