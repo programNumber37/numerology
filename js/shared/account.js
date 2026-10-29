@@ -92,6 +92,10 @@
             background: var(--th-input-bg); color: var(--th-text); font: 400 0.92rem 'Inter', sans-serif;
             box-sizing: border-box; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
         .acct-input:focus { border-color: var(--th-accent); box-shadow: 0 0 0 3px var(--th-input-focus-shadow); }
+        /* iOS Safari gives date inputs an intrinsic width that overflows the card; make it behave like a text input */
+        .acct-input[type="date"] { display: block; min-width: 0; max-width: 100%; min-height: 46px;
+            -webkit-appearance: none; appearance: none; }
+        .acct-input[type="date"]::-webkit-date-and-time-value { text-align: left; min-width: 0; }
         .acct-error { min-height: 1.2em; margin: 0 0 12px; font-size: 0.8rem; color: #c0392b; }
         .acct-actions { display: flex; gap: 10px; }
         .acct-primary, .acct-secondary { padding: 12px 18px; border-radius: 14px; font: 700 0.86rem 'Inter', sans-serif;
